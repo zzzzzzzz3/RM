@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="com.quseit.payapp.bean.ToolBarContent"/>
+        <variable
+            name="toolbar"
+            type="ToolBarContent"/>
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.quseit.payapp.ui.main.MainActivity"
+    android:orientation="vertical">
+    <include
+        android:id="@+id/bar_main"
+        layout="@layout/toolbar"
+        bind:content="@{toolbar}" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_main"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
+
+</LinearLayout>
+</layout>

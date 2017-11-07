@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PayApp</string>
+
+    <string name="about">&#xe900;</string>
+
+    <string name="err_net">network error</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="IconView">
+        <attr name="iconWidth" format="integer"/>
+        <attr name="iconHeight" format="integer"/>
+        <attr name="bgSourceID" format="reference"/>
+        <attr name="title" format="string"/>
+        <attr name="iconSource" format="string"/>
+    </declare-styleable>
+</resources>
