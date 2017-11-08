@@ -1,6 +1,5 @@
 package com.quseit.payapp.ui.main;
 
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
@@ -13,13 +12,23 @@ import com.quseit.payapp.util.UIUtil;
 
 import butterknife.BindView;
 
+/**
+ * 文 件 名: MainActivity
+ * 创 建 人: ZhangRonghua
+ * 创建日期: 2017/10/24 12:34
+ * 邮   箱: qq798435167@gmail.com
+ * 修改时间：
+ * 修改备注：
+ */
+
 public class MainActivity extends BaseActivity {
 
     @BindView(R.id.vp_main)
     ViewPager mViewPager;
     @BindView(R.id.dots_layout)
     LinearLayout mDotsLayout;
-    int len = 2;
+    //ViewPager页面数
+    private static final int len = 2;
 
     @Override
     public int getRootView() {
@@ -29,12 +38,11 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView() {
         setUpViewpager();
-
         setupDotLayout();
     }
 
     private void setUpViewpager() {
-        MainFragmentAdapter mAdapter = new MainFragmentAdapter(getSupportFragmentManager());
+        MainFragmentAdapter mAdapter = new MainFragmentAdapter(getSupportFragmentManager(),len);
         mViewPager.setAdapter(mAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

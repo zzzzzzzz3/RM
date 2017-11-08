@@ -2,6 +2,7 @@ package com.quseit.payapp.ui.pay;
 
 import android.databinding.ViewDataBinding;
 
+import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
 
 
@@ -13,7 +14,7 @@ public class PaymentActivity extends BaseActivity {
 
     @Override
     public int getRootView() {
-        return 0;
+        return R.layout.activity_pay;
     }
 
     @Override
@@ -28,6 +29,6 @@ public class PaymentActivity extends BaseActivity {
 
     @Override
     public String getToolbarTitle() {
-        return null;
+        return "支付";
     }
 }
