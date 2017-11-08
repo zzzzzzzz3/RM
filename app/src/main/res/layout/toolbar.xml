@@ -1,27 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <data>
-        <import type="com.quseit.payapp.bean.ToolBarContent"/>
-        <variable
-            name="content"
-            type="ToolBarContent"/>
-    </data>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_height="84dp"
         android:layout_width="match_parent"
-        android:background="@android:color/black"
-        app:titleTextColor="@android:color/white"
-        app:subtitleTextColor="@android:color/white"
-        android:minHeight="120dp">
-    <TextView
-        android:layout_gravity="center"
-        android:textColor="@android:color/white"
-        android:text="@{content.title}"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:textSize="28sp"/>
+        android:layout_height="48dp"
+        android:background="@color/themeColor"
+        app:contentInsetStart="0dp"
+        app:theme="@style/ToolbarTheme"
+        >
+
+            <ImageView
+                android:id="@+id/nav_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:scaleType="centerInside"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/nav_back_icon"
+                android:onClick="back"/>
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:text="标题"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"/>
+        <FrameLayout
+            android:id="@+id/additional_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"/>
     </android.support.v7.widget.Toolbar>
-</layout>
+</LinearLayout>

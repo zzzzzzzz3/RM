@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
-    <data>
-        <import type="com.quseit.payapp.bean.ToolBarContent"/>
-        <variable
-            name="toolbar"
-            type="ToolBarContent"/>
-    </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.quseit.payapp.ui.main.MainActivity"
-    android:orientation="vertical">
-    <include
-        android:id="@+id/bar_main"
-        layout="@layout/toolbar"
-        bind:content="@{toolbar}" />
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_main"
-        android:background="#fff"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.quseit.payapp.ui.main.MainActivity">
+
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="100dp"
+        android:background="@color/gray"/>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/dots_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="30dp"
+            android:orientation="horizontal"/>
+    </FrameLayout>
 
 
 </LinearLayout>
-</layout>

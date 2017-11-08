@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#000</color>
+    <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="black">#000</color>
+    <color name="themeColor">#232323</color>
+    <color name="window_bg_color">#d1d1d1</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#050505</color>
+    <color name="alpha_black">#ab050505</color>
+    <color name="gray">#bbbbbb</color>
+    <color name="text_gray">#7c7c7c</color>
+    <color name="left_blue">#03bcfe</color>
+    <color name="right_blue">#27a4fe</color>
+    <color name="pressed_blue">#b203bcfe</color>
+    <color name="blue">#0033ff</color>
+    <color name="pressed_red">#cffe2727</color>
+    <color name="red">#fe2727</color>
+    <color name="orange">#f17735</color>
+    <color name="green">#4ac30c</color>
 </resources>

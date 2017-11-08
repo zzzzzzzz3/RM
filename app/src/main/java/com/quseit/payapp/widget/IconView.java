@@ -38,9 +38,9 @@ public class IconView extends RelativeLayout{
 
        LayoutInflater.from(context).inflate(R.layout.icon_view,this,true);
 
-       ImageView iconBg=findViewById(R.id.iconImg);
-       TextView iconTitle = findViewById(R.id.iconText);
-       IconText iconContent = findViewById(R.id.iconContent);
+       ImageView iconBg= (ImageView) findViewById(R.id.iconImg);
+       TextView iconTitle = (TextView) findViewById(R.id.iconText);
+       IconText iconContent = (IconText) findViewById(R.id.iconContent);
        iconBg.setImageResource(R.mipmap.ic_launcher);
 
 //       iconBg.setImageDrawable(ContextCompat.getDrawable(context,bgSourceID));

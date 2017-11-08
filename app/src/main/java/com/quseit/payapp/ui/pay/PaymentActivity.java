@@ -2,31 +2,32 @@ package com.quseit.payapp.ui.pay;
 
 import android.databinding.ViewDataBinding;
 
-import com.quseit.payapp.ui.BaseActivity;
+import com.quseit.payapp.base.BaseActivity;
+
 
 /**
  * Created by quseitu on 2017/11/7.
  */
 
-public class PaymentActivity extends BaseActivity{
-    @Override
-    protected void initEvent() {
-
-    }
+public class PaymentActivity extends BaseActivity {
 
     @Override
-    protected void initView(ViewDataBinding binging) {
-
-    }
-
-
-    @Override
-    protected void loadData() {
-
-    }
-
-    @Override
-    protected int setViewId() {
+    public int getRootView() {
         return 0;
+    }
+
+    @Override
+    public void initView() {
+
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public String getToolbarTitle() {
+        return null;
     }
 }
