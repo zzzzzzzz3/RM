@@ -23,7 +23,7 @@
                 android:paddingRight="20dp"
                 android:scaleType="centerInside"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/nav_back_icon"
+                android:src="@mipmap/back_icon"
                 android:onClick="back"/>
             <TextView
                 android:id="@+id/toolbar_title"

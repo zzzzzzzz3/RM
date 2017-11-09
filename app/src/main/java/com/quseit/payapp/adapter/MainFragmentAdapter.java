@@ -37,8 +37,8 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
     public MainFragmentAdapter(FragmentManager fm, int pageCount) {
         super(fm);
         len = pageCount;
-        firstPageItems = getData(5);
-        secondPageItems = getData(6);
+        firstPageItems = createFirstItems();
+        secondPageItems = createSeccondItems();
     }
 
     @Override
@@ -61,12 +61,33 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
         return len;
     }
 
-    private List<ItemBean> getData(int size) {
+    private List<ItemBean> createFirstItems() {
         List<ItemBean> list = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            ItemBean bean = new ItemBean(Color.parseColor("#00cc6a"), GlobalBean.PAYMENT, R.mipmap.payment_icon);
-            list.add(bean);
-        }
+        ItemBean bean1 = new ItemBean(R.color.payment_bg_color, GlobalBean.PAYMENT, R.mipmap.place_holder_icon_white);
+        list.add(bean1);
+        ItemBean bean2 = new ItemBean(R.color.voucher_bg_color, GlobalBean.VOUCHER, R.mipmap.place_holder_icon_white);
+        list.add(bean2);
+        ItemBean bean3 = new ItemBean(R.color.membership_bg_color, GlobalBean.MEMBERSHIP, R.mipmap.place_holder_icon_white);
+        list.add(bean3);
+        ItemBean bean4 = new ItemBean(R.color.history_bg_color, GlobalBean.HISTORY, R.mipmap.place_holder_icon_white);
+        list.add(bean4);
+        ItemBean bean5 = new ItemBean(R.color.app_store_bg_color, GlobalBean.APP_STORE, R.mipmap.place_holder_icon_white);
+        list.add(bean5);
+        return list;
+    }
+
+    private List<ItemBean> createSeccondItems() {
+        List<ItemBean> list = new ArrayList<>();
+        ItemBean bean1 = new ItemBean(R.color.setting_bg_color, GlobalBean.SETTING, R.mipmap.place_holder_icon_white);
+        list.add(bean1);
+        ItemBean bean2 = new ItemBean(R.color.orders_bg_color, GlobalBean.ORDERS, R.mipmap.place_holder_icon_white);
+        list.add(bean2);
+        ItemBean bean3 = new ItemBean(R.color.support_bg_color, GlobalBean.SUPPORT, R.mipmap.place_holder_icon_white);
+        list.add(bean3);
+        ItemBean bean4 = new ItemBean(R.color.notification_bg_color, GlobalBean.NOTIFICATION, R.mipmap.place_holder_icon_white);
+        list.add(bean4);
+        list.add(bean4);
+        list.add(bean4);
         return list;
     }
 

@@ -31,6 +31,7 @@ public class NumberKeyboard extends RecyclerView {
     int[] nums = {1,2,3,4,5,6,7,8,9,-1,0,-2};
     private Context mContext;
     private OnKeyClickListener mListener;
+    private String endKeyName;
 
     public NumberKeyboard(Context context) {
         this(context,null);
@@ -54,6 +55,10 @@ public class NumberKeyboard extends RecyclerView {
         int ten = UIUtil.dp2Px(mContext,10);
         setPadding(ten*3,ten,ten*3,0);
         setMinimumHeight(ten*30);
+    }
+
+    public void setEndKeyName(String endKeyName) {
+        this.endKeyName = endKeyName;
     }
 
     public void setOnKeyClickListener(OnKeyClickListener listener){
@@ -96,7 +101,7 @@ public class NumberKeyboard extends RecyclerView {
                    break;
                case -2:
                    numTv.setVisibility(VISIBLE);
-                   numTv.setText("Clear");
+                   numTv.setText(endKeyName==null?"Clear":endKeyName);
                    numTv.setTextColor(Color.GREEN);
                    img.setVisibility(GONE);
                    holder.itemView.setOnClickListener(new OnClickListener() {

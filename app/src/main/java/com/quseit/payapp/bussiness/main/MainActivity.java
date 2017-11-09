@@ -111,6 +111,32 @@ public class MainActivity extends BaseActivity {
         switch (itemBean.itemName) {
             case GlobalBean.PAYMENT:
                 startActivity(new Intent(this, PaymentActivity.class));
+                break;
+            case GlobalBean.VOUCHER:
+                startActivity(new Intent(this, PaymentActivity.class));
+                break;
+            case GlobalBean.MEMBERSHIP:
+                startActivity(new Intent(this, PaymentActivity.class));
+                break;
+            case GlobalBean.HISTORY:
+                startActivity(new Intent(this, PaymentActivity.class));
+                break;
+            case GlobalBean.APP_STORE:
+                startActivity(new Intent(this, PaymentActivity.class));
+                break;
+            case GlobalBean.SETTING:
+                startActivity(new Intent(this, PaymentActivity.class));
+                break;
+            case GlobalBean.ORDERS:
+                startActivity(new Intent(this, PaymentActivity.class));
+                break;
+            case GlobalBean.SUPPORT:
+                startActivity(new Intent(this, PaymentActivity.class));
+                break;
+            case GlobalBean.NOTIFICATION:
+                startActivity(new Intent(this, PaymentActivity.class));
+                break;
+
         }
     }
 }

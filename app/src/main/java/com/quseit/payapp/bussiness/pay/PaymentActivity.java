@@ -3,8 +3,11 @@ package com.quseit.payapp.bussiness.pay;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
@@ -28,6 +31,7 @@ public class PaymentActivity extends BaseActivity {
     NumberKeyboard mNumberKeyboard;
     @BindView(R.id.payment_number_tv)
     TextView mPaymentTv;
+    private MaterialDialog mDialog;
 
     @Override
     public int getRootView() {
@@ -101,6 +105,9 @@ public class PaymentActivity extends BaseActivity {
             if (includeOther(str.toCharArray())) {
                 str += s;
                 str = moveDotR(str.toCharArray());
+                if (str.charAt(0)=='0'){
+                    str = str.substring(1,str.length());
+                }
             }
         } else {
             int lastZeroIndex = findLastZero(str.toCharArray());
@@ -188,15 +195,23 @@ public class PaymentActivity extends BaseActivity {
 
     @OnClick(R.id.cash_icon)
     public void cash() {
-        new MaterialDialog.Builder(this)
-                .title("title")
+        mDialog = new MaterialDialog.Builder(this)
                 .content("Continue as Cash payment?")
                 .positiveText("OK")
                 .negativeText("CANCEL")
                 .contentColor(Color.BLACK)
                 .titleColor(Color.BLACK)
                 .backgroundColor(Color.WHITE)
+                .positiveColor(Color.parseColor("#00cc6a"))
+                .negativeColor(Color.parseColor("#00cc6a"))
                 .show();
+        mDialog.getActionButton(DialogAction.POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog.dismiss();
+                toast("ok");
+            }
+        });
     }
 
     @OnClick(R.id.scan_icon)
@@ -204,7 +219,13 @@ public class PaymentActivity extends BaseActivity {
         PermissionUtil.requestPermissions(this, Manifest.permission.CAMERA, new PermissionUtil.RequestPermissionCallback() {
             @Override
             public void onGranted() {
+                // TODO: 2017/11/9 扫描支付码
+                String amount = mPaymentTv.getText().toString();
+                if (Double.parseDouble(amount)<1.00){
+                    toast("Minimum amount is RM 1.00");
+                }else {
 
+                }
             }
 
             @Override
