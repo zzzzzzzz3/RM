@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RM</string>
+    <string name="sub_title">Merchant Name (e.g Eleven)</string>
+    <string name="your_awesome_content_goes_here">Your awesome content goes here...</string>
 </resources>

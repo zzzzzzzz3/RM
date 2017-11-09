@@ -1,13 +1,20 @@
 package com.quseit.payapp.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 
 import com.quseit.payapp.R;
+import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.ItemBean;
-import com.quseit.payapp.ui.main.PageFragment;
+import com.quseit.payapp.bussiness.main.PageFragment;
+import com.quseit.payapp.bussiness.pay.PaymentActivity;
+
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +28,13 @@ import java.util.List;
  * 修改备注：
  */
 
-public class MainFragmentAdapter extends FragmentPagerAdapter{
+public class MainFragmentAdapter extends FragmentPagerAdapter {
 
     private int len;
     private List<ItemBean> firstPageItems;
     private List<ItemBean> secondPageItems;
 
-    public MainFragmentAdapter(FragmentManager fm,int pageCount) {
+    public MainFragmentAdapter(FragmentManager fm, int pageCount) {
         super(fm);
         len = pageCount;
         firstPageItems = getData(5);
@@ -37,7 +44,7 @@ public class MainFragmentAdapter extends FragmentPagerAdapter{
     @Override
     public Fragment getItem(int position) {
         PageFragment fragment = new PageFragment();
-        switch (position){
+        switch (position) {
             case 0:
                 fragment.setHasTop(true);
                 fragment.setPageItems(firstPageItems);
@@ -57,9 +64,10 @@ public class MainFragmentAdapter extends FragmentPagerAdapter{
     private List<ItemBean> getData(int size) {
         List<ItemBean> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            ItemBean bean = new ItemBean(Color.BLUE,"item"+i, R.mipmap.ic_launcher);
+            ItemBean bean = new ItemBean(Color.parseColor("#00cc6a"), GlobalBean.PAYMENT, R.mipmap.payment_icon);
             list.add(bean);
         }
         return list;
     }
+
 }

@@ -4,13 +4,25 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              tools:context="com.quseit.payapp.ui.main.MainActivity">
+              tools:context="com.quseit.payapp.bussiness.main.MainActivity">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:background="@color/gray"/>
-
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:background="@color/themeColor"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:src="@mipmap/main_icon"
+        android:scaleType="fitCenter"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:text="@string/sub_title"
+        android:gravity="center_vertical"
+        />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

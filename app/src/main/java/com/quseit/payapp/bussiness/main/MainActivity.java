@@ -1,5 +1,6 @@
-package com.quseit.payapp.ui.main;
+package com.quseit.payapp.bussiness.main;
 
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
@@ -8,7 +9,12 @@ import android.widget.LinearLayout;
 import com.quseit.payapp.R;
 import com.quseit.payapp.adapter.MainFragmentAdapter;
 import com.quseit.payapp.base.BaseActivity;
+import com.quseit.payapp.bean.GlobalBean;
+import com.quseit.payapp.bean.ItemBean;
+import com.quseit.payapp.bussiness.pay.PaymentActivity;
 import com.quseit.payapp.util.UIUtil;
+
+import org.simple.eventbus.Subscriber;
 
 import butterknife.BindView;
 
@@ -98,5 +104,13 @@ public class MainActivity extends BaseActivity {
     @Override
     public String getToolbarTitle() {
         return null;
+    }
+
+    @Subscriber
+    public void onItemClick(ItemBean itemBean) {
+        switch (itemBean.itemName) {
+            case GlobalBean.PAYMENT:
+                startActivity(new Intent(this, PaymentActivity.class));
+        }
     }
 }
