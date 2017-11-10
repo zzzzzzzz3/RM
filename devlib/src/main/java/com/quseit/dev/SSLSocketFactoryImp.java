@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.security.GeneralSecurityException;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.NoSuchAlgorithmException;
@@ -29,7 +30,7 @@ public class SSLSocketFactoryImp extends SSLSocketFactory {
         return (X509TrustManager)trustManager;
     }
 
-    public SSLSocketFactoryImp(KeyStore keyStore) throws NoSuchAlgorithmException, KeyManagementException {
+    public SSLSocketFactoryImp(KeyStore keyStore) throws GeneralSecurityException {
         trustManager = new X509TrustManager() {
             @Override
             public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
@@ -43,7 +44,7 @@ public class SSLSocketFactoryImp extends SSLSocketFactory {
 
             @Override
             public X509Certificate[] getAcceptedIssuers() {
-               //注意这里不能返回null，否则会报错,如下面错误[1]
+                //注意这里不能返回null，否则会报错,如下面错误[1]
                 X509Certificate[] x509Certificates = new X509Certificate[0];
                 return x509Certificates;
             }

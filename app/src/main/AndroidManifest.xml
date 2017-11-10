@@ -45,6 +45,13 @@
                   android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
                   android:screenOrientation="portrait"
             />
+
+
+        <activity
+            android:name="com.landicorp.android.scan.scanDecoder.CaptureActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="scan Decoder" />
+        <activity android:name="com.landicorp.android.scan.scanDecoder.SettingsActivity" />
     </application>
 
 </manifest>
