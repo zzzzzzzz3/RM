@@ -1,11 +1,13 @@
 package com.quseit.payapp.bussiness.pay;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -14,11 +16,19 @@ import com.quseit.pay.ScanUtil;
 import com.quseit.payapp.Http.CommonService;
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
+import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.ResponseBean;
 import com.quseit.payapp.bussiness.description.DescriptionActivity;
 import com.quseit.payapp.util.AmountInputUtil;
+import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.PermissionUtil;
 import com.quseit.payapp.widget.NumberKeyboard;
+import com.quseit.payapp.widget.RMAutoDialog;
+import com.quseit.payapp.widget.RMDialog;
+import com.quseit.payapp.widget.RMProgressDialog;
+import com.quseit.payapp.widget.RMToast;
+
+import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,7 +42,12 @@ import io.reactivex.schedulers.Schedulers;
 
 
 /**
- * Created by quseitu on 2017/11/7.
+ * 文 件 名: PaymentActivity
+ * 创 建 人: ZhangRonghua
+ * 创建日期: 2017/11/7 12:48
+ * 邮   箱: qq798435167@gmail.com
+ * 修改时间：
+ * 修改备注：
  */
 
 public class PaymentActivity extends BaseActivity {
@@ -41,10 +56,13 @@ public class PaymentActivity extends BaseActivity {
     NumberKeyboard mNumberKeyboard;
     @BindView(R.id.payment_number_tv)
     TextView mPaymentTv;
+    @BindView(R.id.remark_tv)
+    TextView remarkTv;
     private ScanUtil mScanUtil;
     private MaterialDialog mDialog;
     private MaterialDialog mProgressDialog;
-    private static final String defaultNum = "0";
+    private final String defaultNum = "0.00";
+    private RMProgressDialog mRMProgressDialog;
 
     @Override
     public int getRootView() {
@@ -61,11 +79,11 @@ public class PaymentActivity extends BaseActivity {
 
             @Override
             public void onDeleteClick() {
-                mPaymentTv.setText(AmountInputUtil.deleteNum(mPaymentTv.getText().toString(),false));
+                mPaymentTv.setText(AmountInputUtil.deleteNum(mPaymentTv.getText().toString(),true));
             }
 
             @Override
-            public void onClearClick() {
+            public void onEndKeyClick() {
                 mPaymentTv.setText(defaultNum);
             }
         });
@@ -95,7 +113,9 @@ public class PaymentActivity extends BaseActivity {
 
     @OnClick(R.id.desc_icon)
     public void desc() {
-        startActivity(new Intent(this, DescriptionActivity.class));
+        Intent intent = new Intent(this, DescriptionActivity.class);
+        intent.putExtra(GlobalBean.REMARK,remarkTv.getText().toString());
+        startActivityForResult(intent,GlobalBean.REMARK_REQUEST);
     }
 
     @OnClick(R.id.cash_icon)
@@ -129,7 +149,8 @@ public class PaymentActivity extends BaseActivity {
                 if (Double.parseDouble(amount) < 1.00) {
                     toast("Minimum amount is RM 1.00");
                 } else {
-                    doScan(amount);
+                    String remark = remarkTv.getText().toString();
+                    doScan(amount,remark);
                 }
             }
 
@@ -140,7 +161,7 @@ public class PaymentActivity extends BaseActivity {
         });
     }
 
-    private void doScan(final String amount) {
+    private void doScan(final String amount,final String remark) {
         mScanUtil.beginScan(this, new ScanUtil.ScanCallback() {
             @Override
             public void onError(String msg) {
@@ -149,10 +170,15 @@ public class PaymentActivity extends BaseActivity {
             }
 
             @Override
-            public void onResult(String s) {
+            public void onResult(final String s) {
                 Log.d("Scan", s);
-                pay(s, amount);
                 mScanUtil.closeScan();
+                DialogManager.rmDialog(PaymentActivity.this, "Continue as QR Code Payment?", R.mipmap.place_holder_icon_black, new RMDialog.OnPositiveClickListener() {
+                    @Override
+                    public void onPositiveClick() {
+                        pay(s,amount,remark);
+                    }
+                });
             }
 
             @Override
@@ -169,13 +195,13 @@ public class PaymentActivity extends BaseActivity {
         });
     }
 
-    private void pay(String s, String amount) {
-        RetrofitManager.getInstance().createService(CommonService.class).pay(amount, s, "123", "123456")
+    private void pay(String s, String amount,String remark) {
+        RetrofitManager.getInstance().createService(CommonService.class).pay(amount, s, remark, "123456")
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        mProgressDialog.show();
+                        mRMProgressDialog = DialogManager.rmProgressDialog(PaymentActivity.this,"loading...");
                     }
                 })
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -183,7 +209,7 @@ public class PaymentActivity extends BaseActivity {
                 .doOnTerminate(new Action() {
                     @Override
                     public void run() throws Exception {
-                        mProgressDialog.dismiss();
+
                     }
                 })
                 .subscribe(new Observer<ResponseBean>() {
@@ -194,14 +220,16 @@ public class PaymentActivity extends BaseActivity {
 
                     @Override
                     public void onNext(@NonNull ResponseBean responseBean) {
-                        Log.d("PAY", responseBean.toString());
-                        toast(responseBean.getMsg());
-                        mPaymentTv.setText(defaultNum);
+                        if (responseBean.success()){
+                            mRMProgressDialog.setStatus(RMProgressDialog.TYPE.SUCCESS,responseBean.getMsg());
+                            mPaymentTv.setText(defaultNum);
+                        }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         e.printStackTrace();
+                        DialogManager.rmAutoDialog(PaymentActivity.this,"connect error", RMAutoDialog.TYPE.FAILED);
                     }
 
                     @Override
@@ -215,5 +243,14 @@ public class PaymentActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mScanUtil.closeScan();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == GlobalBean.REMARK_REQUEST  && resultCode == RESULT_OK){
+            String remarkStr = data.getStringExtra(GlobalBean.REMARK);
+            remarkTv.setText(remarkStr);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

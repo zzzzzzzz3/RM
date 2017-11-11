@@ -1,9 +1,11 @@
 package com.quseit.payapp.bussiness.description;
 
+import android.content.Intent;
 import android.widget.EditText;
 
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
+import com.quseit.payapp.bean.GlobalBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +32,11 @@ public class DescriptionActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        String remarkStr = getIntent().getStringExtra(GlobalBean.REMARK);
+        if (remarkStr != null){
+            descEdit.setText(remarkStr);
+            descEdit.setSelection(remarkStr.length());
+        }
     }
 
     @Override
@@ -45,6 +51,9 @@ public class DescriptionActivity extends BaseActivity {
 
     @OnClick(R.id.save_btn)
     public void saveDesc() {
-        toast("save");
+        Intent intent = new Intent();
+        intent.putExtra(GlobalBean.REMARK,descEdit.getText().toString());
+        setResult(RESULT_OK,intent);
+        finish();
     }
 }

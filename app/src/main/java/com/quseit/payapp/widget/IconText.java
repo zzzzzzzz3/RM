@@ -7,8 +7,9 @@ package com.quseit.payapp.widget;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
-public class IconText extends android.support.v7.widget.AppCompatTextView{
+public class IconText extends TextView {
     public static final String FONT_PATH = "fonts/icomoon.ttf";
     public static Typeface mTypeface;
     public IconText(Context context) {

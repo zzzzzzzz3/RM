@@ -15,8 +15,6 @@ import android.widget.TextView;
 import com.quseit.payapp.R;
 import com.quseit.payapp.util.UIUtil;
 
-import java.util.List;
-
 /**
  * 文 件 名: NumberKeyboard
  * 创 建 人: ZhangRonghua
@@ -53,7 +51,7 @@ public class NumberKeyboard extends RecyclerView {
         setOverScrollMode(OVER_SCROLL_NEVER);
         setBackgroundColor(Color.WHITE);
         int ten = UIUtil.dp2Px(mContext,10);
-        setPadding(ten*3,ten,ten*3,0);
+        setPadding(ten*2,ten,ten*2,0);
         setMinimumHeight(ten*30);
     }
 
@@ -68,7 +66,7 @@ public class NumberKeyboard extends RecyclerView {
     public interface OnKeyClickListener{
         void onNumberClick(int number);
         void onDeleteClick();
-        void onClearClick();
+        void onEndKeyClick();
     }
 
     public class KeyboardAdapter extends RecyclerView.Adapter{
@@ -102,13 +100,13 @@ public class NumberKeyboard extends RecyclerView {
                case -2:
                    numTv.setVisibility(VISIBLE);
                    numTv.setText(endKeyName==null?"Clear":endKeyName);
-                   numTv.setTextColor(Color.GREEN);
+                   numTv.setTextColor(endKeyName==null?Color.GREEN:Color.BLUE);
                    img.setVisibility(GONE);
                    holder.itemView.setOnClickListener(new OnClickListener() {
                        @Override
                        public void onClick(View v) {
                            if (mListener!=null){
-                               mListener.onClearClick();
+                               mListener.onEndKeyClick();
                            }
                        }
                    });

@@ -42,7 +42,7 @@
                   android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
                   android:screenOrientation="portrait"/>
         <activity android:name=".bussiness.description.DescriptionActivity"
-                  android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
+                  android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
                   android:screenOrientation="portrait"
             />
 
