@@ -3,14 +3,9 @@ package com.quseit.payapp.bussiness.pay;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.quseit.dev.RetrofitManager;
 import com.quseit.pay.ScanUtil;
 import com.quseit.payapp.Http.CommonService;
@@ -23,12 +18,9 @@ import com.quseit.payapp.util.AmountInputUtil;
 import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.PermissionUtil;
 import com.quseit.payapp.widget.NumberKeyboard;
-import com.quseit.payapp.widget.RMAutoDialog;
 import com.quseit.payapp.widget.RMDialog;
 import com.quseit.payapp.widget.RMProgressDialog;
-import com.quseit.payapp.widget.RMToast;
 
-import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -59,8 +51,6 @@ public class PaymentActivity extends BaseActivity {
     @BindView(R.id.remark_tv)
     TextView remarkTv;
     private ScanUtil mScanUtil;
-    private MaterialDialog mDialog;
-    private MaterialDialog mProgressDialog;
     private final String defaultNum = "0.00";
     private RMProgressDialog mRMProgressDialog;
 
@@ -89,11 +79,6 @@ public class PaymentActivity extends BaseActivity {
         });
 
         mPaymentTv.setText(defaultNum);
-
-        mProgressDialog = new MaterialDialog.Builder(this)
-                .content("支付中...")
-                .progress(true, 0)
-                .build();
     }
 
     @Override
@@ -120,21 +105,10 @@ public class PaymentActivity extends BaseActivity {
 
     @OnClick(R.id.cash_icon)
     public void cash() {
-        mDialog = new MaterialDialog.Builder(this)
-                .content("Continue as Cash payment?")
-                .positiveText("OK")
-                .negativeText("CANCEL")
-                .contentColor(Color.BLACK)
-                .titleColor(Color.BLACK)
-                .backgroundColor(Color.WHITE)
-                .positiveColor(Color.parseColor("#00cc6a"))
-                .negativeColor(Color.parseColor("#00cc6a"))
-                .show();
-        mDialog.getActionButton(DialogAction.POSITIVE).setOnClickListener(new View.OnClickListener() {
+        DialogManager.rmDialog(this, "Continue as cash payment?", R.mipmap.place_holder_icon_black, new RMDialog.OnPositiveClickListener() {
             @Override
-            public void onClick(View v) {
-                mDialog.dismiss();
-                toast("ok");
+            public void onPositiveClick() {
+                toast("success");
             }
         });
     }

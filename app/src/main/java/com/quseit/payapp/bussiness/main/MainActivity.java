@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.quseit.payapp.R;
 import com.quseit.payapp.adapter.MainFragmentAdapter;
 import com.quseit.payapp.base.BaseActivity;
@@ -21,9 +20,11 @@ import com.quseit.payapp.widget.RMAutoDialog;
 import com.quseit.payapp.widget.RMDialog;
 import com.quseit.payapp.widget.RMEditDialog;
 import com.quseit.payapp.widget.RMProgressDialog;
-import com.quseit.payapp.widget.RMToast;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.simple.eventbus.Subscriber;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 
@@ -36,7 +37,7 @@ import butterknife.BindView;
  * 修改备注：
  */
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener{
 
     @BindView(R.id.vp_main)
     ViewPager mViewPager;
@@ -145,10 +146,19 @@ public class MainActivity extends BaseActivity {
                 },3000);
                 break;
             case GlobalBean.SETTING:
-                startActivity(new Intent(this, PaymentActivity.class));
+
                 break;
             case GlobalBean.ORDERS:
-                startActivity(new Intent(this, PaymentActivity.class));
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd = DatePickerDialog.newInstance(
+                        this,
+                        now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.setVersion(DatePickerDialog.Version.VERSION_2);
+                dpd.setAccentColor(ContextCompat.getColor(this,R.color.colorAccent));
+                dpd.show(getFragmentManager(), "Datepickerdialog");
                 break;
             case GlobalBean.SUPPORT:
                 startActivity(new Intent(this, PaymentActivity.class));
@@ -167,5 +177,10 @@ public class MainActivity extends BaseActivity {
                 toast("yes");
             }
         });
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        toast(year+"-"+monthOfYear+"-"+dayOfMonth);
     }
 }
