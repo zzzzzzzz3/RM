@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MainActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimaryDark">@color/themeColor</item>
+        <item name="android:windowBackground">@color/window_bg_color</item>
+        <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
+    </style>
+</resources>
