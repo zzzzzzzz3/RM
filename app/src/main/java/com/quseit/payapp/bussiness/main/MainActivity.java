@@ -19,6 +19,7 @@ import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.UIUtil;
 import com.quseit.payapp.widget.RMAutoDialog;
 import com.quseit.payapp.widget.RMDialog;
+import com.quseit.payapp.widget.RMEditDialog;
 import com.quseit.payapp.widget.RMProgressDialog;
 import com.quseit.payapp.widget.RMToast;
 
@@ -124,7 +125,12 @@ public class MainActivity extends BaseActivity {
                 comfirmDialog();
                 break;
             case GlobalBean.MEMBERSHIP:
-                RMToast.create(this,"connect error", RMToast.TYPE.FAILED, Toast.LENGTH_SHORT).show();
+                DialogManager.rmEditDialog(this, "SEARCH", "input...", new RMEditDialog.OnPositiveClickListener() {
+                    @Override
+                    public void onClick(String editStr) {
+                        toast(editStr);
+                    }
+                });
                 break;
             case GlobalBean.HISTORY:
                 DialogManager.rmAutoDialog(this,"error", RMAutoDialog.TYPE.FAILED);

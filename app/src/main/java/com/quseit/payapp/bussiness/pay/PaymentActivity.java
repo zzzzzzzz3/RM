@@ -221,7 +221,7 @@ public class PaymentActivity extends BaseActivity {
                     @Override
                     public void onNext(@NonNull ResponseBean responseBean) {
                         if (responseBean.success()){
-                            mRMProgressDialog.setStatus(RMProgressDialog.TYPE.SUCCESS,responseBean.getMsg());
+                            mRMProgressDialog.setStatus(RMProgressDialog.TYPE.SUCCESS,responseBean.getMsg(),true);
                             mPaymentTv.setText(defaultNum);
                         }
                     }
@@ -229,7 +229,7 @@ public class PaymentActivity extends BaseActivity {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         e.printStackTrace();
-                        DialogManager.rmAutoDialog(PaymentActivity.this,"connect error", RMAutoDialog.TYPE.FAILED);
+                        mRMProgressDialog.setStatus(RMProgressDialog.TYPE.FAILED,"net error",false);
                     }
 
                     @Override

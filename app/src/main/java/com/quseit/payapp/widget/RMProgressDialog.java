@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +27,8 @@ public class RMProgressDialog extends Dialog {
     private LottieAnimationView mLottieAnimationView;
     private TextView mMsgTv;
     private ImageView mStatusIcon;
+    private FrameLayout ensureLayout;
+    private Button ensureBtn;
 
     public enum TYPE {
         SUCCESS, FAILED
@@ -40,6 +44,14 @@ public class RMProgressDialog extends Dialog {
         mMsgTv = findViewById(R.id.dialog_text);
         mLottieAnimationView = findViewById(R.id.animation_view);
         mStatusIcon = findViewById(R.id.status_icon);
+        ensureLayout = findViewById(R.id.ensure_layout);
+        ensureBtn = findViewById(R.id.btn_ok);
+        ensureBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
     }
 
     public RMProgressDialog setMsg(String msg) {
@@ -55,9 +67,10 @@ public class RMProgressDialog extends Dialog {
         return this;
     }
 
-    public RMProgressDialog setStatus(RMProgressDialog.TYPE type,String msg) {
+    public RMProgressDialog setStatus(RMProgressDialog.TYPE type,String msg,boolean showButton) {
         if (mLottieAnimationView.isAnimating()) {
             mLottieAnimationView.cancelAnimation();
+            mLottieAnimationView.setVisibility(View.GONE);
         }
         if (msg!=null&&!msg.equals("")){
             mMsgTv.setVisibility(View.VISIBLE);
@@ -69,12 +82,16 @@ public class RMProgressDialog extends Dialog {
         } else {
             mStatusIcon.setImageResource(R.mipmap.success_icon);
         }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dismiss();
-            }
-        }, 1500);
+        if (showButton){
+            ensureLayout.setVisibility(View.VISIBLE);
+        }else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dismiss();
+                }
+            }, 1500);
+        }
         return this;
     }
 
@@ -82,6 +99,7 @@ public class RMProgressDialog extends Dialog {
     public void show() {
         super.show();
         mStatusIcon.setVisibility(View.GONE);
+        mLottieAnimationView.setVisibility(View.VISIBLE);
         if (!mLottieAnimationView.isAnimating()) {
             mLottieAnimationView.playAnimation();
         }
@@ -94,5 +112,6 @@ public class RMProgressDialog extends Dialog {
             mLottieAnimationView.cancelAnimation();
         }
         mStatusIcon.setVisibility(View.GONE);
+        ensureLayout.setVisibility(View.GONE);
     }
 }

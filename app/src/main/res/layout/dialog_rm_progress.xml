@@ -10,12 +10,13 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:background="@drawable/dialog_corner_bg"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         >
         <FrameLayout
             android:layout_width="130dp"
             android:layout_height="130dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp">
+            >
             <com.airbnb.lottie.LottieAnimationView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/animation_view"
@@ -42,7 +43,29 @@
             android:gravity="center_horizontal"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             />
+        <FrameLayout
+            android:id="@+id/ensure_layout"
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:visibility="gone">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:background="@drawable/black_frame_click_selector"
+                android:text="OK"
+                android:textColor="@color/green"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="2.5dp"/>
+        </FrameLayout>
     </LinearLayout>
 </FrameLayout>

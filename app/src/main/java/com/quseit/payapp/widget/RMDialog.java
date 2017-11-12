@@ -94,8 +94,8 @@ public class RMDialog extends Dialog {
                 mPositiveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        listener.onPositiveClick();
                         dismiss();
+                        listener.onPositiveClick();
                     }
                 });
             }
@@ -111,8 +111,8 @@ public class RMDialog extends Dialog {
                 mNegativeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        listener.onNegativeClick();
                         dismiss();
+                        listener.onNegativeClick();
                     }
                 });
             }
