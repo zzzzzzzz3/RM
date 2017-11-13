@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import com.quseit.payapp.R;
 import com.quseit.payapp.adapter.GridAdapter;
 import com.quseit.payapp.base.BaseFragment;
+import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.ItemBean;
 
 import java.util.ArrayList;
@@ -54,7 +55,8 @@ public class PageFragment extends BaseFragment {
 
     @Override
     public void initData() {
-
+        pageItems = (List<ItemBean>) getArguments().getSerializable(GlobalBean.ITEMS);
+        mHasTop = getArguments().getBoolean(GlobalBean.HAS_TOP);
     }
 
 }

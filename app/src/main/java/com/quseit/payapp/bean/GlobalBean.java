@@ -22,13 +22,20 @@ public class GlobalBean {
     public static final String PAYMENT = "PAYMENT";
     public static final String VOUCHER = "VOUCHER";
     public static final String MEMBERSHIP = "MEMBERSHIP";
-    public static final String HISTORY = "HISTORY";
+    public static final String TRANSATIONS = "TRANSATIONS";
     public static final String APP_STORE = "APP STORE";
     public static final String SETTING = "SETTING";
     public static final String ORDERS = "ORDERS";
     public static final String SUPPORT = "SUPPORT";
     public static final String NOTIFICATION = "NOTIFICATION";
+    public static final String REDEEM = "REDEEM";
+    public static final String ISSUE = "ISSUE";
+    public static final String POINTS = "GIVE POINTS";
+    public static final String SIGN_UP = "SIGN UP";
 
     public static final String REMARK = "REMARK";
     public static final int REMARK_REQUEST = 0X001;
+
+    public static final String ITEMS = "ITEMS";
+    public static final String HAS_TOP = "HAS TOP";
 }

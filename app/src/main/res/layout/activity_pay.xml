@@ -103,6 +103,7 @@
             android:layout_height="280dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:background="@color/white"
             />
     </RelativeLayout>
 </LinearLayout>

@@ -29,4 +29,9 @@
     <color name="orders_bg_color">#847545</color>
     <color name="support_bg_color">#00b7c3</color>
     <color name="notification_bg_color">#e81123</color>
+
+    <color name="redeep_bg_color">#f7630c</color>
+    <color name="issue_bg_color">#ff8c00</color>
+    <color name="points_bg_color">#cf23e5</color>
+    <color name="sign_up_bg_color">#0078d7</color>
 </resources>

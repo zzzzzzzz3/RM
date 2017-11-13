@@ -1,19 +1,15 @@
-package com.quseit.payapp.bussiness.redeem;
+package com.quseit.payapp.bussiness.voucher.redeem;
 
 import android.Manifest;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.quseit.pay.ScanUtil;
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
-import com.quseit.payapp.bussiness.pay.PaymentActivity;
-import com.quseit.payapp.util.AmountInputUtil;
 import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.PermissionUtil;
 import com.quseit.payapp.widget.NumberKeyboard;
-import com.quseit.payapp.widget.RMDialog;
 import com.quseit.payapp.widget.RMProgressDialog;
 
 import butterknife.BindView;

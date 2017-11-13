@@ -118,12 +118,14 @@ public class PaymentActivity extends BaseActivity {
         PermissionUtil.requestPermissions(this, Manifest.permission.CAMERA, new PermissionUtil.RequestPermissionCallback() {
             @Override
             public void onGranted() {
-                // TODO: 2017/11/9 扫描支付码
                 String amount = mPaymentTv.getText().toString();
                 if (Double.parseDouble(amount) < 1.00) {
                     toast("Minimum amount is RM 1.00");
                 } else {
                     String remark = remarkTv.getText().toString();
+                    if (remark.equals("")){
+                        remark = "no remark";
+                    }
                     doScan(amount,remark);
                 }
             }

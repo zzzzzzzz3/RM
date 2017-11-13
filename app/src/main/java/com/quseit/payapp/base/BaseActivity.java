@@ -46,7 +46,8 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
     private void initToolbar() {
         mTitleText = (TextView) findViewById(R.id.toolbar_title);
         if (mTitleText != null) {
-            mTitleText.setText(getToolbarTitle());
+            if (getToolbarTitle() != null)
+                mTitleText.setText(getToolbarTitle());
         }
     }
 

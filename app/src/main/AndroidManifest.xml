@@ -45,6 +45,33 @@
                   android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
                   android:screenOrientation="portrait"
             />
+        <activity android:name=".bussiness.voucher.VoucherActivity"
+                  android:screenOrientation="portrait"
+            />
+        <activity android:name=".bussiness.voucher.redeem.RedeemActivity"
+                  android:screenOrientation="portrait"
+            />
+        <activity android:name=".bussiness.voucher.issue.IssueActivity"
+                  android:screenOrientation="portrait"
+            />
+        <activity android:name=".bussiness.membership.MembershipActivity"
+                  android:screenOrientation="portrait"
+            />
+        <activity android:name=".bussiness.membership.points.GivePontsActivity"
+                  android:screenOrientation="portrait"
+            />
+        <activity android:name=".bussiness.membership.signup.SignUpActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity android:name=".bussiness.transtions.TransationsActivity"
+                  android:screenOrientation="portrait"
+            />
+        <activity android:name=".bussiness.orderDetail.OrderDetailActivity"
+                  android:screenOrientation="portrait"
+            />
+
+
 
 
         <activity

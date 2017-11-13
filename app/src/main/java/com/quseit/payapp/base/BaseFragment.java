@@ -38,6 +38,7 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        initData();
     }
 
     @Nullable
@@ -48,7 +49,6 @@ public abstract class BaseFragment extends Fragment {
             if (mRootView != null) {
                 ButterKnife.bind(this, mRootView);
                 initView();
-                initData();
             } else {
                 mRootView = inflater.inflate(R.layout.layout_no_set_view, container, false);
             }

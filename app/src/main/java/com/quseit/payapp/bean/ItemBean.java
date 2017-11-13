@@ -1,5 +1,7 @@
 package com.quseit.payapp.bean;
 
+import java.io.Serializable;
+
 /**
  * 文 件 名: ItemBean
  * 创 建 人: ZhangRonghua
@@ -10,7 +12,7 @@ package com.quseit.payapp.bean;
  * 修改备注：
  */
 
-public class ItemBean {
+public class ItemBean implements Serializable{
     public int colorSrc;
     public String itemName;
     public int imgSrc;

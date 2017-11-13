@@ -5,10 +5,19 @@
               android:layout_height="match_parent">
     <include layout="@layout/toolbar"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Voucher code"
+        android:gravity="center"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="16sp"/>
     <com.quseit.payapp.widget.GradientView
         android:layout_width="match_parent"
         android:layout_height="1.5dp"
-        android:layout_marginTop="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"/>
     <LinearLayout
@@ -21,21 +30,11 @@
         android:paddingTop="20dp"
         android:paddingBottom="20dp">
         <TextView
+            android:id="@+id/voucher_code__tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="28sp"
             android:textColor="@color/white"
-            android:text="MYR"
-            android:layout_marginRight="5dp"
-            android:textStyle="bold"
-            />
-        <TextView
-            android:id="@+id/payment_number_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="28sp"
-            android:textColor="@color/white"
-            android:text="0.00"
             android:textStyle="bold"
             />
     </LinearLayout>
@@ -58,10 +57,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_above="@+id/keyboard_number"
             android:gravity="bottom"
             android:layout_marginBottom="10dp"
@@ -69,40 +67,21 @@
             android:layout_marginRight="20dp"
             >
             <ImageView
-                android:id="@+id/mumber_icon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="5dp"
-                android:src="@mipmap/place_holder_icon_white"/>
-            <ImageView
-                android:id="@+id/desc_icon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="5dp"
-                android:src="@mipmap/place_holder_icon_white"/>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"/>
-            <ImageView
-                android:id="@+id/cash_icon"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_margin="5dp"
-                android:src="@mipmap/place_holder_icon_white"/>
-            <ImageView
+                android:layout_gravity="end"
                 android:id="@+id/scan_icon"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:layout_margin="5dp"
-                android:src="@mipmap/place_holder_icon_white"/>
-        </LinearLayout>
+                android:src="@mipmap/place_holder_icon_white"
+                />
+        </FrameLayout>
         <com.quseit.payapp.widget.NumberKeyboard
             android:id="@+id/keyboard_number"
             android:layout_width="match_parent"
             android:layout_height="280dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:background="@color/white"
             />
     </RelativeLayout>
 </LinearLayout>

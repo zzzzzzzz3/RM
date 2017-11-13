@@ -1,21 +1,16 @@
 package com.quseit.payapp.adapter;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 
 import com.quseit.payapp.R;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.ItemBean;
 import com.quseit.payapp.bussiness.main.PageFragment;
-import com.quseit.payapp.bussiness.pay.PaymentActivity;
 
-import org.simple.eventbus.Subscriber;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,15 +39,17 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         PageFragment fragment = new PageFragment();
+        Bundle bundle = new Bundle();
         switch (position) {
             case 0:
-                fragment.setHasTop(true);
-                fragment.setPageItems(firstPageItems);
+                bundle.putSerializable(GlobalBean.ITEMS, (Serializable) firstPageItems);
+                bundle.putBoolean(GlobalBean.HAS_TOP,true);
                 break;
             case 1:
-                fragment.setPageItems(secondPageItems);
+                bundle.putSerializable(GlobalBean.ITEMS, (Serializable) secondPageItems);
                 break;
         }
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -69,7 +66,7 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
         list.add(bean2);
         ItemBean bean3 = new ItemBean(R.color.membership_bg_color, GlobalBean.MEMBERSHIP, R.mipmap.place_holder_icon_white);
         list.add(bean3);
-        ItemBean bean4 = new ItemBean(R.color.history_bg_color, GlobalBean.HISTORY, R.mipmap.place_holder_icon_white);
+        ItemBean bean4 = new ItemBean(R.color.history_bg_color, GlobalBean.TRANSATIONS, R.mipmap.place_holder_icon_white);
         list.add(bean4);
         ItemBean bean5 = new ItemBean(R.color.app_store_bg_color, GlobalBean.APP_STORE, R.mipmap.place_holder_icon_white);
         list.add(bean5);

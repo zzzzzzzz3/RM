@@ -4,21 +4,23 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.quseit.pay.PrintUtil;
 import com.quseit.payapp.R;
 import com.quseit.payapp.adapter.MainFragmentAdapter;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.ItemBean;
+import com.quseit.payapp.bussiness.membership.MembershipActivity;
 import com.quseit.payapp.bussiness.pay.PaymentActivity;
+import com.quseit.payapp.bussiness.transtions.TransationsActivity;
+import com.quseit.payapp.bussiness.voucher.VoucherActivity;
 import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.UIUtil;
 import com.quseit.payapp.widget.RMAutoDialog;
 import com.quseit.payapp.widget.RMDialog;
-import com.quseit.payapp.widget.RMEditDialog;
 import com.quseit.payapp.widget.RMProgressDialog;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -123,27 +125,16 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
                 startActivity(new Intent(this, PaymentActivity.class));
                 break;
             case GlobalBean.VOUCHER:
-                comfirmDialog();
+                startActivity(new Intent(this, VoucherActivity.class));
                 break;
             case GlobalBean.MEMBERSHIP:
-                DialogManager.rmEditDialog(this, "SEARCH", "input...", new RMEditDialog.OnPositiveClickListener() {
-                    @Override
-                    public void onClick(String editStr) {
-                        toast(editStr);
-                    }
-                });
+                startActivity(new Intent(this, MembershipActivity.class));
                 break;
-            case GlobalBean.HISTORY:
-                DialogManager.rmAutoDialog(this,"error", RMAutoDialog.TYPE.FAILED);
+            case GlobalBean.TRANSATIONS:
+                startActivity(new Intent(this, TransationsActivity.class));
                 break;
             case GlobalBean.APP_STORE:
-                final RMProgressDialog dialog = DialogManager.rmProgressDialog(this,"loading...");
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialog.dismiss();
-                    }
-                },3000);
+                PrintUtil.print(this);
                 break;
             case GlobalBean.SETTING:
 

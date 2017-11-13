@@ -26,9 +26,10 @@ public class RMProgressDialog extends Dialog {
 
     private LottieAnimationView mLottieAnimationView;
     private TextView mMsgTv;
-    private ImageView mStatusIcon;
+    private LottieAnimationView mStatusView;
     private FrameLayout ensureLayout;
     private Button ensureBtn;
+    private ImageView statusIcon;
 
     public enum TYPE {
         SUCCESS, FAILED
@@ -43,9 +44,10 @@ public class RMProgressDialog extends Dialog {
     private void initView() {
         mMsgTv = findViewById(R.id.dialog_text);
         mLottieAnimationView = findViewById(R.id.animation_view);
-        mStatusIcon = findViewById(R.id.status_icon);
+        mStatusView = findViewById(R.id.status_view);
         ensureLayout = findViewById(R.id.ensure_layout);
         ensureBtn = findViewById(R.id.btn_ok);
+        statusIcon = findViewById(R.id.status_icon);
         ensureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +64,7 @@ public class RMProgressDialog extends Dialog {
         return this;
     }
 
-    public RMProgressDialog setAnimation(String jsonFileName) {
+    public RMProgressDialog setLoading(String jsonFileName) {
         mLottieAnimationView.setAnimation(jsonFileName);
         return this;
     }
@@ -76,11 +78,25 @@ public class RMProgressDialog extends Dialog {
             mMsgTv.setVisibility(View.VISIBLE);
             mMsgTv.setText(msg);
         }
-        mStatusIcon.setVisibility(View.VISIBLE);
+        //mStatusView.setVisibility(View.VISIBLE);
         if (type == TYPE.FAILED) {
-            mStatusIcon.setImageResource(R.mipmap.failed_icon);
-        } else {
-            mStatusIcon.setImageResource(R.mipmap.success_icon);
+//            try{
+//                mStatusView.setAnimation("false.json");
+//                mStatusView.playAnimation();
+//            }catch (Exception e){
+//                e.printStackTrace();
+                statusIcon.setVisibility(View.VISIBLE);
+                mStatusView.setImageResource(R.mipmap.failed_icon);
+//            }
+        }else {
+//            try{
+//                mStatusView.setAnimation("success_icon.json");
+//                mStatusView.playAnimation();
+//            }catch (Exception e){
+//                e.printStackTrace();
+                statusIcon.setVisibility(View.VISIBLE);
+                mStatusView.setImageResource(R.mipmap.success_icon);
+//            }
         }
         if (showButton){
             ensureLayout.setVisibility(View.VISIBLE);
@@ -98,7 +114,8 @@ public class RMProgressDialog extends Dialog {
     @Override
     public void show() {
         super.show();
-        mStatusIcon.setVisibility(View.GONE);
+        mStatusView.setVisibility(View.GONE);
+        statusIcon.setVisibility(View.GONE);
         mLottieAnimationView.setVisibility(View.VISIBLE);
         if (!mLottieAnimationView.isAnimating()) {
             mLottieAnimationView.playAnimation();
@@ -111,7 +128,11 @@ public class RMProgressDialog extends Dialog {
         if (mLottieAnimationView.isAnimating()) {
             mLottieAnimationView.cancelAnimation();
         }
-        mStatusIcon.setVisibility(View.GONE);
+        if (mStatusView.isAnimating()){
+            mStatusView.cancelAnimation();
+        }
+        mStatusView.setVisibility(View.GONE);
+        statusIcon.setVisibility(View.GONE);
         ensureLayout.setVisibility(View.GONE);
     }
 }

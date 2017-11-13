@@ -93,6 +93,16 @@ public class DialogManager {
         return dialog;
     }
 
+    public static RMDialog rmDialog(Context context, String text,String subText, int resID, RMDialog.OnPositiveClickListener listener) {
+        RMDialog dialog = new RMDialog(context, R.style.Dialog);
+        dialog.setText(text);
+        dialog.setIcon(resID);
+        dialog.setSubText(subText);
+        dialog.setPositionBtn("OK", listener);
+        dialog.show();
+        return dialog;
+    }
+
     public static RMAutoDialog rmAutoDialog(Context context, String msg, RMAutoDialog.TYPE type) {
         RMAutoDialog dialog = new RMAutoDialog(context)
                 .setMessage(msg)

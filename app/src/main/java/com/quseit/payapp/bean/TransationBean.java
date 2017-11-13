@@ -10,4 +10,51 @@ package com.quseit.payapp.bean;
  */
 
 public class TransationBean {
+
+    private String orderNo;
+    private String remark;
+    private int iconRes;
+    private String time;
+
+    public TransationBean() {
+    }
+
+    public TransationBean(String orderNo, String remark, int iconRes, String time) {
+        this.orderNo = orderNo;
+        this.remark = remark;
+        this.iconRes = iconRes;
+        this.time = time;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public int getIconRes() {
+        return iconRes;
+    }
+
+    public void setIconRes(int iconRes) {
+        this.iconRes = iconRes;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 }

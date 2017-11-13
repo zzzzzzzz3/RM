@@ -49,7 +49,6 @@ public class NumberKeyboard extends RecyclerView {
         setLayoutManager(new GridLayoutManager(mContext,3));
         setAdapter(new KeyboardAdapter());
         setOverScrollMode(OVER_SCROLL_NEVER);
-        setBackgroundColor(Color.WHITE);
         int ten = UIUtil.dp2Px(mContext,10);
         setPadding(ten*2,ten,ten*2,0);
         setMinimumHeight(ten*30);

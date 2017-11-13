@@ -1,7 +1,8 @@
-package com.quseit.payapp.bussiness.issue;
+package com.quseit.payapp.bussiness.voucher.issue;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.quseit.payapp.R;
 import com.quseit.payapp.adapter.VouchersAdapter;
@@ -19,6 +20,7 @@ import java.util.Collection;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 文 件 名: IssueActivity
@@ -35,6 +37,8 @@ public class IssueActivity extends BaseActivity {
     RecyclerView mRecyclerView;
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout mSmartRefreshLayout;
+    @BindView(R.id.toolbar_right_tv)
+    TextView printTv;
     private VouchersAdapter mVouchersAdapter;
     private List<VoucherBean> mBeanList = new ArrayList<>();
 
@@ -50,17 +54,7 @@ public class IssueActivity extends BaseActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mVouchersAdapter);
 
-        mSmartRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-                mSmartRefreshLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mSmartRefreshLayout.setLoadmoreFinished(true);
-                    }
-                },2000);
-            }
-        });
+        printTv.setText("Print");
     }
 
     private List<VoucherBean> createList() {
@@ -81,5 +75,10 @@ public class IssueActivity extends BaseActivity {
     @Override
     public String getToolbarTitle() {
         return "Issue Voucher";
+    }
+    
+    @OnClick(R.id.toolbar_right_tv)
+    public void print(){
+        // TODO: 2017/11/13
     }
 }
