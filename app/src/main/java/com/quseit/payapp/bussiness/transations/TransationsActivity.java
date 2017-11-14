@@ -1,11 +1,9 @@
-package com.quseit.payapp.bussiness.transtions;
+package com.quseit.payapp.bussiness.transations;
 
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -26,7 +24,6 @@ import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.List;
 
 import butterknife.BindView;

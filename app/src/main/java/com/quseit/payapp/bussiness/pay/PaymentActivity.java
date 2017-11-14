@@ -108,7 +108,7 @@ public class PaymentActivity extends BaseActivity {
         DialogManager.rmDialog(this, "Continue as cash payment?", R.mipmap.place_holder_icon_black, new RMDialog.OnPositiveClickListener() {
             @Override
             public void onPositiveClick() {
-                toast("success");
+                // TODO: 2017/11/14
             }
         });
     }
@@ -142,13 +142,11 @@ public class PaymentActivity extends BaseActivity {
             @Override
             public void onError(String msg) {
                 Log.d("Scan", msg);
-                mScanUtil.closeScan();
             }
 
             @Override
             public void onResult(final String s) {
                 Log.d("Scan", s);
-                mScanUtil.closeScan();
                 DialogManager.rmDialog(PaymentActivity.this, "Continue as QR Code Payment?", R.mipmap.place_holder_icon_black, new RMDialog.OnPositiveClickListener() {
                     @Override
                     public void onPositiveClick() {
@@ -160,13 +158,11 @@ public class PaymentActivity extends BaseActivity {
             @Override
             public void onCancel() {
                 Log.d("Scan", "onCancel");
-                mScanUtil.closeScan();
             }
 
             @Override
             public void onTimeout() {
                 Log.d("Scan", "onTimeout");
-                mScanUtil.closeScan();
             }
         });
     }

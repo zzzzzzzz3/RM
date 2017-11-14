@@ -1,7 +1,6 @@
 package com.quseit.payapp.bussiness.main;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
@@ -15,18 +14,16 @@ import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.ItemBean;
 import com.quseit.payapp.bussiness.membership.MembershipActivity;
 import com.quseit.payapp.bussiness.pay.PaymentActivity;
-import com.quseit.payapp.bussiness.transtions.TransationsActivity;
+import com.quseit.payapp.bussiness.setting.SettingActivity;
+import com.quseit.payapp.bussiness.support.SupportActivity;
+import com.quseit.payapp.bussiness.transations.TransationsActivity;
 import com.quseit.payapp.bussiness.voucher.VoucherActivity;
 import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.UIUtil;
-import com.quseit.payapp.widget.RMAutoDialog;
 import com.quseit.payapp.widget.RMDialog;
-import com.quseit.payapp.widget.RMProgressDialog;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.simple.eventbus.Subscriber;
-
-import java.util.Calendar;
 
 import butterknife.BindView;
 
@@ -137,25 +134,16 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
                 PrintUtil.print(this);
                 break;
             case GlobalBean.SETTING:
-
+                startActivity(new Intent(this, SettingActivity.class));
                 break;
             case GlobalBean.ORDERS:
-                Calendar now = Calendar.getInstance();
-                DatePickerDialog dpd = DatePickerDialog.newInstance(
-                        this,
-                        now.get(Calendar.YEAR),
-                        now.get(Calendar.MONTH),
-                        now.get(Calendar.DAY_OF_MONTH)
-                );
-                dpd.setVersion(DatePickerDialog.Version.VERSION_2);
-                dpd.setAccentColor(ContextCompat.getColor(this,R.color.colorAccent));
-                dpd.show(getFragmentManager(), "Datepickerdialog");
+
                 break;
             case GlobalBean.SUPPORT:
-                startActivity(new Intent(this, PaymentActivity.class));
+                startActivity(new Intent(this, SupportActivity.class));
                 break;
             case GlobalBean.NOTIFICATION:
-                startActivity(new Intent(this, PaymentActivity.class));
+
                 break;
 
         }

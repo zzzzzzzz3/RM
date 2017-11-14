@@ -31,7 +31,25 @@ public class ScanUtil {
     }
 
     public void beginScan(@NonNull Activity activity,@NonNull final ScanCallback resultCallback){
-        int createCode = mScanDecoder.Create(ScanDecoder.CAMERA_ID_BACK, resultCallback);
+        int createCode = mScanDecoder.Create(ScanDecoder.CAMERA_ID_BACK, new ScanDecoder.ResultCallback() {
+            @Override
+            public void onResult(String s) {
+                mScanDecoder.Destroy();
+                resultCallback.onResult(s);
+            }
+
+            @Override
+            public void onCancel() {
+                mScanDecoder.Destroy();
+                resultCallback.onCancel();
+            }
+
+            @Override
+            public void onTimeout() {
+                mScanDecoder.Destroy();
+                resultCallback.onTimeout();
+            }
+        });
         if (createCode==0){
             int startCode = mScanDecoder.startScanDecode(activity,config);
             if (startCode != 0){

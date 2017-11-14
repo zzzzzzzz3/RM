@@ -32,6 +32,12 @@ public class GlobalBean {
     public static final String ISSUE = "ISSUE";
     public static final String POINTS = "GIVE POINTS";
     public static final String SIGN_UP = "SIGN UP";
+    public static final String WIFI = "WIFI";
+    public static final String SIM = "SIM";
+    public static final String SOUND = "SOUND";
+    public static final String BRIGHTNESS = "BRIGHTNESS";
+    public static final String ABOUT = "ABOUT";
+    public static final String LANGUAGE = "LANGUAGE";
 
     public static final String REMARK = "REMARK";
     public static final int REMARK_REQUEST = 0X001;

@@ -64,10 +64,16 @@
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="adjustPan|stateHidden"
             />
-        <activity android:name=".bussiness.transtions.TransationsActivity"
+        <activity android:name=".bussiness.transations.TransationsActivity"
                   android:screenOrientation="portrait"
             />
         <activity android:name=".bussiness.orderDetail.OrderDetailActivity"
+                  android:screenOrientation="portrait"
+            />
+        <activity android:name=".bussiness.setting.SettingActivity"
+                  android:screenOrientation="portrait"
+            />
+        <activity android:name=".bussiness.support.SupportActivity"
                   android:screenOrientation="portrait"
             />
 

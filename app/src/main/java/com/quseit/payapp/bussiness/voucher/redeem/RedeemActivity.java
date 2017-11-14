@@ -98,14 +98,12 @@ public class RedeemActivity extends BaseActivity {
             @Override
             public void onError(String msg) {
                 Log.d("Scan", msg);
-                mScanUtil.closeScan();
                 DialogManager.rmDialog(RedeemActivity.this, "Voucher redemption fail", R.mipmap.failed_icon);
             }
 
             @Override
             public void onResult(final String s) {
                 Log.d("Scan", s);
-                mScanUtil.closeScan();
                 voucherCodeTv.setText(s);
                 DialogManager.rmDialog(RedeemActivity.this, "Voucher redemption complete", R.mipmap.success_icon);
             }
@@ -113,14 +111,18 @@ public class RedeemActivity extends BaseActivity {
             @Override
             public void onCancel() {
                 Log.d("Scan", "onCancel");
-                mScanUtil.closeScan();
             }
 
             @Override
             public void onTimeout() {
                 Log.d("Scan", "onTimeout");
-                mScanUtil.closeScan();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mScanUtil.closeScan();
     }
 }

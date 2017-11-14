@@ -34,4 +34,13 @@
     <color name="issue_bg_color">#ff8c00</color>
     <color name="points_bg_color">#cf23e5</color>
     <color name="sign_up_bg_color">#0078d7</color>
+
+    <color name="wifi_bg_color">#00b7c3</color>
+    <color name="sim_bg_color">#f7630c</color>
+    <color name="sound_bg_color">#c239b3</color>
+    <color name="brightness_bg_color">#0078d7</color>
+    <color name="about_bg_color">#00cc6a</color>
+    <color name="language_bg_color">#ea436a</color>
+
+
 </resources>
