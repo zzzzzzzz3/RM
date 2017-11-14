@@ -1,15 +1,20 @@
 package com.quseit.payapp.widget;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Icon;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.quseit.payapp.R;
+import com.quseit.payapp.bean.GlobalBean;
 
 import java.lang.reflect.Type;
 
@@ -24,7 +29,7 @@ import java.lang.reflect.Type;
 
 public class RMAutoDialog extends Dialog {
 
-    private ImageView icon;
+    private IconText icon;
     private TextView msgTv;
     public enum TYPE{
         SUCCESS,FAILED
@@ -40,8 +45,8 @@ public class RMAutoDialog extends Dialog {
     }
 
     private void initView() {
-        icon = (ImageView) findViewById(R.id.toast_icon);
-        msgTv = (TextView) findViewById(R.id.toast_text);
+        icon = findViewById(R.id.toast_icon);
+        msgTv = findViewById(R.id.toast_text);
     }
 
     public RMAutoDialog setDuration(int duration){
@@ -51,9 +56,11 @@ public class RMAutoDialog extends Dialog {
 
     public RMAutoDialog setType(TYPE type){
         if (type == TYPE.FAILED){
-            icon.setImageResource(R.mipmap.failed_icon);
+            icon.setText(GlobalBean.CANCEL_ICON);
+            icon.setTextColor(ContextCompat.getColor(getContext(),R.color.red));
         }else {
-            icon.setImageResource(R.mipmap.success_icon);
+            icon.setText(GlobalBean.SUCCESSFUL_ICON);
+            icon.setTextColor(ContextCompat.getColor(getContext(),R.color.green));
         }
         return this;
     }
@@ -74,6 +81,7 @@ public class RMAutoDialog extends Dialog {
         },mDuration);
     }
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {

@@ -13,16 +13,16 @@ public class TransationBean {
 
     private String orderNo;
     private String remark;
-    private int iconRes;
+    private String iconFont;
     private String time;
 
     public TransationBean() {
     }
 
-    public TransationBean(String orderNo, String remark, int iconRes, String time) {
+    public TransationBean(String orderNo, String remark, String iconFont, String time) {
         this.orderNo = orderNo;
         this.remark = remark;
-        this.iconRes = iconRes;
+        this.iconFont = iconFont;
         this.time = time;
     }
 
@@ -42,12 +42,12 @@ public class TransationBean {
         this.remark = remark;
     }
 
-    public int getIconRes() {
-        return iconRes;
+    public String geticonFont() {
+        return iconFont;
     }
 
-    public void setIconRes(int iconRes) {
-        this.iconRes = iconRes;
+    public void seticonFont(String iconFont) {
+        this.iconFont = iconFont;
     }
 
     public String getTime() {

@@ -15,11 +15,11 @@ import java.io.Serializable;
 public class ItemBean implements Serializable{
     public int colorSrc;
     public String itemName;
-    public int imgSrc;
+    public String iconFont;
 
-    public ItemBean(int colorSrc, String itemName, int imgSrc) {
+    public ItemBean(int colorSrc, String itemName, String iconFont) {
         this.colorSrc = colorSrc;
         this.itemName = itemName;
-        this.imgSrc = imgSrc;
+        this.iconFont = iconFont;
     }
 }

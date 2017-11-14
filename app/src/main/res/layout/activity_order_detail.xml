@@ -101,11 +101,11 @@
                 android:textSize="16sp"
                 android:textColor="@color/text_gray"
                 android:text="Order amount"/>
-            <ImageView
+            <com.quseit.payapp.widget.IconText
                 android:id="@+id/order_type_icon"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:src="@mipmap/place_holder_icon_black"
+                android:textSize="18sp"
                 android:layout_marginRight="5dp"/>
             <TextView
                 android:id="@+id/order_amount_tv"

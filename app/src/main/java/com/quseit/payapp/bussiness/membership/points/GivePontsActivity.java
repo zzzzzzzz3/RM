@@ -10,7 +10,9 @@ import android.widget.TextView;
 import com.quseit.pay.ScanUtil;
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
+import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.util.DialogManager;
+import com.quseit.payapp.widget.IconText;
 import com.quseit.payapp.widget.NumberKeyboard;
 import com.quseit.payapp.widget.RMDialog;
 
@@ -37,6 +39,8 @@ public class GivePontsActivity extends BaseActivity {
     TextView mobileEdit;
     @BindView(R.id.keyboard_number)
     NumberKeyboard mNumberKeyboard;
+    @BindView(R.id.scan_icon)
+    IconText scanIcon;
     private ScanUtil mScanUtil;
 
     private Animation inAnim, outAnim;
@@ -49,6 +53,9 @@ public class GivePontsActivity extends BaseActivity {
 
     @Override
     public void initView() {
+
+        scanIcon.setText(GlobalBean.QRCODE_ICON);
+
         doneTv.setText("Done");
         doneTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +132,7 @@ public class GivePontsActivity extends BaseActivity {
 
     private void showSuccess(){
         if (mSuccessDialog ==null){
-            mSuccessDialog = DialogManager.rmDialog(this, "Name has earned:", "1000 points", R.mipmap.success_icon, new RMDialog.OnPositiveClickListener() {
+            mSuccessDialog = DialogManager.rmDialog(this, "Name has earned:", "1000 points", GlobalBean.POINTS_ICON, new RMDialog.OnPositiveClickListener() {
                 @Override
                 public void onPositiveClick() {
 

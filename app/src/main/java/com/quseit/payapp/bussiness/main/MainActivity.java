@@ -149,15 +149,6 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
         }
     }
 
-    public void comfirmDialog(){
-        DialogManager.rmDialog(this, "Do you love me?",R.mipmap.place_holder_icon_black, new RMDialog.OnPositiveClickListener() {
-            @Override
-            public void onPositiveClick() {
-                toast("yes");
-            }
-        });
-    }
-
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         toast(year+"-"+monthOfYear+"-"+dayOfMonth);

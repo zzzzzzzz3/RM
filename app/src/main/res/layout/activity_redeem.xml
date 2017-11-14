@@ -66,13 +66,13 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             >
-            <ImageView
+            <com.quseit.payapp.widget.IconText
                 android:layout_gravity="end"
                 android:id="@+id/scan_icon"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:layout_margin="5dp"
-                android:src="@mipmap/place_holder_icon_white"
+                android:textSize="56sp"
                 />
         </FrameLayout>
         <com.quseit.payapp.widget.NumberKeyboard

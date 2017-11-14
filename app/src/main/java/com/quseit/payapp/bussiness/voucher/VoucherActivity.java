@@ -43,8 +43,8 @@ public class VoucherActivity extends BaseActivity{
 
     @Override
     public void initView() {
-        pageItems.add(new ItemBean(R.color.redeep_bg_color, GlobalBean.REDEEM,R.mipmap.place_holder_icon_white));
-        pageItems.add(new ItemBean(R.color.issue_bg_color,GlobalBean.ISSUE,R.mipmap.place_holder_icon_white));
+        pageItems.add(new ItemBean(R.color.redeep_bg_color, GlobalBean.REDEEM,GlobalBean.REDEEM_ICON));
+        pageItems.add(new ItemBean(R.color.issue_bg_color,GlobalBean.ISSUE,GlobalBean.ISSUE_ICON));
         mGridAdapter = new GridAdapter(this, pageItems);
         rv.setLayoutManager(new GridLayoutManager(this,2));
         rv.setAdapter(mGridAdapter);

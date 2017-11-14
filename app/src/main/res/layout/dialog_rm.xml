@@ -12,13 +12,13 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_gravity="center">
-        <ImageView
+        <com.quseit.payapp.widget.IconText
             android:id="@+id/dialog_icon"
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
-            android:src="@mipmap/place_holder_icon_black"/>
+            android:textSize="130sp"/>
         <TextView
             android:id="@+id/dialog_text"
             android:layout_width="match_parent"

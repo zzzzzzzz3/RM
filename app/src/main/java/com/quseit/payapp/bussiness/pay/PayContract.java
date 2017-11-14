@@ -1,8 +1,12 @@
 package com.quseit.payapp.bussiness.pay;
 
+import com.quseit.payapp.bean.ResponseBean;
 import com.quseit.payapp.contract.IModel;
 import com.quseit.payapp.contract.IPresenter;
 import com.quseit.payapp.contract.IView;
+
+import io.reactivex.Observable;
+
 
 /**
  * 文 件 名: PayContract
@@ -17,13 +21,14 @@ public interface PayContract {
 
     interface PayView extends IView{
 
+        void changeDialogState(String msg,boolean isSuccess);
     }
 
     interface PayModel extends IModel{
-
+        Observable<ResponseBean> pay(String Amount, String AuthCode, String Remark, String StoreID);
     }
 
     interface PayPresenter extends IPresenter{
-
+        void pay(String Amount, String AuthCode, String Remark, String StoreID);
     }
 }

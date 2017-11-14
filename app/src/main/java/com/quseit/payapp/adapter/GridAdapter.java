@@ -9,12 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseAdapter;
 import com.quseit.payapp.bean.ItemBean;
+import com.quseit.payapp.widget.IconText;
 
 import org.simple.eventbus.EventBus;
 
@@ -80,7 +80,7 @@ public class GridAdapter extends BaseAdapter<ItemBean,GridAdapter.MainViewHolder
     public void onBindViewHolder(MainViewHolder holder, int position) {
         final ItemBean itemBean = mData.get(position);
         holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext,itemBean.colorSrc));
-        holder.itemIcon.setImageResource(itemBean.imgSrc);
+        holder.itemIcon.setTitle(itemBean.iconFont);
         holder.itemNameTv.setText(itemBean.itemName);
 
         holder.clickView.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +94,7 @@ public class GridAdapter extends BaseAdapter<ItemBean,GridAdapter.MainViewHolder
     public class MainViewHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.item_icon)
-        ImageView itemIcon;
+        IconText itemIcon;
         @BindView(R.id.item_name_tv)
         TextView itemNameTv;
         @BindView(R.id.click_view)

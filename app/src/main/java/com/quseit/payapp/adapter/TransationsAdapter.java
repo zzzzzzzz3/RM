@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseAdapter;
 import com.quseit.payapp.bean.TransationBean;
+import com.quseit.payapp.widget.IconText;
 
 import org.simple.eventbus.EventBus;
 
@@ -49,7 +50,7 @@ public class TransationsAdapter extends BaseAdapter<TransationBean,TransationsAd
         holder.orderNoTv.setText(bean.getOrderNo());
         holder.remarkTv.setText(bean.getRemark());
         holder.timeTv.setText(bean.getTime());
-        holder.icon.setImageResource(bean.getIconRes());
+        holder.icon.setText(bean.geticonFont());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +69,7 @@ public class TransationsAdapter extends BaseAdapter<TransationBean,TransationsAd
         @BindView(R.id.transation_time_tv)
         TextView timeTv;
         @BindView(R.id.transation_icon)
-        ImageView icon;
+        IconText icon;
 
         public TransationViewHolder(View itemView) {
             super(itemView);

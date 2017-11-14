@@ -7,9 +7,10 @@ package com.quseit.payapp.widget;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.widget.TextView;
 
-public class IconText extends TextView {
+public class IconText extends android.support.v7.widget.AppCompatTextView {
     public static final String FONT_PATH = "fonts/icomoon.ttf";
     public static Typeface mTypeface;
     public IconText(Context context) {
@@ -30,5 +31,10 @@ public class IconText extends TextView {
             mTypeface = Typeface.createFromAsset(getContext().getAssets(), FONT_PATH);
         }
         setTypeface(mTypeface);
+        setGravity(Gravity.CENTER);
+    }
+
+    public void setTitle(String font){
+        setText(font);
     }
 }

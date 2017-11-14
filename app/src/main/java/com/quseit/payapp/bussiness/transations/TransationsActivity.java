@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.quseit.payapp.R;
 import com.quseit.payapp.adapter.TransationsAdapter;
 import com.quseit.payapp.base.BaseActivity;
+import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.TransationBean;
 import com.quseit.payapp.bussiness.orderDetail.OrderDetailActivity;
 import com.quseit.payapp.util.DialogManager;
@@ -98,7 +99,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     private List<TransationBean> createList() {
         List<TransationBean> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            TransationBean bean = new TransationBean("1025489657","no no no no...",R.mipmap.place_holder_icon_black,"00:00:00");
+            TransationBean bean = new TransationBean("1025489657","no no no no...", GlobalBean.CASH_ICON,"00:00:00");
             list.add(bean);
         }
 

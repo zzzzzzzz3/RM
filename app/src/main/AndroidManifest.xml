@@ -2,32 +2,32 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.quseit.payapp">
 
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.premission.ACCESS_FRONT_CAMERA" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.premission.ACCESS_FRONT_CAMERA"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
+        android:name=".base.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/FullscreenTheme"
-        android:name=".base.BaseApplication">
-        <activity android:name=".WelcomeActivity"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/WelcomeTheme"
-            >
+        android:theme="@style/FullscreenTheme">
+        <activity
+            android:name=".WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WelcomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -36,55 +36,54 @@
         </activity>
         <activity
             android:name=".bussiness.main.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".bussiness.pay.PaymentActivity"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".bussiness.pay.PaymentActivity"
-                  android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".bussiness.description.DescriptionActivity"
-                  android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
-                  android:screenOrientation="portrait"
-            />
-        <activity android:name=".bussiness.voucher.VoucherActivity"
-                  android:screenOrientation="portrait"
-            />
-        <activity android:name=".bussiness.voucher.redeem.RedeemActivity"
-                  android:screenOrientation="portrait"
-            />
-        <activity android:name=".bussiness.voucher.issue.IssueActivity"
-                  android:screenOrientation="portrait"
-            />
-        <activity android:name=".bussiness.membership.MembershipActivity"
-                  android:screenOrientation="portrait"
-            />
-        <activity android:name=".bussiness.membership.points.GivePontsActivity"
-                  android:screenOrientation="portrait"
-            />
-        <activity android:name=".bussiness.membership.signup.SignUpActivity"
-                  android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustPan|stateHidden"
-            />
-        <activity android:name=".bussiness.transations.TransationsActivity"
-                  android:screenOrientation="portrait"
-            />
-        <activity android:name=".bussiness.orderDetail.OrderDetailActivity"
-                  android:screenOrientation="portrait"
-            />
-        <activity android:name=".bussiness.setting.SettingActivity"
-                  android:screenOrientation="portrait"
-            />
-        <activity android:name=".bussiness.support.SupportActivity"
-                  android:screenOrientation="portrait"
-            />
-
-
-
-
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
+        <activity
+            android:name=".bussiness.description.DescriptionActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysVisible"/>
+        <activity
+            android:name=".bussiness.voucher.VoucherActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".bussiness.voucher.redeem.RedeemActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".bussiness.voucher.issue.IssueActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".bussiness.membership.MembershipActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".bussiness.membership.points.GivePontsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".bussiness.membership.signup.SignUpActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity
+            android:name=".bussiness.transations.TransationsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".bussiness.orderDetail.OrderDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".bussiness.setting.SettingActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".bussiness.support.SupportActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.landicorp.android.scan.scanDecoder.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:label="scan Decoder" />
-        <activity android:name="com.landicorp.android.scan.scanDecoder.SettingsActivity" />
+            android:label="scan Decoder"/>
+        <activity android:name="com.landicorp.android.scan.scanDecoder.SettingsActivity"/>
+        <activity
+            android:name=".bussiness.test.Test"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

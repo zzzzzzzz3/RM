@@ -3,6 +3,8 @@ package com.quseit.payapp.bussiness.pay;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import com.quseit.payapp.bussiness.description.DescriptionActivity;
 import com.quseit.payapp.util.AmountInputUtil;
 import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.PermissionUtil;
+import com.quseit.payapp.widget.IconText;
 import com.quseit.payapp.widget.NumberKeyboard;
 import com.quseit.payapp.widget.RMDialog;
 import com.quseit.payapp.widget.RMProgressDialog;
@@ -42,7 +45,7 @@ import io.reactivex.schedulers.Schedulers;
  * 修改备注：
  */
 
-public class PaymentActivity extends BaseActivity {
+public class PaymentActivity extends BaseActivity implements PayContract.PayView{
 
     @BindView(R.id.keyboard_number)
     NumberKeyboard mNumberKeyboard;
@@ -50,9 +53,19 @@ public class PaymentActivity extends BaseActivity {
     TextView mPaymentTv;
     @BindView(R.id.remark_tv)
     TextView remarkTv;
+    @BindView(R.id.mumber_icon)
+    IconText memberIcon;
+    @BindView(R.id.desc_icon)
+    IconText descIcon;
+    @BindView(R.id.cash_icon)
+    IconText cashIcon;
+    @BindView(R.id.scan_icon)
+    IconText scanIcon;
     private ScanUtil mScanUtil;
     private final String defaultNum = "0.00";
     private RMProgressDialog mRMProgressDialog;
+
+    private PayContract.PayPresenter mPayPresenter;
 
     @Override
     public int getRootView() {
@@ -79,11 +92,16 @@ public class PaymentActivity extends BaseActivity {
         });
 
         mPaymentTv.setText(defaultNum);
+        memberIcon.setText(GlobalBean.MEMBERSHIP_ICON);
+        descIcon.setText(GlobalBean.EDIT_ICON);
+        cashIcon.setText(GlobalBean.CASH_ICON);
+        scanIcon.setText(GlobalBean.QRCODE_ICON);
     }
 
     @Override
     public void initData() {
         mScanUtil = new ScanUtil(this);
+        mPayPresenter = new PayPresenterImpl(this);
     }
 
     @Override
@@ -105,7 +123,7 @@ public class PaymentActivity extends BaseActivity {
 
     @OnClick(R.id.cash_icon)
     public void cash() {
-        DialogManager.rmDialog(this, "Continue as cash payment?", R.mipmap.place_holder_icon_black, new RMDialog.OnPositiveClickListener() {
+        DialogManager.rmDialog(this, "Continue as cash payment?", GlobalBean.CASH_ICON, ContextCompat.getColor(this,R.color.payment_bg_color),new RMDialog.OnPositiveClickListener() {
             @Override
             public void onPositiveClick() {
                 // TODO: 2017/11/14
@@ -146,13 +164,7 @@ public class PaymentActivity extends BaseActivity {
 
             @Override
             public void onResult(final String s) {
-                Log.d("Scan", s);
-                DialogManager.rmDialog(PaymentActivity.this, "Continue as QR Code Payment?", R.mipmap.place_holder_icon_black, new RMDialog.OnPositiveClickListener() {
-                    @Override
-                    public void onPositiveClick() {
-                        pay(s,amount,remark);
-                    }
-                });
+                pay(s,amount,remark);
             }
 
             @Override
@@ -167,48 +179,8 @@ public class PaymentActivity extends BaseActivity {
         });
     }
 
-    private void pay(String s, String amount,String remark) {
-        RetrofitManager.getInstance().createService(CommonService.class).pay(amount, s, remark, "123456")
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        mRMProgressDialog = DialogManager.rmProgressDialog(PaymentActivity.this,"loading...");
-                    }
-                })
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnTerminate(new Action() {
-                    @Override
-                    public void run() throws Exception {
-
-                    }
-                })
-                .subscribe(new Observer<ResponseBean>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(@NonNull ResponseBean responseBean) {
-                        if (responseBean.success()){
-                            mRMProgressDialog.setStatus(RMProgressDialog.TYPE.SUCCESS,responseBean.getMsg(),true);
-                            mPaymentTv.setText(defaultNum);
-                        }
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        e.printStackTrace();
-                        mRMProgressDialog.setStatus(RMProgressDialog.TYPE.FAILED,"net error",false);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+    private void pay(String authcode, String amount,String remark) {
+        mPayPresenter.pay(amount,authcode,remark,"123456");
     }
 
     @Override
@@ -224,5 +196,35 @@ public class PaymentActivity extends BaseActivity {
             remarkTv.setText(remarkStr);
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void showLoading() {
+        if (mRMProgressDialog==null){
+            mRMProgressDialog = DialogManager.rmProgressDialog(this,"loading...");
+        }
+        if (!mRMProgressDialog.isShowing()){
+            mRMProgressDialog.show();
+        }
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+        toast(message);
+    }
+
+    @Override
+    public void killMyself() {
+        finish();
+    }
+
+    @Override
+    public void changeDialogState(String msg, boolean isSuccess) {
+        mRMProgressDialog.setStatus(isSuccess?RMProgressDialog.TYPE.SUCCESS: RMProgressDialog.TYPE.FAILED,msg,true);
     }
 }

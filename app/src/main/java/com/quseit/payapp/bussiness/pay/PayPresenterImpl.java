@@ -1,6 +1,8 @@
 package com.quseit.payapp.bussiness.pay;
 
+import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.base.BasePresenter;
+import com.quseit.payapp.bean.ResponseBean;
 
 /**
  * 文 件 名: PayPresenterImpl
@@ -12,8 +14,37 @@ import com.quseit.payapp.base.BasePresenter;
  */
 
 public class PayPresenterImpl extends BasePresenter implements PayContract.PayPresenter {
+
+    private PayContract.PayView mPayView;
+    private PayContract.PayModel mPayModel;
+
+    public PayPresenterImpl(PayContract.PayView payView) {
+        mPayView = payView;
+        setView(mPayView);
+        mPayModel= new PayModelImpl();
+    }
+
     @Override
     public void onDestroy() {
+        unDispose();
+    }
 
+    @Override
+    public void pay(String Amount, String AuthCode, String Remark, String StoreID) {
+        logic(mPayModel.pay(Amount,AuthCode,Remark,StoreID)).subscribe(new ObserverHandler<ResponseBean>() {
+            @Override
+            public void onResponse(ResponseBean response) {
+                if (response.success()){
+                    mPayView.changeDialogState(response.getMsg(),true);
+                }else {
+                    mPayView.changeDialogState(response.getMsg(),false);
+                }
+            }
+
+            @Override
+            public void onFail() {
+                mPayView.changeDialogState("net error",false);
+            }
+        });
     }
 }

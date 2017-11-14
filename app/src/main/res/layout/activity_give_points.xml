@@ -81,13 +81,13 @@
             android:textSize="16sp"
             />
 
-        <ImageView
+        <com.quseit.payapp.widget.IconText
             android:id="@+id/scan_icon"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_alignRight="@+id/mobile_edit"
             android:layout_alignTop="@+id/mobile_edit"
-            android:src="@mipmap/place_holder_icon_black"/>
+            android:textSize="35sp"/>
 
         <com.quseit.payapp.widget.NumberKeyboard
             android:id="@+id/keyboard_number"

@@ -36,11 +36,11 @@
                 android:visibility="gone"
                 />
 
-            <ImageView
+            <com.quseit.payapp.widget.IconText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/status_icon"
-                android:src="@mipmap/success_icon"
+                android:textSize="130sp"
                 android:visibility="gone"/>
         </FrameLayout>
 

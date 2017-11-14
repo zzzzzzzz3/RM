@@ -2,8 +2,10 @@ package com.quseit.payapp.widget;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.quseit.payapp.R;
+import com.quseit.payapp.bean.GlobalBean;
 
 /**
  * 文 件 名: RMProgressDialog
@@ -29,7 +32,7 @@ public class RMProgressDialog extends Dialog {
     private LottieAnimationView mStatusView;
     private FrameLayout ensureLayout;
     private Button ensureBtn;
-    private ImageView statusIcon;
+    private IconText statusIcon;
 
     public enum TYPE {
         SUCCESS, FAILED
@@ -69,38 +72,39 @@ public class RMProgressDialog extends Dialog {
         return this;
     }
 
-    public RMProgressDialog setStatus(RMProgressDialog.TYPE type,String msg,boolean showButton) {
+    public RMProgressDialog setStatus(RMProgressDialog.TYPE type, String msg, boolean showButton) {
         if (mLottieAnimationView.isAnimating()) {
             mLottieAnimationView.cancelAnimation();
             mLottieAnimationView.setVisibility(View.GONE);
         }
-        if (msg!=null&&!msg.equals("")){
+        if (msg != null && !msg.equals("")) {
             mMsgTv.setVisibility(View.VISIBLE);
             mMsgTv.setText(msg);
         }
         //mStatusView.setVisibility(View.VISIBLE);
+        statusIcon.setVisibility(View.VISIBLE);
         if (type == TYPE.FAILED) {
 //            try{
 //                mStatusView.setAnimation("false.json");
 //                mStatusView.playAnimation();
 //            }catch (Exception e){
 //                e.printStackTrace();
-                statusIcon.setVisibility(View.VISIBLE);
-                mStatusView.setImageResource(R.mipmap.failed_icon);
+            statusIcon.setText(GlobalBean.CANCEL_ICON);
+            statusIcon.setTextColor(ContextCompat.getColor(getContext(),R.color.red));
 //            }
-        }else {
+        } else {
 //            try{
 //                mStatusView.setAnimation("success_icon.json");
 //                mStatusView.playAnimation();
 //            }catch (Exception e){
 //                e.printStackTrace();
-                statusIcon.setVisibility(View.VISIBLE);
-                mStatusView.setImageResource(R.mipmap.success_icon);
+            statusIcon.setText(GlobalBean.SUCCESSFUL_ICON);
+            statusIcon.setTextColor(ContextCompat.getColor(getContext(),R.color.green));
 //            }
         }
-        if (showButton){
+        if (showButton) {
             ensureLayout.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -128,7 +132,7 @@ public class RMProgressDialog extends Dialog {
         if (mLottieAnimationView.isAnimating()) {
             mLottieAnimationView.cancelAnimation();
         }
-        if (mStatusView.isAnimating()){
+        if (mStatusView.isAnimating()) {
             mStatusView.cancelAnimation();
         }
         mStatusView.setVisibility(View.GONE);

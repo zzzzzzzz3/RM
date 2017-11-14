@@ -13,6 +13,8 @@ import com.quseit.payapp.R;
 import com.quseit.payapp.adapter.GoodsAdapter;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.base.GoodBean;
+import com.quseit.payapp.bean.GlobalBean;
+import com.quseit.payapp.widget.IconText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +43,7 @@ public class OrderDetailActivity extends BaseActivity {
     @BindView(R.id.order_amount_tv)
     TextView orderAmountTv;
     @BindView(R.id.order_type_icon)
-    ImageView orderTypeIcon;
+    IconText orderTypeIcon;
     @BindView(R.id.order_detail_rv)
     RecyclerView mRecyclerView;
     private GoodsAdapter mGoodsAdapter;
@@ -61,6 +63,8 @@ public class OrderDetailActivity extends BaseActivity {
                 refund();
             }
         });
+
+        orderTypeIcon.setText(GlobalBean.CASH_ICON);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mGoodBeans.addAll(creatList());

@@ -24,7 +24,7 @@ import com.quseit.payapp.R;
 
 public class RMDialog extends Dialog {
 
-    private ImageView icon;
+    private IconText icon;
     private TextView textTv;
     private TextView subTextTv;
     private Button mPositiveButton;
@@ -41,25 +41,20 @@ public class RMDialog extends Dialog {
     }
 
     private void initView() {
-        icon = (ImageView) findViewById(R.id.dialog_icon);
+        icon = (IconText) findViewById(R.id.dialog_icon);
         textTv = (TextView) findViewById(R.id.dialog_text);
         subTextTv = (TextView) findViewById(R.id.dialog_sub_text);
         mPositiveButton = (Button) findViewById(R.id.btn_ok);
         mNegativeButton = (Button) findViewById(R.id.btn_cancel);
     }
 
-    public RMDialog setIcon(int resId){
-        icon.setImageResource(resId);
+    public RMDialog setIcon(String fontIcon){
+        icon.setText(fontIcon);
         return this;
     }
 
-    public RMDialog setIcon(Drawable drawable){
-        icon.setImageDrawable(drawable);
-        return this;
-    }
-
-    public RMDialog setIcon(Bitmap bitmap){
-        icon.setImageBitmap(bitmap);
+    public RMDialog setIconColor(int color){
+        icon.setTextColor(color);
         return this;
     }
 

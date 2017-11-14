@@ -55,10 +55,11 @@ public class DialogManager {
         return dialog;
     }
 
-    public static RMDialog rmDialog(Context context, String text, int resID, RMDialog.OnPositiveClickListener listener) {
+    public static RMDialog rmDialog(Context context, String text, String iconFont, int iconColor, RMDialog.OnPositiveClickListener listener) {
         RMDialog dialog = new RMDialog(context, R.style.Dialog)
                 .setText(text)
-                .setIcon(resID)
+                .setIcon(iconFont)
+                .setIconColor(iconColor)
                 .setPositionBtn("OK", listener)
                 .setNegativeBtn("Cancel", new RMDialog.OnNegativeClickListener() {
                     @Override
@@ -70,10 +71,10 @@ public class DialogManager {
         return dialog;
     }
 
-    public static RMDialog rmDialog(Context context, String text, int resID) {
+    public static RMDialog rmDialog(Context context, String text, String iconFont) {
         RMDialog dialog = new RMDialog(context, R.style.Dialog)
                 .setText(text)
-                .setIcon(resID)
+                .setIcon(iconFont)
                 .setPositionBtn("OK", new RMDialog.OnPositiveClickListener() {
                     @Override
                     public void onPositiveClick() {
@@ -84,19 +85,20 @@ public class DialogManager {
         return dialog;
     }
 
-    public static RMDialog rmDialogNoCancel(Context context, String text, int resID, RMDialog.OnPositiveClickListener listener) {
+    public static RMDialog rmDialogNoCancel(Context context, String text, String iconFont,int iconColor, RMDialog.OnPositiveClickListener listener) {
         RMDialog dialog = new RMDialog(context, R.style.Dialog);
         dialog.setText(text);
-        dialog.setIcon(resID);
+        dialog.setIcon(iconFont);
+        dialog.setIconColor(iconColor);
         dialog.setPositionBtn("OK", listener);
         dialog.show();
         return dialog;
     }
 
-    public static RMDialog rmDialog(Context context, String text,String subText, int resID, RMDialog.OnPositiveClickListener listener) {
+    public static RMDialog rmDialog(Context context, String text, String subText, String iconFont, RMDialog.OnPositiveClickListener listener) {
         RMDialog dialog = new RMDialog(context, R.style.Dialog);
         dialog.setText(text);
-        dialog.setIcon(resID);
+        dialog.setIcon(iconFont);
         dialog.setSubText(subText);
         dialog.setPositionBtn("OK", listener);
         dialog.show();

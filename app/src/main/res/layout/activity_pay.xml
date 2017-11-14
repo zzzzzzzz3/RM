@@ -63,39 +63,41 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_above="@+id/keyboard_number"
-            android:gravity="bottom"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             >
-            <ImageView
+            <com.quseit.payapp.widget.IconText
                 android:id="@+id/mumber_icon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="5dp"
-                android:src="@mipmap/place_holder_icon_white"/>
-            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:textSize="36sp"
+                android:textColor="@color/text_gray"
+                />
+            <com.quseit.payapp.widget.IconText
                 android:id="@+id/desc_icon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="5dp"
-                android:src="@mipmap/place_holder_icon_white"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="36sp"
+                android:textColor="@color/text_gray"/>
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="1"/>
-            <ImageView
+            <com.quseit.payapp.widget.IconText
                 android:id="@+id/cash_icon"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_margin="5dp"
-                android:src="@mipmap/place_holder_icon_white"/>
-            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="56sp"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/about_bg_color"/>
+            <com.quseit.payapp.widget.IconText
                 android:id="@+id/scan_icon"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_margin="5dp"
-                android:src="@mipmap/place_holder_icon_white"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="56sp"
+                android:textColor="@color/wifi_bg_color"/>
         </LinearLayout>
         <com.quseit.payapp.widget.NumberKeyboard
             android:id="@+id/keyboard_number"
