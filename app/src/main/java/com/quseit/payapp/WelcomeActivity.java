@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bussiness.main.MainActivity;
+import com.quseit.payapp.util.PreferenceUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,7 +29,13 @@ public class WelcomeActivity extends AppCompatActivity {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                String token = null;
+//                String token = PreferenceUtil.getInstance().getStr("device_token");
+                if (token!=null&&!token.equals("")){
+                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                }else {
+                    startActivity(new Intent(WelcomeActivity.this,DeviceSettingActivity.class));
+                }
                 finish();
             }
         },1000);

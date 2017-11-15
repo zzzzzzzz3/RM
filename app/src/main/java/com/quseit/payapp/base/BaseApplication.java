@@ -14,6 +14,8 @@ import com.quseit.payapp.util.DynamicTimeFormat;
 import com.quseit.payapp.util.PreferenceUtil;
 import com.quseit.payapp.util.SoundPoolUtil;
 import com.quseit.payapp.util.UIUtil;
+import com.quseit.payapp.widget.MyFooter;
+import com.quseit.payapp.widget.MyHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater;
@@ -42,7 +44,8 @@ public class BaseApplication extends Application {
             @Override
             public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
                 layout.setPrimaryColorsId(R.color.themeColor, android.R.color.white);//全局设置主题颜色
-                return new ClassicsHeader(context).setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
+                //.setTimeFormat(new DynamicTimeFormat("updated to %s"))
+                return new MyHeader(context);//指定为经典Header，默认是 贝塞尔雷达Header
             }
         });
         //设置全局的Footer构建器
@@ -50,7 +53,7 @@ public class BaseApplication extends Application {
             @Override
             public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
                 //指定为经典Footer，默认是 BallPulseFooter
-                return new ClassicsFooter(context).setDrawableSize(20);
+                return new MyFooter(context).setDrawableSize(20);
             }
         });
     }

@@ -1,5 +1,7 @@
 package com.quseit.payapp.bussiness.setting;
 
+import android.content.Intent;
+import android.provider.Settings;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -66,22 +68,22 @@ public class SettingActivity extends BaseActivity {
         switch (itemBean.itemName) {
 
             case GlobalBean.WIFI:
-                toast("WIFI");
+                startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
                 break;
             case GlobalBean.SIM:
-                toast("SIM");
+                startActivity(new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS));
                 break;
             case GlobalBean.SOUND:
-                toast("SOUND");
+                startActivity(new Intent(Settings.ACTION_SOUND_SETTINGS));
                 break;
             case GlobalBean.BRIGHTNESS:
-                toast("BRIGHTNESS");
+                startActivity(new Intent(Settings.ACTION_DISPLAY_SETTINGS));
                 break;
             case GlobalBean.ABOUT:
                 toast("ABOUT");
                 break;
             case GlobalBean.LANGUAGE:
-                toast("LANGUAGE");
+                startActivity(new Intent(Settings.ACTION_LOCALE_SETTINGS));
                 break;
 
         }
