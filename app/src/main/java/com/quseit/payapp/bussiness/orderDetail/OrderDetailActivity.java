@@ -32,8 +32,6 @@ import butterknife.BindView;
 
 public class OrderDetailActivity extends BaseActivity {
 
-    @BindView(R.id.toolbar_right_tv)
-    TextView refundTv;
     @BindView(R.id.order_no_tv)
     TextView orderNoTv;
     @BindView(R.id.order_date_tv)
@@ -56,14 +54,12 @@ public class OrderDetailActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        refundTv.setText("Refund");
-        refundTv.setOnClickListener(new View.OnClickListener() {
+        setRightText("Refund", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 refund();
             }
         });
-
         orderTypeIcon.setText(GlobalBean.CASH_ICON);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

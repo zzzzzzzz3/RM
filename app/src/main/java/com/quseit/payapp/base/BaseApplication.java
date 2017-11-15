@@ -13,6 +13,7 @@ import com.quseit.payapp.R;
 import com.quseit.payapp.util.DynamicTimeFormat;
 import com.quseit.payapp.util.PreferenceUtil;
 import com.quseit.payapp.util.SoundPoolUtil;
+import com.quseit.payapp.util.UIUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater;
@@ -64,6 +65,7 @@ public class BaseApplication extends Application {
                 .init(Api.BASE_URL);
         PreferenceUtil.getInstance().init(this);
         SoundPoolUtil.getInstance().init(this);
+        UIUtil.init(this.getApplicationContext());
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this);
         }

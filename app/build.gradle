@@ -24,6 +24,13 @@ android {
     }
 
     sourceSets { main { jniLibs.srcDirs = ['libs'] } }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def file = output.outputFile
+            output.outputFileName = output.outputFileName.replace(".apk", "-rm-" + defaultConfig.versionName + ".apk")
+        }
+    }
 }
 
 dependencies {

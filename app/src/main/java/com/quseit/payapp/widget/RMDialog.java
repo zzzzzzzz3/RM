@@ -31,7 +31,7 @@ public class RMDialog extends Dialog {
     private Button mNegativeButton;
 
     public RMDialog(@NonNull Context context) {
-        super(context);
+        this(context,R.style.Dialog);
     }
 
     public RMDialog(@NonNull Context context, @StyleRes int themeResId) {

@@ -26,8 +26,6 @@ public class SignUpActivity extends BaseActivity {
     EditText emailEdit;
     @BindView(R.id.mobile_edit)
     EditText mobileEdit;
-    @BindView(R.id.toolbar_right_tv)
-    TextView doneTv;
 
     @Override
     public int getRootView() {
@@ -36,14 +34,12 @@ public class SignUpActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        doneTv.setText("Done");
-        doneTv.setOnClickListener(new View.OnClickListener() {
+        setRightText("Done", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                toast("done");
             }
         });
-
 
     }
 

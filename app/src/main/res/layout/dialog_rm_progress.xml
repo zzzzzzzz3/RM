@@ -41,7 +41,8 @@
                 android:layout_height="match_parent"
                 android:id="@+id/status_icon"
                 android:textSize="130sp"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textColor="@color/black"/>
         </FrameLayout>
 
         <TextView

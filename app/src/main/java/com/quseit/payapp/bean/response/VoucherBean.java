@@ -1,4 +1,4 @@
-package com.quseit.payapp.bean;
+package com.quseit.payapp.bean.response;
 
 /**
  * 文 件 名: VoucherBean

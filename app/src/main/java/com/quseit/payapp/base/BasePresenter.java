@@ -1,6 +1,7 @@
 package com.quseit.payapp.base;
 
 
+import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.contract.IView;
 
 import io.reactivex.Observable;
@@ -44,14 +45,14 @@ public abstract class BasePresenter {
 
     /**
      * 封装通用的逻辑
-     * */
-    protected <T> Observable<T> logic(Observable<T> observable) {
-        return observable.subscribeOn(Schedulers.io())
+     */
+    protected <T> void logic(Observable<T> observable, ObserverHandler<T> observerHandler) {
+        observable.subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
                         addDispose(disposable);
-                        if (mView != null){
+                        if (mView != null) {
                             mView.showLoading();
                         }
                     }
@@ -60,10 +61,10 @@ public abstract class BasePresenter {
                 .doOnTerminate(new Action() {
                     @Override
                     public void run() throws Exception {
-                        if (mView != null){
+                        if (mView != null) {
                             mView.hideLoading();
                         }
                     }
-                });
+                }).subscribe(observerHandler);
     }
 }

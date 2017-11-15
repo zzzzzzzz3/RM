@@ -2,21 +2,16 @@ package com.quseit.payapp.bussiness.voucher.issue;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.quseit.payapp.R;
 import com.quseit.payapp.adapter.VouchersAdapter;
 import com.quseit.payapp.base.BaseActivity;
-import com.quseit.payapp.bean.VoucherBean;
+import com.quseit.payapp.bean.response.VoucherBean;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 
-import org.w3c.dom.ls.LSException;
-
-import java.sql.RowId;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,8 +32,6 @@ public class IssueActivity extends BaseActivity {
     RecyclerView mRecyclerView;
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout mSmartRefreshLayout;
-    @BindView(R.id.toolbar_right_tv)
-    TextView printTv;
     private VouchersAdapter mVouchersAdapter;
     private List<VoucherBean> mBeanList = new ArrayList<>();
 
@@ -54,7 +47,12 @@ public class IssueActivity extends BaseActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mVouchersAdapter);
 
-        printTv.setText("Print");
+        setRightText("Print", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toast("print");
+            }
+        });
     }
 
     private List<VoucherBean> createList() {
@@ -75,10 +73,5 @@ public class IssueActivity extends BaseActivity {
     @Override
     public String getToolbarTitle() {
         return "Issue Voucher";
-    }
-    
-    @OnClick(R.id.toolbar_right_tv)
-    public void print(){
-        // TODO: 2017/11/13
     }
 }

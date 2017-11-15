@@ -12,6 +12,7 @@ import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.util.DialogManager;
+import com.quseit.payapp.util.UIUtil;
 import com.quseit.payapp.widget.IconText;
 import com.quseit.payapp.widget.NumberKeyboard;
 import com.quseit.payapp.widget.RMDialog;
@@ -30,9 +31,6 @@ import butterknife.OnClick;
 
 public class GivePontsActivity extends BaseActivity {
 
-
-    @BindView(R.id.toolbar_right_tv)
-    TextView doneTv;
     @BindView(R.id.points_edit)
     TextView pointsEdit;
     @BindView(R.id.mobile_edit)
@@ -56,14 +54,12 @@ public class GivePontsActivity extends BaseActivity {
 
         scanIcon.setText(GlobalBean.QRCODE_ICON);
 
-        doneTv.setText("Done");
-        doneTv.setOnClickListener(new View.OnClickListener() {
+        setRightText("Done", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 done();
             }
         });
-
         mNumberKeyboard.setEndKeyName("Enter");
         mNumberKeyboard.setOnKeyClickListener(new NumberKeyboard.OnKeyClickListener() {
             @Override
@@ -132,12 +128,17 @@ public class GivePontsActivity extends BaseActivity {
 
     private void showSuccess(){
         if (mSuccessDialog ==null){
-            mSuccessDialog = DialogManager.rmDialog(this, "Name has earned:", "1000 points", GlobalBean.POINTS_ICON, new RMDialog.OnPositiveClickListener() {
-                @Override
-                public void onPositiveClick() {
+            mSuccessDialog = new RMDialog(this)
+                    .setIcon(GlobalBean.POINTS_ICON)
+                    .setText("Name has earned:")
+                    .setSubText("1000 points")
+                    .setIconColor(UIUtil.getInstance().getColor(R.color.green))
+                    .setPositionBtn("OK", new RMDialog.OnPositiveClickListener() {
+                        @Override
+                        public void onPositiveClick() {
 
-                }
-            });
+                        }
+                    });
         }
         if (!mSuccessDialog.isShowing()){
             mSuccessDialog.show();

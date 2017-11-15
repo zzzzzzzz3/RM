@@ -6,6 +6,7 @@
     <color name="themeColor">#06050a</color>
     <color name="window_bg_color">#d1d1d1</color>
     <color name="white">#ffffff</color>
+    <color name="alpha_white">#84ffffff</color>
     <color name="black">#000000</color>
     <color name="alpha_black">#7d050505</color>
     <color name="gray">#bbbbbb</color>
@@ -20,9 +21,14 @@
     <color name="green">#00cc6a</color>
     <color name="yellow">#eeff41</color>
 
+    <color name="btn_default_color">#7fc9e5</color>
+    <color name="btn_pressed_color">#3c3c3c</color>
+    <color name="btn_checked_color">#f97130</color>
+    <color name="btn_disable_color">#979797</color>
+
     <color name="payment_bg_color">#00cc6a</color>
     <color name="voucher_bg_color">#f7630c</color>
-    <color name="membership_bg_color">#000cd7</color>
+    <color name="membership_bg_color">#0078d7</color>
     <color name="history_bg_color">#9a61b3</color>
     <color name="app_store_bg_color">#ea436a</color>
     <color name="setting_bg_color">#9a61b3</color>

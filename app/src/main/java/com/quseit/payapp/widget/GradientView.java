@@ -1,6 +1,8 @@
 package com.quseit.payapp.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -33,8 +35,9 @@ public class GradientView extends View {
         init(context);
     }
 
+    @SuppressLint("NewApi")
     private void init(Context context) {
-        int[] colors = {ContextCompat.getColor(context, R.color.black),ContextCompat.getColor(context, R.color.right_blue),ContextCompat.getColor(context, R.color.payment_bg_color),ContextCompat.getColor(context, R.color.yellow),ContextCompat.getColor(context, R.color.black),};
+        int[] colors = {ContextCompat.getColor(context, R.color.black),Color.BLUE,ContextCompat.getColor(context, R.color.payment_bg_color),ContextCompat.getColor(context, R.color.yellow),ContextCompat.getColor(context, R.color.black),};
         GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,colors);
         setBackground(drawable);
     }

@@ -1,4 +1,4 @@
-package com.quseit.payapp.bean;
+package com.quseit.payapp.bean.response;
 
 import com.google.gson.annotations.SerializedName;
 

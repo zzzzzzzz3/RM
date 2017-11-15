@@ -6,4 +6,33 @@
     <string name="support_hint_text1">Scan this QR Code\nto follow our Wechat Offical Account</string>
     <string name="support_hint_text2">Contact this number for further assistant</string>
     <string name="contact_number">+6 03 - 7733 1288</string>
+
+    <string name="payment_font">\ue90e</string>
+    <string name="voucher_font">\ue917</string>
+    <string name="membership_font">\ue90a</string>
+    <string name="transation_font">\ue916</string>
+    <string name="app_store_font">\ue901</string>
+    <string name="setting_font">\ue911</string>
+    <string name="order_font">\ue90c</string>
+    <string name="support_font">\ue915</string>
+    <string name="notification_font">\ue90b</string>
+    <string name="redeem_font">\ue910</string>
+    <string name="issue_font">\ue906</string>
+    <string name="points_font">\ue909</string>
+    <string name="sign_up_font">\ue912</string>
+    <string name="wifi_font">\ue91b</string>
+    <string name="sim_font">\ue913</string>
+    <string name="sound_font">\ue919</string>
+    <string name="brightness_font">\ue918</string>
+    <string name="about_font">\ue900</string>
+    <string name="language_font">\ue907</string>
+    <string name="cash_font">\ue904</string>
+    <string name="edit_font">\ue905</string>
+    <string name="qrcode_font">\ue90f</string>
+    <string name="user_font">\ue91a</string>
+    <string name="password_font">\ue90d</string>
+    <string name="user_login_font">\ue908</string>
+    <string name="cancel_font">\ue903</string>
+    <string name="success_font">\ue914</string>
+    <string name="attention_font">\ue902</string>
 </resources>

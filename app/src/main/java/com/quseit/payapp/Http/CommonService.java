@@ -1,9 +1,9 @@
 package com.quseit.payapp.Http;
 
 
-import com.quseit.payapp.bean.AccountBean;
-import com.quseit.payapp.bean.ResponseBean;
-import com.quseit.payapp.bean.VersionBean;
+import com.quseit.payapp.bean.response.AccountBean;
+import com.quseit.payapp.bean.response.ResponseBean;
+import com.quseit.payapp.bean.response.VersionBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;

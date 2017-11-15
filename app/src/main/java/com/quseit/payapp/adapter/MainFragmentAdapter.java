@@ -9,6 +9,7 @@ import com.quseit.payapp.R;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.ItemBean;
 import com.quseit.payapp.bussiness.main.PageFragment;
+import com.quseit.payapp.util.UIUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 bundle.putSerializable(GlobalBean.ITEMS, (Serializable) firstPageItems);
-                bundle.putBoolean(GlobalBean.HAS_TOP,true);
+                bundle.putBoolean(GlobalBean.HAS_TOP, true);
                 break;
             case 1:
                 bundle.putSerializable(GlobalBean.ITEMS, (Serializable) secondPageItems);

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseAdapter;
-import com.quseit.payapp.bean.VoucherBean;
+import com.quseit.payapp.bean.response.VoucherBean;
 
 import java.util.List;
 

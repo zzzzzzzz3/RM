@@ -59,7 +59,7 @@ public class MembershipActivity extends BaseActivity {
 
     @Override
     public String getToolbarTitle() {
-        return "Vocher";
+        return "Membership";
     }
 
 

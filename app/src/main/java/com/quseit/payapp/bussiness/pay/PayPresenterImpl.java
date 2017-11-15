@@ -2,7 +2,8 @@ package com.quseit.payapp.bussiness.pay;
 
 import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.base.BasePresenter;
-import com.quseit.payapp.bean.ResponseBean;
+import com.quseit.payapp.bean.request.PayRequestBean;
+import com.quseit.payapp.bean.response.ResponseBean;
 
 /**
  * 文 件 名: PayPresenterImpl
@@ -30,8 +31,8 @@ public class PayPresenterImpl extends BasePresenter implements PayContract.PayPr
     }
 
     @Override
-    public void pay(String Amount, String AuthCode, String Remark, String StoreID) {
-        logic(mPayModel.pay(Amount,AuthCode,Remark,StoreID)).subscribe(new ObserverHandler<ResponseBean>() {
+    public void pay(String amount, String authCode, String remark, String storeId) {
+        logic(mPayModel.pay(new PayRequestBean(amount,authCode,remark,storeId)), new ObserverHandler<ResponseBean>() {
             @Override
             public void onResponse(ResponseBean response) {
                 if (response.success()){

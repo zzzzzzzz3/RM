@@ -14,7 +14,7 @@ import com.quseit.payapp.R;
 import com.quseit.payapp.adapter.TransationsAdapter;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.GlobalBean;
-import com.quseit.payapp.bean.TransationBean;
+import com.quseit.payapp.bean.response.TransationBean;
 import com.quseit.payapp.bussiness.orderDetail.OrderDetailActivity;
 import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.widget.RMEditDialog;
@@ -39,10 +39,8 @@ import butterknife.OnClick;
  * 修改备注：
  */
 
-public class TransationsActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener{
+public class TransationsActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener {
 
-    @BindView(R.id.toolbar_right_icon)
-    ImageView searchIcon;
     @BindView(R.id.date_tv)
     TextView dateTv;
     @BindView(R.id.transations_rv)
@@ -51,7 +49,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     SmartRefreshLayout mSmartRefreshLayout;
     @BindView(R.id.refunds_checkbox)
     CheckBox refundCheckbox;
-    private int year,month,day;
+    private int year, month, day;
     private TransationsAdapter mTransationsAdapter;
     private List<TransationBean> mTransationBeans = new ArrayList<>();
     private DatePickerDialog mDatePickerDialog;
@@ -63,8 +61,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
 
     @Override
     public void initView() {
-        searchIcon.setImageResource(R.mipmap.search_icon);
-        searchIcon.setOnClickListener(new View.OnClickListener() {
+        setRightIcon(R.mipmap.search_icon, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogManager.rmEditDialog(TransationsActivity.this, "Search by order number", "Order No", new RMEditDialog.OnPositiveClickListener() {
@@ -79,17 +76,17 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         year = now.get(Calendar.YEAR);
         month = now.get(Calendar.MONTH);
         day = now.get(Calendar.DAY_OF_MONTH);
-        dateTv.setText(year+"/"+(month+1)+"/"+day);
+        dateTv.setText(year + "/" + (month + 1) + "/" + day);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mTransationBeans.addAll(createList());
-        mTransationsAdapter = new TransationsAdapter(this,mTransationBeans);
+        mTransationsAdapter = new TransationsAdapter(this, mTransationBeans);
         mRecyclerView.setAdapter(mTransationsAdapter);
-        
+
         refundCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     // TODO: 2017/11/13
                 }
             }
@@ -99,7 +96,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     private List<TransationBean> createList() {
         List<TransationBean> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            TransationBean bean = new TransationBean("1025489657","no no no no...", GlobalBean.CASH_ICON,"00:00:00");
+            TransationBean bean = new TransationBean("1025489657", "no no no no...", GlobalBean.CASH_ICON, "00:00:00");
             list.add(bean);
         }
 
@@ -121,8 +118,8 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     }
 
     @OnClick(R.id.date_pick_layout)
-    public void pickDate(){
-        if (mDatePickerDialog== null){
+    public void pickDate() {
+        if (mDatePickerDialog == null) {
             mDatePickerDialog = DatePickerDialog.newInstance(
                     this,
                     year,
@@ -130,7 +127,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
                     day
             );
             mDatePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
-            mDatePickerDialog.setAccentColor(ContextCompat.getColor(this,R.color.colorAccent));
+            mDatePickerDialog.setAccentColor(ContextCompat.getColor(this, R.color.colorAccent));
         }
         mDatePickerDialog.show(getFragmentManager(), "Datepickerdialog");
     }
@@ -140,12 +137,12 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         this.year = year;
         this.month = monthOfYear;
         this.day = dayOfMonth;
-        dateTv.setText(year+"/"+(monthOfYear+1)+"/"+dayOfMonth);
+        dateTv.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
         // TODO: 2017/11/13
     }
 
     @Subscriber
-    public void orderDetail(TransationBean bean){
+    public void orderDetail(TransationBean bean) {
         startActivity(new Intent(this, OrderDetailActivity.class));
     }
 }

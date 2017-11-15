@@ -5,17 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseAdapter;
-import com.quseit.payapp.bean.TransationBean;
+import com.quseit.payapp.bean.response.TransationBean;
 import com.quseit.payapp.widget.IconText;
 
 import org.simple.eventbus.EventBus;
 
-import java.util.EventListener;
 import java.util.List;
 
 import butterknife.BindView;

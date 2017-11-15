@@ -20,10 +20,6 @@ import butterknife.BindView;
 
 public class SupportActivity extends BaseActivity {
 
-
-    @BindView(R.id.toolbar_right_icon)
-    ImageView searchIcon;
-
     @Override
     public int getRootView() {
         return R.layout.activity_support;
@@ -31,14 +27,12 @@ public class SupportActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        searchIcon.setImageResource(R.mipmap.search_icon);
-        searchIcon.setOnClickListener(new View.OnClickListener() {
+        setRightIcon(R.mipmap.search_icon, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toast("search");
             }
         });
-
     }
 
     @Override

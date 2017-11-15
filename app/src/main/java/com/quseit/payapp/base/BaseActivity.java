@@ -4,13 +4,17 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.airbnb.lottie.manager.ImageAssetManager;
 import com.quseit.payapp.R;
 
 import org.simple.eventbus.EventBus;
@@ -41,10 +45,32 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
     }
 
     /**
+     * 设置toolbar右边的图标
+     */
+    public void setRightIcon(int res, View.OnClickListener listener) {
+        ImageView imageView = findViewById(R.id.toolbar_right_icon);
+        if (imageView != null) {
+            imageView.setImageResource(res);
+            findViewById(R.id.toolbar_right_layout).setOnClickListener(listener);
+        }
+    }
+
+    /**
+     * 设置toolbar右边的文字
+     */
+    public void setRightText(String text, View.OnClickListener listener) {
+        TextView textView = findViewById(R.id.toolbar_right_tv);
+        if (textView != null) {
+            textView.setText(text);
+            findViewById(R.id.toolbar_right_layout).setOnClickListener(listener);
+        }
+    }
+
+    /**
      * 设置标题
      */
     private void initToolbar() {
-        mTitleText = (TextView) findViewById(R.id.toolbar_title);
+        mTitleText = findViewById(R.id.toolbar_title);
         if (mTitleText != null) {
             if (getToolbarTitle() != null)
                 mTitleText.setText(getToolbarTitle());

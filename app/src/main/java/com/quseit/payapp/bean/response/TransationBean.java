@@ -1,4 +1,6 @@
-package com.quseit.payapp.bean;
+package com.quseit.payapp.bean.response;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * 文 件 名: TransationBean
@@ -11,10 +13,57 @@ package com.quseit.payapp.bean;
 
 public class TransationBean {
 
+    @SerializedName(value = "id")
     private String orderNo;
+    @SerializedName(value = "remark")
     private String remark;
     private String iconFont;
+    @SerializedName(value = "createdAt")
     private String time;
+    private String paymentMethod;
+    private String status;
+    private String payload;
+    private String description;
+
+    public String getIconFont() {
+        return iconFont;
+    }
+
+    public void setIconFont(String iconFont) {
+        this.iconFont = iconFont;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getPayload() {
+        return payload;
+    }
+
+    public void setPayload(String payload) {
+        this.payload = payload;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public TransationBean() {
     }

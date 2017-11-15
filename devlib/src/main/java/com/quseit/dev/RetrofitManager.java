@@ -8,13 +8,18 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.util.Collections;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
 import okhttp3.ConnectionSpec;
+import okhttp3.Headers;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -84,6 +89,20 @@ public class RetrofitManager {
                 .allEnabledTlsVersions()
                 .build();
         mOkhttpBuilder.connectionSpecs(Collections.singletonList(spec));
+        return this;
+    }
+
+    public RetrofitManager addHeaders(final Map<String,String> headers){
+        mOkhttpBuilder.addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request.Builder requestBuilder = chain.request().newBuilder();
+                for (String key:headers.keySet()){
+                    requestBuilder.addHeader(key,headers.get(key));
+                }
+                return chain.proceed(requestBuilder.build());
+            }
+        });
         return this;
     }
 

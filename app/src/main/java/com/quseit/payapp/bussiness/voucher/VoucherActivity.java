@@ -57,7 +57,7 @@ public class VoucherActivity extends BaseActivity{
 
     @Override
     public String getToolbarTitle() {
-        return "Vocher";
+        return "Voucher";
     }
 
 

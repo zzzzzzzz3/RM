@@ -8,13 +8,10 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.quseit.dev.RetrofitManager;
 import com.quseit.pay.ScanUtil;
-import com.quseit.payapp.Http.CommonService;
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.GlobalBean;
-import com.quseit.payapp.bean.ResponseBean;
 import com.quseit.payapp.bussiness.description.DescriptionActivity;
 import com.quseit.payapp.util.AmountInputUtil;
 import com.quseit.payapp.util.DialogManager;
@@ -27,13 +24,6 @@ import com.quseit.payapp.widget.RMProgressDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -187,6 +177,7 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
     protected void onDestroy() {
         super.onDestroy();
         mScanUtil.closeScan();
+        mPayPresenter.onDestroy();
     }
 
     @Override
