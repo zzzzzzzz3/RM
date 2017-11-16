@@ -45,7 +45,8 @@
             android:layout_gravity="right"
             android:background="@drawable/ripple_effect"
             android:clickable="true"
-            android:paddingRight="20dp">
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp">
 
             <ImageView
                 android:id="@+id/toolbar_right_icon"

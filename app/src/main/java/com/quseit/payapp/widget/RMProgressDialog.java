@@ -59,6 +59,17 @@ public class RMProgressDialog extends Dialog {
         });
     }
 
+    public RMProgressDialog setBtnCallback(final View.OnClickListener onClickListener){
+        ensureBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+                onClickListener.onClick(v);
+            }
+        });
+        return this;
+    }
+
     public RMProgressDialog setMsg(String msg) {
         if (msg != null && !msg.equals("")) {
             mMsgTv.setVisibility(View.VISIBLE);
@@ -77,7 +88,7 @@ public class RMProgressDialog extends Dialog {
             mLottieAnimationView.cancelAnimation();
             mLottieAnimationView.setVisibility(View.GONE);
         }
-        if (msg != null && !msg.equals("")) {
+        if (msg != null) {
             mMsgTv.setVisibility(View.VISIBLE);
             mMsgTv.setText(msg);
         }
@@ -123,6 +134,11 @@ public class RMProgressDialog extends Dialog {
         mLottieAnimationView.setVisibility(View.VISIBLE);
         if (!mLottieAnimationView.isAnimating()) {
             mLottieAnimationView.playAnimation();
+        }
+        if (mMsgTv.getText().toString().equals("")){
+            mMsgTv.setVisibility(View.GONE);
+        }else {
+            mMsgTv.setVisibility(View.VISIBLE);
         }
     }
 

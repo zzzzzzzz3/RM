@@ -81,7 +81,7 @@ public class RedeemActivity extends BaseActivity {
 
     @Override
     public String getToolbarTitle() {
-        return "Reddem Voucher";
+        return "Redeem Voucher";
     }
 
     @OnClick(R.id.scan_icon)

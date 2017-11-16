@@ -9,7 +9,10 @@ import android.widget.TextView;
 
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseAdapter;
+import com.quseit.payapp.bean.GlobalBean;
+import com.quseit.payapp.bean.PayMethodBean;
 import com.quseit.payapp.bean.response.TransationBean;
+import com.quseit.payapp.util.UIUtil;
 import com.quseit.payapp.widget.IconText;
 
 import org.simple.eventbus.EventBus;
@@ -47,8 +50,23 @@ public class TransationsAdapter extends BaseAdapter<TransationBean,TransationsAd
 
         holder.orderNoTv.setText(bean.getOrderNo());
         holder.remarkTv.setText(bean.getRemark());
-        holder.timeTv.setText(bean.getTime());
-        holder.icon.setText(bean.geticonFont());
+        String createTime = bean.getTime().split("T|\\.")[1];
+        holder.timeTv.setText(createTime);
+        String iconFont = bean.getPaymentMethod();
+        switch (iconFont){
+            case PayMethodBean.ALIPAY:
+                holder.icon.setText(GlobalBean.CASH_ICON);
+                holder.icon.setTextColor(UIUtil.getInstance().getColor(R.color.green));
+                break;
+            case PayMethodBean.WECHATPAY:
+                holder.icon.setText(GlobalBean.CASH_ICON);
+                holder.icon.setTextColor(UIUtil.getInstance().getColor(R.color.green));
+                break;
+            default:
+                holder.icon.setText(GlobalBean.CASH_ICON);
+                holder.icon.setTextColor(UIUtil.getInstance().getColor(R.color.green));
+                break;
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

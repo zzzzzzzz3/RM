@@ -37,7 +37,7 @@ public class GradientView extends View {
 
     @SuppressLint("NewApi")
     private void init(Context context) {
-        int[] colors = {ContextCompat.getColor(context, R.color.black),Color.BLUE,ContextCompat.getColor(context, R.color.payment_bg_color),ContextCompat.getColor(context, R.color.yellow),ContextCompat.getColor(context, R.color.black),};
+        int[] colors = {ContextCompat.getColor(context, R.color.black),ContextCompat.getColor(context, R.color.wifi_bg_color),ContextCompat.getColor(context, R.color.payment_bg_color),ContextCompat.getColor(context, R.color.yellow),ContextCompat.getColor(context, R.color.black),};
         GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,colors);
         setBackground(drawable);
     }

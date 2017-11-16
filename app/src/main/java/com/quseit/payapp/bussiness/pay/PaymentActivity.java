@@ -113,10 +113,20 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
 
     @OnClick(R.id.cash_icon)
     public void cash() {
+        final String amount = mPaymentTv.getText().toString();
+        if (Double.parseDouble(amount) < 1.00) {
+            toast("Minimum amount is RM 1.00");
+            return;
+        }
+
         DialogManager.rmDialog(this, "Continue as cash payment?", GlobalBean.CASH_ICON, ContextCompat.getColor(this,R.color.payment_bg_color),new RMDialog.OnPositiveClickListener() {
             @Override
             public void onPositiveClick() {
-                // TODO: 2017/11/14
+                String remark = remarkTv.getText().toString();
+                if (remark.equals("")){
+                    remark = "no remark";
+                }
+                mPayPresenter.pay(amount,"",remark,"123456");
             }
         });
     }

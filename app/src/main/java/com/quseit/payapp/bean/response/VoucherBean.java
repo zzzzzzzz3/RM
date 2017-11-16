@@ -14,6 +14,15 @@ public class VoucherBean {
     private String voucherRemark;
     private String voucherType;
     private int voucherCount;
+    private boolean selected;
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 
     public VoucherBean() {
     }

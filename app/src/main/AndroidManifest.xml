@@ -85,7 +85,7 @@
             android:name=".bussiness.test.Test"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".DeviceSettingActivity"
+            android:name=".bussiness.devicesetting.DeviceSettingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysVisible"/>
     </application>

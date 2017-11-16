@@ -5,12 +5,24 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.quseit.payapp.base.BaseActivity;
+import com.quseit.payapp.bean.GlobalBean;
+import com.quseit.payapp.bussiness.devicesetting.DeviceSettingActivity;
 import com.quseit.payapp.bussiness.main.MainActivity;
+import com.quseit.payapp.util.DataStore2;
 import com.quseit.payapp.util.PreferenceUtil;
 
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.UnrecoverableEntryException;
+import java.security.cert.CertificateException;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javax.crypto.NoSuchPaddingException;
 
 /**
  * 文 件 名: WelcomeActivity
@@ -29,8 +41,7 @@ public class WelcomeActivity extends AppCompatActivity {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                String token = null;
-//                String token = PreferenceUtil.getInstance().getStr("device_token");
+                String token = DataStore2.getInstance().getData(GlobalBean.DECIVE_TOKEN);
                 if (token!=null&&!token.equals("")){
                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                 }else {

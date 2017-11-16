@@ -6,16 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseAdapter;
 import com.quseit.payapp.bean.response.VoucherBean;
+import com.quseit.payapp.util.UIUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.http.Body;
 
 /**
  * 文 件 名: VouchersAdapter
@@ -29,6 +33,12 @@ import butterknife.ButterKnife;
 public class VouchersAdapter extends BaseAdapter<VoucherBean,VouchersAdapter.VoucherViewHolder> {
 
 
+    private List<VoucherBean> selectedList = new ArrayList<>();
+
+    public List<VoucherBean> getSelectedList() {
+        return selectedList;
+    }
+
     public VouchersAdapter(Context context, List<VoucherBean> data) {
         super(context, data);
     }
@@ -40,8 +50,8 @@ public class VouchersAdapter extends BaseAdapter<VoucherBean,VouchersAdapter.Vou
     }
 
     @Override
-    public void onBindViewHolder(VoucherViewHolder holder, final int position) {
-        VoucherBean bean = mData.get(position);
+    public void onBindViewHolder(final VoucherViewHolder holder, final int position) {
+        final VoucherBean bean = mData.get(position);
         holder.voucherName.setText(bean.getVoucherName());
         holder.voucherType.setText(bean.getVoucherType());
         if (bean.getVoucherCount() >0){
@@ -51,7 +61,28 @@ public class VouchersAdapter extends BaseAdapter<VoucherBean,VouchersAdapter.Vou
         }else {
             holder.voucherCount.setVisibility(View.GONE);
             holder.minusIcon.setVisibility(View.GONE);
+            bean.setSelected(false);
         }
+
+        if (bean.getVoucherCount()>0){
+            holder.mRelativeLayout.setEnabled(true);
+            holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    bean.setSelected(!bean.isSelected());
+                    notifyDataSetChanged();
+                }
+            });
+            if (bean.isSelected()){
+                holder.mRelativeLayout.setBackground(UIUtil.getInstance().getDrawable(R.mipmap.voucher_selected_bg));
+            }else {
+                holder.mRelativeLayout.setBackground(UIUtil.getInstance().getDrawable(R.mipmap.voucher_amount_bg));
+            }
+        }else {
+            holder.mRelativeLayout.setEnabled(false);
+            holder.mRelativeLayout.setBackground(UIUtil.getInstance().getDrawable(R.mipmap.voucher_bg));
+        }
+
         holder.voucherRemark.setText(bean.getVoucherRemark());
 
         holder.plusIcon.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +120,8 @@ public class VouchersAdapter extends BaseAdapter<VoucherBean,VouchersAdapter.Vou
         ImageView plusIcon;
         @BindView(R.id.minus_icon)
         ImageView minusIcon;
+        @BindView(R.id.item_bg)
+        RelativeLayout mRelativeLayout;
 
         public VoucherViewHolder(View itemView) {
             super(itemView);

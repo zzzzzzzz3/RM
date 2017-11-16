@@ -47,12 +47,16 @@ public abstract class BasePresenter {
      * 封装通用的逻辑
      */
     protected <T> void logic(Observable<T> observable, ObserverHandler<T> observerHandler) {
+        logic(observable,true,observerHandler);
+    }
+
+    protected <T> void logic(Observable<T> observable, final boolean showLoading, ObserverHandler<T> observerHandler) {
         observable.subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
                         addDispose(disposable);
-                        if (mView != null) {
+                        if (mView != null && showLoading) {
                             mView.showLoading();
                         }
                     }

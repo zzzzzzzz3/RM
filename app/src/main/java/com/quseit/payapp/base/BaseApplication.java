@@ -10,6 +10,7 @@ import com.quseit.payapp.BuildConfig;
 import com.quseit.payapp.Http.Api;
 import com.quseit.dev.RetrofitManager;
 import com.quseit.payapp.R;
+import com.quseit.payapp.util.DataStore2;
 import com.quseit.payapp.util.DynamicTimeFormat;
 import com.quseit.payapp.util.PreferenceUtil;
 import com.quseit.payapp.util.SoundPoolUtil;
@@ -24,6 +25,9 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 文 件 名: BaseApplication
@@ -45,7 +49,7 @@ public class BaseApplication extends Application {
             public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
                 layout.setPrimaryColorsId(R.color.themeColor, android.R.color.white);//全局设置主题颜色
                 //.setTimeFormat(new DynamicTimeFormat("updated to %s"))
-                return new MyHeader(context);//指定为经典Header，默认是 贝塞尔雷达Header
+                return new ClassicsHeader(context);//指定为经典Header，默认是 贝塞尔雷达Header
             }
         });
         //设置全局的Footer构建器
@@ -53,7 +57,7 @@ public class BaseApplication extends Application {
             @Override
             public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
                 //指定为经典Footer，默认是 BallPulseFooter
-                return new MyFooter(context).setDrawableSize(20);
+                return new ClassicsFooter(context).setDrawableSize(20);
             }
         });
     }
@@ -61,13 +65,17 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Map<String,String> headers = new HashMap<>();
+        headers.put("X-Rm-Platform","application/mobile/app");
         RetrofitManager.getInstance()
                 .setTimeOut(15)
                 .openDebug(BuildConfig.DEBUG)
                 .supportSSL()
+                .addHeaders(headers)
                 .init(Api.BASE_URL);
         PreferenceUtil.getInstance().init(this);
         SoundPoolUtil.getInstance().init(this);
+        DataStore2.getInstance().init(getApplicationContext());
         UIUtil.init(this.getApplicationContext());
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this);

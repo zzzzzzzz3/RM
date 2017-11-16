@@ -17,8 +17,12 @@ import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.response.TransationBean;
 import com.quseit.payapp.bussiness.orderDetail.OrderDetailActivity;
 import com.quseit.payapp.util.DialogManager;
+import com.quseit.payapp.widget.RMDialog;
 import com.quseit.payapp.widget.RMEditDialog;
+import com.quseit.payapp.widget.RMProgressDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.simple.eventbus.Subscriber;
@@ -39,7 +43,7 @@ import butterknife.OnClick;
  * 修改备注：
  */
 
-public class TransationsActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener {
+public class TransationsActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener ,TransationsContract.TransationsView{
 
     @BindView(R.id.date_tv)
     TextView dateTv;
@@ -53,6 +57,8 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     private TransationsAdapter mTransationsAdapter;
     private List<TransationBean> mTransationBeans = new ArrayList<>();
     private DatePickerDialog mDatePickerDialog;
+    private RMProgressDialog mRMProgressDialog;
+    private TransationsContract.TransationsPresenter mTransationsPresenter;
 
     @Override
     public int getRootView() {
@@ -79,9 +85,17 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         dateTv.setText(year + "/" + (month + 1) + "/" + day);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mTransationBeans.addAll(createList());
+        //mTransationBeans.addAll(createList());
         mTransationsAdapter = new TransationsAdapter(this, mTransationBeans);
         mRecyclerView.setAdapter(mTransationsAdapter);
+
+        mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                mTransationsPresenter.getTransation();
+            }
+        });
+        mSmartRefreshLayout.autoRefresh();
 
         refundCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -91,6 +105,9 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
                 }
             }
         });
+
+        mRMProgressDialog = new RMProgressDialog(this)
+        .setMsg("loading...");
     }
 
     private List<TransationBean> createList() {
@@ -109,7 +126,8 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
 
     @Override
     public void initData() {
-
+        mTransationsPresenter = new TransationsPresenterImpl(this);
+        mTransationsPresenter.getTransation();
     }
 
     @Override
@@ -144,5 +162,34 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     @Subscriber
     public void orderDetail(TransationBean bean) {
         startActivity(new Intent(this, OrderDetailActivity.class));
+    }
+
+    @Override
+    public void showLoading() {
+        mRMProgressDialog.show();
+    }
+
+    @Override
+    public void hideLoading() {
+        mRMProgressDialog.dismiss();
+        if (mSmartRefreshLayout.isRefreshing()){
+            mSmartRefreshLayout.finishRefresh();
+        }
+    }
+
+    @Override
+    public void showMessage(String message) {
+        toast(message);
+    }
+
+    @Override
+    public void killMyself() {
+        finish();
+    }
+
+    @Override
+    public void addDataToList(List<TransationBean> data) {
+        mTransationBeans.addAll(data);
+        mTransationsAdapter.notifyDataSetChanged();
     }
 }

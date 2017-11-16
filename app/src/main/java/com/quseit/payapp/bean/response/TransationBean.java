@@ -91,14 +91,6 @@ public class TransationBean {
         this.remark = remark;
     }
 
-    public String geticonFont() {
-        return iconFont;
-    }
-
-    public void seticonFont(String iconFont) {
-        this.iconFont = iconFont;
-    }
-
     public String getTime() {
         return time;
     }
