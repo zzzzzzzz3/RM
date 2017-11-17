@@ -15,6 +15,7 @@ import com.quseit.payapp.adapter.TransationsAdapter;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.response.TransationBean;
+import com.quseit.payapp.bussiness.devicesetting.DeviceSettingActivity;
 import com.quseit.payapp.bussiness.orderDetail.OrderDetailActivity;
 import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.widget.RMDialog;
@@ -185,6 +186,11 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     @Override
     public void killMyself() {
         finish();
+    }
+
+    @Override
+    public void setUpToken() {
+        settingToken();
     }
 
     @Override

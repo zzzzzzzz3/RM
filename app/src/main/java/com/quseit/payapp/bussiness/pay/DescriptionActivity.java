@@ -1,4 +1,4 @@
-package com.quseit.payapp.bussiness.description;
+package com.quseit.payapp.bussiness.pay;
 
 import android.content.Intent;
 import android.widget.EditText;

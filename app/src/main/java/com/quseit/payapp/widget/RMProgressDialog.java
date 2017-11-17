@@ -33,6 +33,7 @@ public class RMProgressDialog extends Dialog {
     private FrameLayout ensureLayout;
     private Button ensureBtn;
     private IconText statusIcon;
+    private String msg;
 
     public enum TYPE {
         SUCCESS, FAILED
@@ -74,6 +75,7 @@ public class RMProgressDialog extends Dialog {
         if (msg != null && !msg.equals("")) {
             mMsgTv.setVisibility(View.VISIBLE);
             mMsgTv.setText(msg);
+            this.msg = msg;
         }
         return this;
     }
@@ -154,5 +156,8 @@ public class RMProgressDialog extends Dialog {
         mStatusView.setVisibility(View.GONE);
         statusIcon.setVisibility(View.GONE);
         ensureLayout.setVisibility(View.GONE);
+        if (msg!=null){
+            mMsgTv.setText(msg);
+        }
     }
 }

@@ -9,6 +9,9 @@ import com.quseit.payapp.R;
 import com.quseit.payapp.adapter.VouchersAdapter;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.response.VoucherBean;
+import com.quseit.payapp.util.DialogManager;
+import com.quseit.payapp.widget.RMDialog;
+import com.quseit.payapp.widget.RMProgressDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
@@ -26,7 +29,7 @@ import butterknife.OnClick;
  * 修改备注：
  */
 
-public class IssueActivity extends BaseActivity {
+public class IssueActivity extends BaseActivity implements IssueContract.IssueView{
 
     @BindView(R.id.issue_voucher_rv)
     RecyclerView mRecyclerView;
@@ -34,6 +37,8 @@ public class IssueActivity extends BaseActivity {
     SmartRefreshLayout mSmartRefreshLayout;
     private VouchersAdapter mVouchersAdapter;
     private List<VoucherBean> mBeanList = new ArrayList<>();
+
+    private IssueContract.IssuePresenter mIssuePresenter;
 
     @Override
     public int getRootView() {
@@ -46,13 +51,13 @@ public class IssueActivity extends BaseActivity {
         mVouchersAdapter = new VouchersAdapter(this,mBeanList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mVouchersAdapter);
-
         setRightText("Print", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toast("print");
             }
         });
+        mSmartRefreshLayout.autoRefresh();
     }
 
     private List<VoucherBean> createList() {
@@ -67,11 +72,61 @@ public class IssueActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        mIssuePresenter = new IssuePresenterImpl(this);
+        mIssuePresenter.getVouchers();
     }
 
     @Override
     public String getToolbarTitle() {
         return "Issue Voucher";
+    }
+
+    @Override
+    public void showLoading() {
+    }
+
+    @Override
+    public void hideLoading() {
+        if (mSmartRefreshLayout.isRefreshing()){
+            mSmartRefreshLayout.finishRefresh();
+        }
+        if (mSmartRefreshLayout.isLoading()){
+            mSmartRefreshLayout.finishLoadmore();
+        }
+    }
+
+    @Override
+    public void showMessage(String message) {
+        toast(message);
+    }
+
+    @Override
+    public void killMyself() {
+        finish();
+    }
+
+    @Override
+    public void setUpToken() {
+        settingToken();
+    }
+
+    @Override
+    public void showDialog(String msg, boolean success) {
+        if (success){
+            DialogManager.successDialog(this, msg, new RMDialog.OnPositiveClickListener() {
+                @Override
+                public void onPositiveClick() {
+
+                }
+            });
+        }else {
+            DialogManager.failDialog(this,msg);
+        }
+    }
+
+    @Override
+    public void setDataToList(List<VoucherBean> data) {
+        mBeanList.addAll(data);
+        mVouchersAdapter.notifyDataSetChanged();
     }
 }

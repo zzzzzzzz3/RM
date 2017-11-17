@@ -30,4 +30,6 @@ public interface IView {
      * 杀死自己
      */
     void killMyself();
+
+    void setUpToken();
 }

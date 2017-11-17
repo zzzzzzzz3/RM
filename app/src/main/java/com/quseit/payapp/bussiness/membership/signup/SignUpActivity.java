@@ -6,8 +6,10 @@ import android.widget.TextView;
 
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
+import com.quseit.payapp.widget.RMProgressDialog;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 文 件 名: SignUpActivity
@@ -18,7 +20,7 @@ import butterknife.BindView;
  * 修改备注：
  */
 
-public class SignUpActivity extends BaseActivity {
+public class SignUpActivity extends BaseActivity implements SignUpContract.SignUpView{
 
     @BindView(R.id.name_edit)
     EditText nameEdit;
@@ -26,6 +28,11 @@ public class SignUpActivity extends BaseActivity {
     EditText emailEdit;
     @BindView(R.id.mobile_edit)
     EditText mobileEdit;
+    @BindView(R.id.country_code_tv)
+    TextView countryCodeTv;
+
+    private SignUpContract.SignUpPresenter mSignUpPresenter;
+    private RMProgressDialog mRMProgressDialog;
 
     @Override
     public int getRootView() {
@@ -37,19 +44,72 @@ public class SignUpActivity extends BaseActivity {
         setRightText("Done", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toast("done");
+                String name = nameEdit.getText().toString();
+                String mobile = mobileEdit.getText().toString();
+                String countryCode = countryCodeTv.getText().toString();
+                String email = emailEdit.getText().toString();
+
+                mSignUpPresenter.signUp(name,mobile,countryCode,email);
             }
         });
-
+        mRMProgressDialog = new RMProgressDialog(this).setMsg("loading...");
     }
 
     @Override
     public void initData() {
-
+        mSignUpPresenter = new SignUpPresenterImpl(this);
     }
 
     @Override
     public String getToolbarTitle() {
         return "Sign Up";
+    }
+
+    @OnClick(R.id.country_code_layout)
+    public void countryCode(){
+
+    }
+
+    @Override
+    public void showLoading() {
+        mRMProgressDialog.show();
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+        toast(message);
+    }
+
+    @Override
+    public void killMyself() {
+        finish();
+    }
+
+    @Override
+    public void setUpToken() {
+        settingToken();
+    }
+
+    @Override
+    public void changeDialogState(String msg, final boolean success) {
+
+            mRMProgressDialog.setBtnCallback(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (success) {
+                        finish();
+                    }else {
+                        mRMProgressDialog.dismiss();
+                    }
+                }
+            });
+
+
+        mRMProgressDialog.setStatus(success? RMProgressDialog.TYPE.SUCCESS: RMProgressDialog.TYPE.FAILED,msg,true);
     }
 }

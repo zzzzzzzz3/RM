@@ -4,6 +4,7 @@ package com.quseit.payapp.base;
 import com.quseit.payapp.Http.CommonService;
 import com.quseit.dev.RetrofitManager;
 import com.quseit.payapp.bean.GlobalBean;
+import com.quseit.payapp.util.DataStore2;
 import com.quseit.payapp.util.PreferenceUtil;
 
 /**
@@ -17,13 +18,9 @@ import com.quseit.payapp.util.PreferenceUtil;
  */
 
 public abstract class BaseModel {
-    public CommonService mCommonService;
     public String mToken;
-    public String mUserId;
 
     public BaseModel(){
-        mCommonService = RetrofitManager.getInstance().createService(CommonService.class);
-        mToken = PreferenceUtil.getInstance().getStr(GlobalBean.TOKEN);
-        mUserId = PreferenceUtil.getInstance().getStr(GlobalBean.USER_ID);
+        mToken = DataStore2.getInstance().getData(GlobalBean.DECIVE_TOKEN);
     }
 }

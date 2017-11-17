@@ -10,6 +10,7 @@ import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.PermissionUtil;
+import com.quseit.payapp.util.UIUtil;
 import com.quseit.payapp.widget.IconText;
 import com.quseit.payapp.widget.NumberKeyboard;
 import com.quseit.payapp.widget.RMProgressDialog;
@@ -104,14 +105,14 @@ public class RedeemActivity extends BaseActivity {
             @Override
             public void onError(String msg) {
                 Log.d("Scan", msg);
-                DialogManager.rmDialog(RedeemActivity.this, "Voucher redemption fail", GlobalBean.CANCEL_ICON);
+                DialogManager.rmDialog(RedeemActivity.this, "Voucher redemption fail",GlobalBean.CANCEL_ICON, UIUtil.getInstance().getColor(R.color.red));
             }
 
             @Override
             public void onResult(final String s) {
                 Log.d("Scan", s);
                 voucherCodeTv.setText(s);
-                DialogManager.rmDialog(RedeemActivity.this, "Voucher redemption complete", GlobalBean.SUCCESSFUL_ICON);
+                DialogManager.rmDialog(RedeemActivity.this, "Voucher redemption complete",GlobalBean.SUCCESSFUL_ICON, UIUtil.getInstance().getColor(R.color.green));
             }
 
             @Override

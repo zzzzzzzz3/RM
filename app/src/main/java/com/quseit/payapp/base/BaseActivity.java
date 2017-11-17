@@ -1,10 +1,11 @@
 package com.quseit.payapp.base;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,8 +17,13 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.manager.ImageAssetManager;
 import com.quseit.payapp.R;
+import com.quseit.payapp.bean.GlobalBean;
+import com.quseit.payapp.bussiness.devicesetting.DeviceSettingActivity;
 
 import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
+
+import java.lang.reflect.Method;
 
 import butterknife.ButterKnife;
 
@@ -43,6 +49,22 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
         initView();
         initData();
     }
+
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        disableStatusBar();
+//        super.onWindowFocusChanged(hasFocus);
+//    }
+//
+//    public void disableStatusBar(){
+//        try {
+//            @SuppressLint("WrongConstant") Object service = getSystemService("statusbar");
+//            Class<?> claz = Class.forName("android.app.StatusBarManager");
+//            Method expand = claz.getMethod("disable",int.class);
+//            expand.invoke(service,0x00000001);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * 设置toolbar右边的图标
@@ -120,5 +142,17 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Subscriber
+    public void exit(String exit){
+        if (exit.equals(GlobalBean.EXIT_APP)){
+            finish();
+        }
+    }
+
+    public void settingToken(){
+        startActivity(new Intent(this, DeviceSettingActivity.class));
+        finish();
     }
 }

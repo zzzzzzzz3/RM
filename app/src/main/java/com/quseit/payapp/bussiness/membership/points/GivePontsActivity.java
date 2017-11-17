@@ -16,6 +16,7 @@ import com.quseit.payapp.util.UIUtil;
 import com.quseit.payapp.widget.IconText;
 import com.quseit.payapp.widget.NumberKeyboard;
 import com.quseit.payapp.widget.RMDialog;
+import com.quseit.payapp.widget.RMProgressDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -29,7 +30,7 @@ import butterknife.OnClick;
  * 修改备注：
  */
 
-public class GivePontsActivity extends BaseActivity {
+public class GivePontsActivity extends BaseActivity implements PointsContract.PointsView{
 
     @BindView(R.id.points_edit)
     TextView pointsEdit;
@@ -42,7 +43,8 @@ public class GivePontsActivity extends BaseActivity {
     private ScanUtil mScanUtil;
 
     private Animation inAnim, outAnim;
-    private RMDialog mSuccessDialog;
+    private PointsContract.PointsPresenter mPointsPresenter;
+    private RMProgressDialog mRMProgressDialog;
 
     @Override
     public int getRootView() {
@@ -51,9 +53,7 @@ public class GivePontsActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
         scanIcon.setText(GlobalBean.QRCODE_ICON);
-
         setRightText("Done", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +99,10 @@ public class GivePontsActivity extends BaseActivity {
                 keyboardClose();
             }
         });
+
+        mRMProgressDialog = new RMProgressDialog(this)
+                .setMsg("loading...");
+
     }
 
     private void keyboardClose() {
@@ -123,32 +127,15 @@ public class GivePontsActivity extends BaseActivity {
     }
 
     private void done() {
-        showSuccess();
-    }
-
-    private void showSuccess(){
-        if (mSuccessDialog ==null){
-            mSuccessDialog = new RMDialog(this)
-                    .setIcon(GlobalBean.POINTS_ICON)
-                    .setText("Name has earned:")
-                    .setSubText("1000 points")
-                    .setIconColor(UIUtil.getInstance().getColor(R.color.green))
-                    .setPositionBtn("OK", new RMDialog.OnPositiveClickListener() {
-                        @Override
-                        public void onPositiveClick() {
-
-                        }
-                    });
-        }
-        if (!mSuccessDialog.isShowing()){
-            mSuccessDialog.show();
-        }
+        String amount = pointsEdit.getText().toString();
+        String mobile = mobileEdit.getText().toString();
+        mPointsPresenter.givePoints(amount.equals("")?0:Integer.parseInt(amount),mobile,"60","REDEEM");
     }
 
     @Override
     public void initData() {
         mScanUtil = new ScanUtil(this);
-
+        mPointsPresenter = new PointsPresenterImpl(this);
     }
 
     @Override
@@ -195,4 +182,40 @@ public class GivePontsActivity extends BaseActivity {
         pointsEdit.setSelected(true);
         keyboardShow();
     }
+
+    @Override
+    public void showLoading() {
+        mRMProgressDialog.show();
+    }
+
+    @Override
+    public void hideLoading() {
+        mRMProgressDialog.dismiss();
+    }
+
+    @Override
+    public void showMessage(String message) {
+
+    }
+
+    @Override
+    public void killMyself() {
+        finish();
+    }
+
+    @Override
+    public void setUpToken() {
+        settingToken();
+    }
+
+    @Override
+    public void showDialog(String msg, boolean success) {
+        if (success){
+            DialogManager.rmDialog(this, msg, pointsEdit.getText().toString()+" Points", GlobalBean.SUCCESSFUL_ICON, UIUtil.getInstance().getColor(R.color.green));
+        }else {
+            DialogManager.rmDialog(this,msg,GlobalBean.CANCEL_ICON,UIUtil.getInstance().getColor(R.color.red));
+        }
+    }
+
+
 }

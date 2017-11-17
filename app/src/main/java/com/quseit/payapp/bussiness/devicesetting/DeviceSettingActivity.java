@@ -7,10 +7,13 @@ import android.widget.EditText;
 import com.quseit.pay.PrintUtil;
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
+import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bussiness.main.MainActivity;
 import com.quseit.payapp.util.PermissionUtil;
 import com.quseit.payapp.util.PreferenceUtil;
 import com.quseit.payapp.widget.RMProgressDialog;
+
+import org.simple.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -84,16 +87,35 @@ public class DeviceSettingActivity extends BaseActivity implements DeviceSetting
     }
 
     @Override
-    public void changeDialogState(String msg, boolean success) {
-        if (success) {
-            mRMProgressDialog.setBtnCallback(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+    public void setUpToken() {
+
+    }
+
+    @Override
+    public void changeDialogState(String msg, final boolean success) {
+
+        mRMProgressDialog.setBtnCallback(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (success) {
                     startActivity(new Intent(DeviceSettingActivity.this, MainActivity.class));
                     finish();
+                } else {
+                    mRMProgressDialog.dismiss();
                 }
-            });
-        }
+            }
+        });
         mRMProgressDialog.setStatus(success ? RMProgressDialog.TYPE.SUCCESS : RMProgressDialog.TYPE.FAILED, msg, true);
+    }
+
+    @Override
+    public void back(View view) {
+        EventBus.getDefault().post(GlobalBean.EXIT_APP);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        EventBus.getDefault().post(GlobalBean.EXIT_APP);
     }
 }

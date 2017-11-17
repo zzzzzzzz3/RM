@@ -10,4 +10,7 @@
 
     <dimen name="launch_icon_size">48dp</dimen>
     <dimen name="operation_icon_size">32dp</dimen>
+
+    <dimen name="btn_height">35dp</dimen>
+    <dimen name="edit_height">35dp</dimen>
 </resources>

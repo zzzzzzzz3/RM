@@ -3,6 +3,7 @@ package com.quseit.payapp.util;
 import android.content.Context;
 
 import com.quseit.payapp.R;
+import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.widget.IOSDialog;
 import com.quseit.payapp.widget.RMAutoDialog;
 import com.quseit.payapp.widget.RMDialog;
@@ -71,10 +72,21 @@ public class DialogManager {
         return dialog;
     }
 
-    public static RMDialog rmDialog(Context context, String text, String iconFont) {
+    public static RMDialog rmDialogNoCancel(Context context, String text, String iconFont, int iconColor, RMDialog.OnPositiveClickListener listener) {
+        RMDialog dialog = new RMDialog(context, R.style.Dialog);
+        dialog.setText(text);
+        dialog.setIcon(iconFont);
+        dialog.setIconColor(iconColor);
+        dialog.setPositionBtn("OK", listener);
+        dialog.show();
+        return dialog;
+    }
+
+    public static RMDialog rmDialog(Context context, String text, String iconFont, int color) {
         RMDialog dialog = new RMDialog(context, R.style.Dialog)
                 .setText(text)
                 .setIcon(iconFont)
+                .setIconColor(color)
                 .setPositionBtn("OK", new RMDialog.OnPositiveClickListener() {
                     @Override
                     public void onPositiveClick() {
@@ -85,22 +97,29 @@ public class DialogManager {
         return dialog;
     }
 
-    public static RMDialog rmDialogNoCancel(Context context, String text, String iconFont,int iconColor, RMDialog.OnPositiveClickListener listener) {
+    public static RMDialog rmDialog(Context context, String text, String subText, String iconFont, int color, RMDialog.OnPositiveClickListener listener) {
         RMDialog dialog = new RMDialog(context, R.style.Dialog);
         dialog.setText(text);
         dialog.setIcon(iconFont);
-        dialog.setIconColor(iconColor);
+        dialog.setIconColor(color);
+        dialog.setSubText(subText);
         dialog.setPositionBtn("OK", listener);
         dialog.show();
         return dialog;
     }
 
-    public static RMDialog rmDialog(Context context, String text, String subText, String iconFont, RMDialog.OnPositiveClickListener listener) {
+    public static RMDialog rmDialog(Context context, String text, String subText, String iconFont, int color) {
         RMDialog dialog = new RMDialog(context, R.style.Dialog);
         dialog.setText(text);
         dialog.setIcon(iconFont);
+        dialog.setIconColor(color);
         dialog.setSubText(subText);
-        dialog.setPositionBtn("OK", listener);
+        dialog.setPositionBtn("OK", new RMDialog.OnPositiveClickListener() {
+            @Override
+            public void onPositiveClick() {
+
+            }
+        });
         dialog.show();
         return dialog;
     }
@@ -119,13 +138,21 @@ public class DialogManager {
         return dialog;
     }
 
-    public static RMEditDialog rmEditDialog(Context context,String title,String hint,RMEditDialog.OnPositiveClickListener listener){
+    public static RMEditDialog rmEditDialog(Context context, String title, String hint, RMEditDialog.OnPositiveClickListener listener) {
         RMEditDialog dialog = new RMEditDialog(context)
                 .setEditHint(hint)
                 .setTitle(title)
                 .setPositveBtn(listener);
         dialog.show();
         return dialog;
+    }
+
+    public static void successDialog(Context context, String msg, RMDialog.OnPositiveClickListener listener) {
+        rmDialog(context, msg, GlobalBean.SUCCESSFUL_ICON, UIUtil.getInstance().getColor(R.color.green), listener);
+    }
+
+    public static void failDialog(Context context, String msg) {
+        rmDialog(context, msg, GlobalBean.CANCEL_ICON, UIUtil.getInstance().getColor(R.color.red));
     }
 
 }

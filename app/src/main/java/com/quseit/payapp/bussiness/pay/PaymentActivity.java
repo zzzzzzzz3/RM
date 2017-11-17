@@ -1,9 +1,7 @@
 package com.quseit.payapp.bussiness.pay;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.TextView;
@@ -12,7 +10,6 @@ import com.quseit.pay.ScanUtil;
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.GlobalBean;
-import com.quseit.payapp.bussiness.description.DescriptionActivity;
 import com.quseit.payapp.util.AmountInputUtil;
 import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.PermissionUtil;
@@ -150,7 +147,7 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
 
             @Override
             public void onUnGranted() {
-                toast("请授予打开相机的权限！");
+                toast("no permission！");
             }
         });
     }
@@ -222,6 +219,11 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
     @Override
     public void killMyself() {
         finish();
+    }
+
+    @Override
+    public void setUpToken() {
+        settingToken();
     }
 
     @Override

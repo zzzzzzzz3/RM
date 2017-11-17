@@ -22,6 +22,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
+        android:sharedUserId="android.uid.system"
         android:supportsRtl="true"
         android:theme="@style/FullscreenTheme">
         <activity
@@ -42,7 +43,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
         <activity
-            android:name=".bussiness.description.DescriptionActivity"
+            android:name=".bussiness.pay.DescriptionActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysVisible"/>
         <activity
@@ -88,6 +89,9 @@
             android:name=".bussiness.devicesetting.DeviceSettingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysVisible"/>
+        <activity
+            android:name=".bussiness.membership.points.PointsActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
