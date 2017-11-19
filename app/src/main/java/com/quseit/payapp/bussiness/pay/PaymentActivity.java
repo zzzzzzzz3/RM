@@ -83,6 +83,8 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
         descIcon.setText(GlobalBean.EDIT_ICON);
         cashIcon.setText(GlobalBean.CASH_ICON);
         scanIcon.setText(GlobalBean.QRCODE_ICON);
+
+        mRMProgressDialog = new RMProgressDialog(this);
     }
 
     @Override
@@ -198,17 +200,12 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
 
     @Override
     public void showLoading() {
-        if (mRMProgressDialog==null){
-            mRMProgressDialog = DialogManager.rmProgressDialog(this,"loading...");
-        }
-        if (!mRMProgressDialog.isShowing()){
-            mRMProgressDialog.show();
-        }
+        mRMProgressDialog.show();
     }
 
     @Override
     public void hideLoading() {
-
+        mRMProgressDialog.dismiss();
     }
 
     @Override
@@ -227,7 +224,16 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
     }
 
     @Override
-    public void changeDialogState(String msg, boolean isSuccess) {
-        mRMProgressDialog.setStatus(isSuccess?RMProgressDialog.TYPE.SUCCESS: RMProgressDialog.TYPE.FAILED,msg,true);
+    public void showDialog(String msg, boolean isSuccess) {
+        if (isSuccess){
+            DialogManager.successDialog(this, msg, new RMDialog.OnPositiveClickListener() {
+                @Override
+                public void onPositiveClick() {
+
+                }
+            });
+        }else {
+            DialogManager.failDialog(this,msg);
+        }
     }
 }

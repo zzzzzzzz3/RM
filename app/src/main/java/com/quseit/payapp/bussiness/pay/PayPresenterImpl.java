@@ -36,15 +36,15 @@ public class PayPresenterImpl extends BasePresenter implements PayContract.PayPr
             @Override
             public void onResponse(ResponseBean response) {
                 if (response.success()){
-                    mPayView.changeDialogState(response.getMsg(),true);
+                    mPayView.showDialog(response.getMsg(),true);
                 }else {
-                    mPayView.changeDialogState(response.getMsg(),false);
+                    mPayView.showDialog(response.getMsg(),false);
                 }
             }
 
             @Override
             public void onFail() {
-                mPayView.changeDialogState("net error",false);
+                mPayView.showDialog("net error",false);
             }
         });
     }

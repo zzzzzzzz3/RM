@@ -18,7 +18,7 @@ import io.reactivex.Observable;
 public interface DeviceSettingContract {
 
     interface DeviceSettingView extends IView {
-        void changeDialogState(String msg,boolean success);
+        void showDialog(String msg,boolean success);
     }
 
     interface DeviceSettingModel extends IModel {

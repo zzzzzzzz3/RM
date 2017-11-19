@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
+import com.quseit.payapp.util.DialogManager;
+import com.quseit.payapp.widget.RMDialog;
 import com.quseit.payapp.widget.RMProgressDialog;
 
 import butterknife.BindView;
@@ -52,7 +54,7 @@ public class SignUpActivity extends BaseActivity implements SignUpContract.SignU
                 mSignUpPresenter.signUp(name,mobile,countryCode,email);
             }
         });
-        mRMProgressDialog = new RMProgressDialog(this).setMsg("loading...");
+        mRMProgressDialog = new RMProgressDialog(this);
     }
 
     @Override
@@ -77,7 +79,7 @@ public class SignUpActivity extends BaseActivity implements SignUpContract.SignU
 
     @Override
     public void hideLoading() {
-
+        mRMProgressDialog.dismiss();
     }
 
     @Override
@@ -96,20 +98,16 @@ public class SignUpActivity extends BaseActivity implements SignUpContract.SignU
     }
 
     @Override
-    public void changeDialogState(String msg, final boolean success) {
-
-            mRMProgressDialog.setBtnCallback(new View.OnClickListener() {
+    public void showDialog(String msg, boolean success) {
+        if (success){
+            DialogManager.successDialog(this, msg, new RMDialog.OnPositiveClickListener() {
                 @Override
-                public void onClick(View v) {
-                    if (success) {
-                        finish();
-                    }else {
-                        mRMProgressDialog.dismiss();
-                    }
+                public void onPositiveClick() {
+                    finish();
                 }
             });
-
-
-        mRMProgressDialog.setStatus(success? RMProgressDialog.TYPE.SUCCESS: RMProgressDialog.TYPE.FAILED,msg,true);
+        }else {
+            DialogManager.failDialog(this,msg);
+        }
     }
 }

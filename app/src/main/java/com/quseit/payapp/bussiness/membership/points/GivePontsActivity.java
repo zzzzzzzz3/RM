@@ -100,8 +100,7 @@ public class GivePontsActivity extends BaseActivity implements PointsContract.Po
             }
         });
 
-        mRMProgressDialog = new RMProgressDialog(this)
-                .setMsg("loading...");
+        mRMProgressDialog = new RMProgressDialog(this);
 
     }
 
@@ -211,9 +210,9 @@ public class GivePontsActivity extends BaseActivity implements PointsContract.Po
     @Override
     public void showDialog(String msg, boolean success) {
         if (success){
-            DialogManager.rmDialog(this, msg, pointsEdit.getText().toString()+" Points", GlobalBean.SUCCESSFUL_ICON, UIUtil.getInstance().getColor(R.color.green));
+            DialogManager.rmDialogSubTextComfirm(this,msg,"1000 Points",GlobalBean.POINTS_ICON,R.color.green);
         }else {
-            DialogManager.rmDialog(this,msg,GlobalBean.CANCEL_ICON,UIUtil.getInstance().getColor(R.color.red));
+            DialogManager.failDialog(this,msg);
         }
     }
 

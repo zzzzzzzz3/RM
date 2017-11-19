@@ -38,15 +38,15 @@ public class SignUpPresenterImpl extends BasePresenter implements SignUpContract
                 @Override
                 public void onResponse(ResponseBean response) {
                     if (response.success()){
-                        mSignUpView.changeDialogState(response.getMsg(),true);
+                        mSignUpView.showDialog(response.getMsg(),true);
                     }else {
-                        mSignUpView.changeDialogState(response.getMsg(),false);
+                        mSignUpView.showDialog(response.getMsg(),false);
                     }
                 }
 
                 @Override
                 public void onFail() {
-                    mSignUpView.changeDialogState("net error",false);
+                    mSignUpView.showDialog("net error",false);
                 }
             });
         }

@@ -20,7 +20,7 @@ import io.reactivex.Observable;
 public interface SignUpContract {
 
     interface SignUpView extends IView {
-        void changeDialogState(String msg,boolean success);
+        void showDialog(String msg,boolean success);
     }
 
     interface SignUpModel extends IModel {

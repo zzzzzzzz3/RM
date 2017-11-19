@@ -9,8 +9,10 @@ import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bussiness.main.MainActivity;
+import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.PermissionUtil;
 import com.quseit.payapp.util.PreferenceUtil;
+import com.quseit.payapp.widget.RMDialog;
 import com.quseit.payapp.widget.RMProgressDialog;
 
 import org.simple.eventbus.EventBus;
@@ -42,8 +44,7 @@ public class DeviceSettingActivity extends BaseActivity implements DeviceSetting
 
     @Override
     public void initView() {
-        mRMProgressDialog = new RMProgressDialog(this)
-                .setMsg("saving...");
+        mRMProgressDialog = new RMProgressDialog(this);
     }
 
     @Override
@@ -73,12 +74,12 @@ public class DeviceSettingActivity extends BaseActivity implements DeviceSetting
 
     @Override
     public void hideLoading() {
-
+        mRMProgressDialog.dismiss();
     }
 
     @Override
     public void showMessage(String message) {
-
+        toast(message);
     }
 
     @Override
@@ -92,23 +93,6 @@ public class DeviceSettingActivity extends BaseActivity implements DeviceSetting
     }
 
     @Override
-    public void changeDialogState(String msg, final boolean success) {
-
-        mRMProgressDialog.setBtnCallback(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (success) {
-                    startActivity(new Intent(DeviceSettingActivity.this, MainActivity.class));
-                    finish();
-                } else {
-                    mRMProgressDialog.dismiss();
-                }
-            }
-        });
-        mRMProgressDialog.setStatus(success ? RMProgressDialog.TYPE.SUCCESS : RMProgressDialog.TYPE.FAILED, msg, true);
-    }
-
-    @Override
     public void back(View view) {
         EventBus.getDefault().post(GlobalBean.EXIT_APP);
     }
@@ -117,5 +101,20 @@ public class DeviceSettingActivity extends BaseActivity implements DeviceSetting
     public void onBackPressed() {
         super.onBackPressed();
         EventBus.getDefault().post(GlobalBean.EXIT_APP);
+    }
+
+    @Override
+    public void showDialog(String msg, boolean success) {
+        if (success) {
+            DialogManager.successDialog(this, msg, new RMDialog.OnPositiveClickListener() {
+                @Override
+                public void onPositiveClick() {
+                    startActivity(new Intent(DeviceSettingActivity.this, MainActivity.class));
+                    finish();
+                }
+            });
+        } else {
+            DialogManager.failDialog(this, msg);
+        }
     }
 }

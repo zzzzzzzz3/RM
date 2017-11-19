@@ -107,8 +107,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
             }
         });
 
-        mRMProgressDialog = new RMProgressDialog(this)
-        .setMsg("loading...");
+        mRMProgressDialog = new RMProgressDialog(this);
     }
 
     private List<TransationBean> createList() {

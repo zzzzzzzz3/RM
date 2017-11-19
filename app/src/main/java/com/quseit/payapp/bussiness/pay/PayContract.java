@@ -22,7 +22,7 @@ public interface PayContract {
 
     interface PayView extends IView{
 
-        void changeDialogState(String msg,boolean isSuccess);
+        void showDialog(String msg,boolean isSuccess);
     }
 
     interface PayModel extends IModel{

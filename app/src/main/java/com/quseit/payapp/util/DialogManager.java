@@ -60,7 +60,7 @@ public class DialogManager {
         RMDialog dialog = new RMDialog(context, R.style.Dialog)
                 .setText(text)
                 .setIcon(iconFont)
-                .setIconColor(iconColor)
+                .setIconColor(UIUtil.getInstance().getColor(iconColor))
                 .setPositionBtn("OK", listener)
                 .setNegativeBtn("Cancel", new RMDialog.OnNegativeClickListener() {
                     @Override
@@ -76,17 +76,17 @@ public class DialogManager {
         RMDialog dialog = new RMDialog(context, R.style.Dialog);
         dialog.setText(text);
         dialog.setIcon(iconFont);
-        dialog.setIconColor(iconColor);
+        dialog.setIconColor(UIUtil.getInstance().getColor(iconColor));
         dialog.setPositionBtn("OK", listener);
         dialog.show();
         return dialog;
     }
 
-    public static RMDialog rmDialog(Context context, String text, String iconFont, int color) {
+    public static RMDialog rmDialogComfirm(Context context, String text, String iconFont, int color) {
         RMDialog dialog = new RMDialog(context, R.style.Dialog)
                 .setText(text)
                 .setIcon(iconFont)
-                .setIconColor(color)
+                .setIconColor(UIUtil.getInstance().getColor(color))
                 .setPositionBtn("OK", new RMDialog.OnPositiveClickListener() {
                     @Override
                     public void onPositiveClick() {
@@ -97,22 +97,22 @@ public class DialogManager {
         return dialog;
     }
 
-    public static RMDialog rmDialog(Context context, String text, String subText, String iconFont, int color, RMDialog.OnPositiveClickListener listener) {
+    public static RMDialog rmDialogSubText(Context context, String text, String subText, String iconFont, int color, RMDialog.OnPositiveClickListener listener) {
         RMDialog dialog = new RMDialog(context, R.style.Dialog);
         dialog.setText(text);
         dialog.setIcon(iconFont);
-        dialog.setIconColor(color);
+        dialog.setIconColor(UIUtil.getInstance().getColor(color));
         dialog.setSubText(subText);
         dialog.setPositionBtn("OK", listener);
         dialog.show();
         return dialog;
     }
 
-    public static RMDialog rmDialog(Context context, String text, String subText, String iconFont, int color) {
+    public static RMDialog rmDialogSubTextComfirm(Context context, String text, String subText, String iconFont, int color) {
         RMDialog dialog = new RMDialog(context, R.style.Dialog);
         dialog.setText(text);
         dialog.setIcon(iconFont);
-        dialog.setIconColor(color);
+        dialog.setIconColor(UIUtil.getInstance().getColor(color));
         dialog.setSubText(subText);
         dialog.setPositionBtn("OK", new RMDialog.OnPositiveClickListener() {
             @Override
@@ -132,8 +132,8 @@ public class DialogManager {
         return dialog;
     }
 
-    public static RMProgressDialog rmProgressDialog(Context context, String msg) {
-        RMProgressDialog dialog = new RMProgressDialog(context).setMsg(msg);
+    public static RMProgressDialog rmProgressDialog(Context context) {
+        RMProgressDialog dialog = new RMProgressDialog(context);
         dialog.show();
         return dialog;
     }
@@ -148,11 +148,11 @@ public class DialogManager {
     }
 
     public static void successDialog(Context context, String msg, RMDialog.OnPositiveClickListener listener) {
-        rmDialog(context, msg, GlobalBean.SUCCESSFUL_ICON, UIUtil.getInstance().getColor(R.color.green), listener);
+        rmDialogNoCancel(context, msg, GlobalBean.SUCCESSFUL_ICON, R.color.green, listener);
     }
 
     public static void failDialog(Context context, String msg) {
-        rmDialog(context, msg, GlobalBean.CANCEL_ICON, UIUtil.getInstance().getColor(R.color.red));
+        rmDialogComfirm(context, msg, GlobalBean.CANCEL_ICON, R.color.red);
     }
 
 }

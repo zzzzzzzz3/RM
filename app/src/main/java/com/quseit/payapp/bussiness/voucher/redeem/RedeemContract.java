@@ -20,7 +20,7 @@ import io.reactivex.Observable;
 public interface RedeemContract {
 
     interface RedeemView extends IView {
-        void changeDialogState(String msg, RMProgressDialog.TYPE type);
+        void showDialog(String msg,boolean success);
     }
 
     interface RedeemModel extends IModel {

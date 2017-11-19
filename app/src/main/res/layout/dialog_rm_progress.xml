@@ -4,84 +4,15 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_gravity="center"
-        android:background="@drawable/dialog_corner_bg"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingBottom="20dp"
-        android:paddingTop="20dp"
-        >
+        app:lottie_fileName="loading.json"
+        app:lottie_loop="true"
+        />
 
-        <FrameLayout
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            >
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/animation_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:lottie_fileName="loading.json"
-                app:lottie_loop="true"
-                />
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/status_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:lottie_loop="true"
-                android:visibility="gone"
-                />
-
-            <com.quseit.payapp.widget.IconText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/status_icon"
-                android:textSize="130sp"
-                android:visibility="gone"
-                android:textColor="@color/black"/>
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/dialog_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:text="Name has earned:"
-            android:textColor="@color/text_gray"
-            android:textSize="18sp"
-            android:visibility="gone"
-            />
-
-        <FrameLayout
-            android:id="@+id/ensure_layout"
-            android:layout_width="match_parent"
-            android:layout_height="61dp"
-            android:visibility="gone">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray"/>
-
-            <Button
-                android:id="@+id/btn_ok"
-                android:layout_width="100dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginBottom="2.5dp"
-                android:background="@drawable/black_frame_click_selector"
-                android:text="OK"
-                android:textAllCaps="false"
-                android:textColor="@color/green"
-                android:textSize="16sp"/>
-        </FrameLayout>
-    </LinearLayout>
 </FrameLayout>
