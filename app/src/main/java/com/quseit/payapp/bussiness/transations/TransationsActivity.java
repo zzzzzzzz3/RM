@@ -86,7 +86,6 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         dateTv.setText(year + "/" + (month + 1) + "/" + day);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //mTransationBeans.addAll(createList());
         mTransationsAdapter = new TransationsAdapter(this, mTransationBeans);
         mRecyclerView.setAdapter(mTransationsAdapter);
 
@@ -145,7 +144,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
                     day
             );
             mDatePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
-            mDatePickerDialog.setAccentColor(ContextCompat.getColor(this, R.color.colorAccent));
+            mDatePickerDialog.setAccentColor(ContextCompat.getColor(this, R.color.themeColor));
         }
         mDatePickerDialog.show(getFragmentManager(), "Datepickerdialog");
     }
@@ -196,5 +195,11 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     public void addDataToList(List<TransationBean> data) {
         mTransationBeans.addAll(data);
         mTransationsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mTransationsPresenter.onDestroy();
     }
 }

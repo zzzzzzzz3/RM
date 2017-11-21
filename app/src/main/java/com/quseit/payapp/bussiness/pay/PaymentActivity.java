@@ -118,7 +118,7 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
             return;
         }
 
-        DialogManager.rmDialog(this, "Continue as cash payment?", GlobalBean.CASH_ICON, ContextCompat.getColor(this,R.color.payment_bg_color),new RMDialog.OnPositiveClickListener() {
+        DialogManager.rmDialog(this, "Continue as cash payment?", GlobalBean.CASH_ICON,R.color.payment_bg_color,new RMDialog.OnPositiveClickListener() {
             @Override
             public void onPositiveClick() {
                 String remark = remarkTv.getText().toString();

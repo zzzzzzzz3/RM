@@ -216,5 +216,9 @@ public class GivePontsActivity extends BaseActivity implements PointsContract.Po
         }
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPointsPresenter.onDestroy();
+    }
 }

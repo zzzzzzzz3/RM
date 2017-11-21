@@ -117,4 +117,10 @@ public class DeviceSettingActivity extends BaseActivity implements DeviceSetting
             DialogManager.failDialog(this, msg);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mDeviceSettingPresenter.onDestroy();
+    }
 }

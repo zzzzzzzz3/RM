@@ -129,4 +129,10 @@ public class IssueActivity extends BaseActivity implements IssueContract.IssueVi
         mBeanList.addAll(data);
         mVouchersAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mIssuePresenter.onDestroy();
+    }
 }

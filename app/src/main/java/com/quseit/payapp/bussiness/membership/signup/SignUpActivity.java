@@ -110,4 +110,10 @@ public class SignUpActivity extends BaseActivity implements SignUpContract.SignU
             DialogManager.failDialog(this,msg);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSignUpPresenter.onDestroy();
+    }
 }
