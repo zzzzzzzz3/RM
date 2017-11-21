@@ -32,7 +32,7 @@ public class PayPresenterImpl extends BasePresenter implements PayContract.PayPr
 
     @Override
     public void pay(String amount, String authCode, String remark, String storeId) {
-        logic(mPayModel.pay(new PayRequestBean(amount,authCode,remark,storeId)), new ObserverHandler<ResponseBean>() {
+        logic(mPayModel.pay(new PayRequestBean(10,authCode,remark)), new ObserverHandler<ResponseBean>() {
             @Override
             public void onResponse(ResponseBean response) {
                 if (response.success()){

@@ -34,7 +34,7 @@ public class DeviceSettingPresenterImpl extends BasePresenter implements DeviceS
             @Override
             public void onResponse(Boolean response) {
                 if (response){
-                    mDeviceSettingView.showDialog("save token fail",true);
+                    mDeviceSettingView.showDialog("save token success",true);
                 }else {
                     mDeviceSettingView.showDialog("save token fail",false);
                 }

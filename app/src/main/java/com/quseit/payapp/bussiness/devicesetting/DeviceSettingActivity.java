@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.quseit.pay.PrintUtil;
+import com.quseit.pay.ScanUtil;
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.GlobalBean;
@@ -33,6 +34,7 @@ public class DeviceSettingActivity extends BaseActivity implements DeviceSetting
 
     @BindView(R.id.device_token_edit)
     EditText mEditText;
+    private ScanUtil mScanUtil;
 
     private RMProgressDialog mRMProgressDialog;
     private DeviceSettingContract.DeviceSettingPresenter mDeviceSettingPresenter;
@@ -50,11 +52,12 @@ public class DeviceSettingActivity extends BaseActivity implements DeviceSetting
     @Override
     public void initData() {
         mDeviceSettingPresenter = new DeviceSettingPresenterImpl(this);
+        mScanUtil = new ScanUtil(this);
     }
 
     @Override
     public String getToolbarTitle() {
-        return "DeviceSetting";
+        return "DeviceRegister";
     }
 
     @OnClick(R.id.btn_ok)
@@ -92,6 +95,31 @@ public class DeviceSettingActivity extends BaseActivity implements DeviceSetting
 
     }
 
+    @OnClick(R.id.scan_icon)
+    public void scan(){
+        mScanUtil.beginScan(this, new ScanUtil.ScanCallback() {
+            @Override
+            public void onError(String msg) {
+
+            }
+
+            @Override
+            public void onResult(String s) {
+                mEditText.setText(s);
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onTimeout() {
+                toast("error");
+            }
+        });
+    }
+
     @Override
     public void back(View view) {
         EventBus.getDefault().post(GlobalBean.EXIT_APP);
@@ -122,5 +150,6 @@ public class DeviceSettingActivity extends BaseActivity implements DeviceSetting
     protected void onDestroy() {
         super.onDestroy();
         mDeviceSettingPresenter.onDestroy();
+        mScanUtil.closeScan();
     }
 }

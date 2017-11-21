@@ -11,6 +11,6 @@ package com.quseit.payapp.Http;
  */
 
 public class Api {
-    public static final String BASE_URL = "https://rm-portal-dev-team.appspot.com/api/v1/";
+    public static final String BASE_URL = "https://rm-portal-dev-team.appspot.com/api/v2/terminal/";
 //    public static final String BASE_URL = "http://gank.io/";
 }

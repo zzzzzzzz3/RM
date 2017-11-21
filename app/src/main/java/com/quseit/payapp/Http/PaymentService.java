@@ -6,6 +6,7 @@ import com.quseit.payapp.bean.response.ResponseBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 /**
@@ -20,9 +21,9 @@ import retrofit2.http.POST;
 public interface PaymentService {
 
     @POST("pay")
-    Observable<ResponseBean> pay(@Body PayRequestBean payRequestBean);
+    Observable<ResponseBean> pay(@Header("Authorization") String token,@Body PayRequestBean payRequestBean);
 
     @POST("qr/precreate")
-    Observable<QRResponseBean> getQr(@Body PayRequestBean payRequestBean);
+    Observable<QRResponseBean> getQr(@Header("Authorization") String token,@Body PayRequestBean payRequestBean);
 
 }

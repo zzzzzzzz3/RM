@@ -1,11 +1,15 @@
 package com.quseit.payapp.base;
 
 
+import android.util.Base64;
+
 import com.quseit.payapp.Http.CommonService;
 import com.quseit.dev.RetrofitManager;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.util.DataStore2;
 import com.quseit.payapp.util.PreferenceUtil;
+
+import okio.ByteString;
 
 /**
  * 文 件 名: BaseModel
@@ -18,9 +22,11 @@ import com.quseit.payapp.util.PreferenceUtil;
  */
 
 public abstract class BaseModel {
+    public static final String HEADER_ = "Bearer ";
     public String mToken;
 
     public BaseModel(){
-        mToken = DataStore2.getInstance().getData(GlobalBean.DECIVE_TOKEN);
+        mToken = HEADER_+DataStore2.getInstance().getData(GlobalBean.DECIVE_TOKEN);
+//        mToken = HEADER_+"voS2IAf_3SmfIu2FgqFR8qhYFkCadnSmGYRFPdIgrO0";
     }
 }

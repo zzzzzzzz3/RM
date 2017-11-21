@@ -13,22 +13,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class PayRequestBean {
 
-    @SerializedName(value = "Amount")
-    String amount;
-    @SerializedName(value = "AuthCode")
+    @SerializedName(value = "amount")
+    int amount;
+    @SerializedName(value = "authCode")
     String authCode;
-    @SerializedName(value = "Remark")
+    @SerializedName(value = "remark")
     String remark;
-    @SerializedName(value = "StoreID")
-    String storeId;
 
     public PayRequestBean() {
     }
 
-    public PayRequestBean(String amount, String authCode, String remark, String storeId) {
+    public PayRequestBean(int amount, String authCode, String remark) {
         this.amount = amount;
         this.authCode = authCode;
         this.remark = remark;
-        this.storeId = storeId;
     }
 }

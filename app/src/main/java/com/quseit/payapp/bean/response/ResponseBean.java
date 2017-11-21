@@ -14,9 +14,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class ResponseBean<T> {
 
-    @SerializedName(value = "responseCode")
+    @SerializedName(value = "responseCode",alternate = {"code"})
     private String code;
-    @SerializedName(value = "responseMsg")
+    @SerializedName(value = "responseMsg",alternate = {"message"})
     private String msg;
     @SerializedName(value = "data")
     private T data;
@@ -50,7 +50,7 @@ public class ResponseBean<T> {
     }
 
     public boolean success(){
-        return code.equals("10000");
+        return code.equals("10000")||code.equals("20000");
     }
 
     @Override

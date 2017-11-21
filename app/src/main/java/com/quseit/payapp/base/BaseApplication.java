@@ -66,7 +66,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Map<String,String> headers = new HashMap<>();
-        headers.put("X-Rm-Platform","application/mobile/app");
+        headers.put("X-Rm-Platform","application/terminal");
         RetrofitManager.getInstance()
                 .setTimeOut(15)
                 .openDebug(BuildConfig.DEBUG)

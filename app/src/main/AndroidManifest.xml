@@ -88,7 +88,7 @@
         <activity
             android:name=".bussiness.devicesetting.DeviceSettingActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateAlwaysVisible"/>
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity
             android:name=".bussiness.membership.points.PointsActivity"
             android:screenOrientation="portrait"/>

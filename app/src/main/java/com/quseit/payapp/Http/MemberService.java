@@ -22,8 +22,8 @@ import retrofit2.http.PUT;
 public interface MemberService {
 
     @PUT("member")
-    Observable<ResponseBean> signUp(@Header("authorization") String token, @Body MemberRequestBean bean);
+    Observable<ResponseBean> signUp(@Header("Authorization") String token, @Body MemberRequestBean bean);
 
     @PUT("loyalty/point/spending")
-    Observable<ResponseBean> givePoints(@Header("authorization") String token, @Body PointsRequestBean bean);
+    Observable<ResponseBean> givePoints(@Header("Authorization") String token, @Body PointsRequestBean bean);
 }
