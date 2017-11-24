@@ -1,5 +1,6 @@
 package com.quseit.payapp.bussiness.transations;
 
+import com.quseit.dev.HttpCode;
 import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.base.BasePresenter;
 import com.quseit.payapp.bean.response.TransationResponse;
@@ -41,9 +42,13 @@ public class TransationsPresenterImpl extends BasePresenter implements Transatio
             }
 
             @Override
-            public void onFail() {
-                mTransationsView.showMessage("net error");
+            public void onFail(int code) {
                 isFirst = false;
+                if (code== HttpCode.UNAUTHORIZED){
+                    mTransationsView.setUpToken();
+                }else {
+                    mTransationsView.showMessage("net error");
+                }
             }
         });
     }

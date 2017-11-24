@@ -16,10 +16,27 @@ android {
             abiFilters "armeabi"
         }
     }
+
+    //添加签名文件配置
+    signingConfigs {
+        debug {}
+        //为release包添加签名配置
+        release {
+            storeFile file("rm_terminal.jks")
+            storePassword "rm2017"
+            keyAlias "rm_terminal"
+            keyPassword "rm2017"
+            v1SigningEnabled true
+            v2SigningEnabled false
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //签名文件配置
+            signingConfig signingConfigs.release
         }
     }
 

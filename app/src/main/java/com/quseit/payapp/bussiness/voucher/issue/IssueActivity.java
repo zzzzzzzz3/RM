@@ -13,6 +13,8 @@ import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.widget.RMDialog;
 import com.quseit.payapp.widget.RMProgressDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +60,12 @@ public class IssueActivity extends BaseActivity implements IssueContract.IssueVi
             }
         });
         mSmartRefreshLayout.autoRefresh();
+        mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                mIssuePresenter.getVouchers();
+            }
+        });
     }
 
     private List<VoucherBean> createList() {
@@ -73,7 +81,6 @@ public class IssueActivity extends BaseActivity implements IssueContract.IssueVi
     @Override
     public void initData() {
         mIssuePresenter = new IssuePresenterImpl(this);
-        mIssuePresenter.getVouchers();
     }
 
     @Override

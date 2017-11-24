@@ -19,6 +19,9 @@ import com.airbnb.lottie.manager.ImageAssetManager;
 import com.quseit.payapp.R;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bussiness.devicesetting.DeviceSettingActivity;
+import com.quseit.payapp.util.DataStore2;
+import com.quseit.payapp.util.DialogManager;
+import com.quseit.payapp.widget.RMDialog;
 
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
@@ -152,7 +155,13 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
     }
 
     public void settingToken(){
-        startActivity(new Intent(this, DeviceSettingActivity.class));
-        finish();
+        DialogManager.rmDialog(this, "your device token is invaliable", GlobalBean.CANCEL_ICON, R.color.red, new RMDialog.OnPositiveClickListener() {
+            @Override
+            public void onPositiveClick() {
+                DataStore2.getInstance().clear();
+                startActivity(new Intent(getApplicationContext(), DeviceSettingActivity.class));
+                finish();
+            }
+        });
     }
 }

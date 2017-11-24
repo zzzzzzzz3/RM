@@ -1,5 +1,6 @@
 package com.quseit.payapp.bussiness.membership.points;
 
+import com.quseit.dev.HttpCode;
 import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.base.BasePresenter;
 import com.quseit.payapp.bean.request.PointsRequestBean;
@@ -44,8 +45,12 @@ public class PointsPresenterImpl extends BasePresenter implements PointsContract
                 }
 
                 @Override
-                public void onFail() {
-                    mPointsView.showDialog("net error", false);
+                public void onFail(int code) {
+                    if (code== HttpCode.UNAUTHORIZED){
+                        mPointsView.setUpToken();
+                    }else {
+                        mPointsView.showDialog("net error", false);
+                    }
                 }
             });
         }

@@ -41,7 +41,7 @@ public class DeviceSettingPresenterImpl extends BasePresenter implements DeviceS
             }
 
             @Override
-            public void onFail() {
+            public void onFail(int code) {
                 mDeviceSettingView.showDialog("save token fail",false);
             }
         });

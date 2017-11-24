@@ -1,5 +1,6 @@
 package com.quseit.payapp.bussiness.pay;
 
+import com.quseit.dev.HttpCode;
 import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.base.BasePresenter;
 import com.quseit.payapp.bean.request.PayRequestBean;
@@ -32,7 +33,8 @@ public class PayPresenterImpl extends BasePresenter implements PayContract.PayPr
 
     @Override
     public void pay(String amount, String authCode, String remark, String storeId) {
-        logic(mPayModel.pay(new PayRequestBean(10,authCode,remark)), new ObserverHandler<ResponseBean>() {
+        int a = (int) (Float.parseFloat(amount)*100);
+        logic(mPayModel.pay(new PayRequestBean(a,authCode,remark)), new ObserverHandler<ResponseBean>() {
             @Override
             public void onResponse(ResponseBean response) {
                 if (response.success()){
@@ -43,8 +45,12 @@ public class PayPresenterImpl extends BasePresenter implements PayContract.PayPr
             }
 
             @Override
-            public void onFail() {
-                mPayView.showDialog("net error",false);
+            public void onFail(int code) {
+                if (code== HttpCode.UNAUTHORIZED){
+                    mPayView.setUpToken();
+                }else {
+                    mPayView.showDialog("net error", false);
+                }
             }
         });
     }

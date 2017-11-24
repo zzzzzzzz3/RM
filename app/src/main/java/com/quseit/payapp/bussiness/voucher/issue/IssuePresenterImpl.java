@@ -1,5 +1,6 @@
 package com.quseit.payapp.bussiness.voucher.issue;
 
+import com.quseit.dev.HttpCode;
 import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.base.BasePresenter;
 import com.quseit.payapp.bean.request.RequestBean;
@@ -45,8 +46,12 @@ public class IssuePresenterImpl extends BasePresenter implements IssueContract.I
                 }
 
                 @Override
-                public void onFail() {
-                    mIssueView.showDialog("net error", false);
+                public void onFail(int code) {
+                    if (code== HttpCode.UNAUTHORIZED){
+                        mIssueView.setUpToken();
+                    }else {
+                        mIssueView.showDialog("net error", false);
+                    }
                 }
             });
 

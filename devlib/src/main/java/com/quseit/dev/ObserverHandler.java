@@ -3,6 +3,7 @@ package com.quseit.dev;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import retrofit2.HttpException;
 
 /**
  * 文 件 名: ObserverHandler
@@ -34,7 +35,11 @@ public abstract class ObserverHandler<T> implements Observer<T> {
         if (mDisposable != null && !mDisposable.isDisposed()) {
             mDisposable.dispose();
         }
-        onFail();
+        int code = -1;
+        if (e instanceof HttpException){
+            code = ((HttpException) e).code();
+        }
+        onFail(code);
     }
 
     @Override
@@ -46,5 +51,5 @@ public abstract class ObserverHandler<T> implements Observer<T> {
 
     public abstract void onResponse(@NonNull T response);
 
-    public abstract void onFail();
+    public abstract void onFail(int code);
 }

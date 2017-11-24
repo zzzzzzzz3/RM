@@ -23,14 +23,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white_black_selected"
             android:text="Cash Voucher"/>
         <TextView
             android:id="@+id/voucher_type_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white_black_selected"
             android:text="RM5"
             android:layout_below="@+id/voucher_name_tv"/>
         <TextView
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2000 aviliable"
-            android:textColor="@color/text_gray"
+            android:textColor="@color/white_gray_selected"
             android:layout_alignParentBottom="true"/>
         <TextView
             android:id="@+id/voucher_count_tv"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:text="5"
             android:textSize="36sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white_black_selected"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/plus_icon"
             android:layout_marginRight="17dp"

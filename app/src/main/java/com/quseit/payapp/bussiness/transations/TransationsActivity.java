@@ -126,7 +126,6 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     @Override
     public void initData() {
         mTransationsPresenter = new TransationsPresenterImpl(this);
-        mTransationsPresenter.getTransation();
     }
 
     @Override
@@ -173,6 +172,9 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         mRMProgressDialog.dismiss();
         if (mSmartRefreshLayout.isRefreshing()){
             mSmartRefreshLayout.finishRefresh();
+        }
+        if (mSmartRefreshLayout.isLoading()){
+            mSmartRefreshLayout.finishLoadmore();
         }
     }
 

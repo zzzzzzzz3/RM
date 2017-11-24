@@ -1,5 +1,6 @@
 package com.quseit.payapp.bussiness.membership.signup;
 
+import com.quseit.dev.HttpCode;
 import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.base.BasePresenter;
 import com.quseit.payapp.bean.request.MemberRequestBean;
@@ -45,8 +46,12 @@ public class SignUpPresenterImpl extends BasePresenter implements SignUpContract
                 }
 
                 @Override
-                public void onFail() {
-                    mSignUpView.showDialog("net error",false);
+                public void onFail(int code) {
+                    if (code== HttpCode.UNAUTHORIZED){
+                        mSignUpView.setUpToken();
+                    }else {
+                        mSignUpView.showDialog("net error", false);
+                    }
                 }
             });
         }

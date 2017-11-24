@@ -75,8 +75,10 @@ public class VouchersAdapter extends BaseAdapter<VoucherBean,VouchersAdapter.Vou
             });
             if (bean.isSelected()){
                 holder.mRelativeLayout.setBackground(UIUtil.getInstance().getDrawable(R.mipmap.voucher_selected_bg));
+                holder.mRelativeLayout.setSelected(true);
             }else {
                 holder.mRelativeLayout.setBackground(UIUtil.getInstance().getDrawable(R.mipmap.voucher_amount_bg));
+                holder.mRelativeLayout.setSelected(false);
             }
         }else {
             holder.mRelativeLayout.setEnabled(false);
