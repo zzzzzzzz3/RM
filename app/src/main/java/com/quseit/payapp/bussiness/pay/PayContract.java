@@ -26,8 +26,6 @@ public interface PayContract {
     }
 
     interface PayModel extends IModel{
-        Observable<ResponseBean> pay(String Amount, String AuthCode, String Remark, String StoreID);
-
         Observable<ResponseBean> pay(PayRequestBean payRequestBean);
     }
 

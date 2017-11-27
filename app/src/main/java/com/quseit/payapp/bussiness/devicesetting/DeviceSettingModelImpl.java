@@ -17,7 +17,7 @@ import io.reactivex.ObservableOnSubscribe;
  * 修改备注：
  */
 
-public class DeviceSettingModelImpl extends BaseModel implements DeviceSettingContract.DeviceSettingModel {
+public class DeviceSettingModelImpl implements DeviceSettingContract.DeviceSettingModel {
 
     @Override
     public Observable<Boolean> saveDeciveToken(final String token) {

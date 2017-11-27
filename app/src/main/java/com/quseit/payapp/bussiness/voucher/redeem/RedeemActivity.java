@@ -34,8 +34,6 @@ public class RedeemActivity extends BaseActivity {
     TextView voucherCodeTv;
     @BindView(R.id.keyboard_number)
     NumberKeyboard mNumberKeyboard;
-    @BindView(R.id.scan_icon)
-    IconText scanIcon;
     private ScanUtil mScanUtil;
     private RMProgressDialog mRMProgressDialog;
 
@@ -67,8 +65,6 @@ public class RedeemActivity extends BaseActivity {
                 submit();
             }
         });
-
-        scanIcon.setText(GlobalBean.QRCODE_ICON);
     }
 
     private void submit() {

@@ -81,6 +81,13 @@ public class DataStore2 {
         return result;
     }
 
+    public boolean hasData(String key){
+        if (mSharedPreferences.getString(key,null)!=null){
+            return true;
+        }
+        return false;
+    }
+
     public void clear(){
         mSharedPreferences.edit().clear().apply();
     }

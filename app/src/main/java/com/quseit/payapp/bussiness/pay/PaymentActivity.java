@@ -10,6 +10,7 @@ import com.quseit.pay.ScanUtil;
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.GlobalBean;
+import com.quseit.payapp.bussiness.membership.MembershipActivity;
 import com.quseit.payapp.util.AmountInputUtil;
 import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.PermissionUtil;
@@ -100,7 +101,7 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
 
     @OnClick(R.id.mumber_icon)
     public void mumber() {
-        toast("mumber");
+        startActivity(new Intent(this, MembershipActivity.class));
     }
 
     @OnClick(R.id.desc_icon)
@@ -113,8 +114,8 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
     @OnClick(R.id.cash_icon)
     public void cash() {
         final String amount = mPaymentTv.getText().toString();
-        if (Double.parseDouble(amount) < 1.00) {
-            toast("Minimum amount is RM 1.00");
+        if (Double.parseDouble(amount) < 0.1) {
+            toast("Minimum amount is RM 0.1");
             return;
         }
 
@@ -136,8 +137,8 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
             @Override
             public void onGranted() {
                 String amount = mPaymentTv.getText().toString();
-                if (Double.parseDouble(amount) < 1.00) {
-                    toast("Minimum amount is RM 1.00");
+                if (Double.parseDouble(amount) < 0.1) {
+                    toast("Minimum amount is RM 0.1");
                 } else {
                     String remark = remarkTv.getText().toString();
                     if (remark.equals("")){

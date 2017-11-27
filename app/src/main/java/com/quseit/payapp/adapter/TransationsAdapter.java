@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.quseit.payapp.R;
@@ -55,16 +56,13 @@ public class TransationsAdapter extends BaseAdapter<TransationBean,TransationsAd
         String iconFont = bean.getPaymentMethod();
         switch (iconFont){
             case PayMethodBean.ALIPAY:
-                holder.icon.setText(GlobalBean.CASH_ICON);
-                holder.icon.setTextColor(UIUtil.getInstance().getColor(R.color.green));
+                holder.icon.setImageResource(R.mipmap.alipay_icon);
                 break;
             case PayMethodBean.WECHATPAY:
-                holder.icon.setText(GlobalBean.CASH_ICON);
-                holder.icon.setTextColor(UIUtil.getInstance().getColor(R.color.green));
+                holder.icon.setImageResource(R.mipmap.wechat_pay_icon);
                 break;
             default:
-                holder.icon.setText(GlobalBean.CASH_ICON);
-                holder.icon.setTextColor(UIUtil.getInstance().getColor(R.color.green));
+                holder.icon.setImageResource(R.mipmap.voucher_pay_icon);
                 break;
         }
 
@@ -85,7 +83,7 @@ public class TransationsAdapter extends BaseAdapter<TransationBean,TransationsAd
         @BindView(R.id.transation_time_tv)
         TextView timeTv;
         @BindView(R.id.transation_icon)
-        IconText icon;
+        ImageView icon;
 
         public TransationViewHolder(View itemView) {
             super(itemView);

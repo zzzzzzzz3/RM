@@ -69,10 +69,13 @@
             <com.quseit.payapp.widget.IconText
                 android:layout_gravity="end"
                 android:id="@+id/scan_icon"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:textSize="56sp"
+                android:textColor="@color/blue"
+                android:text="@string/qrcode_font"
+
                 />
         </FrameLayout>
         <com.quseit.payapp.widget.NumberKeyboard

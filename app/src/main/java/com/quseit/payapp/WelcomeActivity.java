@@ -41,8 +41,7 @@ public class WelcomeActivity extends AppCompatActivity {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                String token = DataStore2.getInstance().getData(GlobalBean.DECIVE_TOKEN);
-                if (token!=null&&!token.equals("")){
+                if (DataStore2.getInstance().hasData(GlobalBean.DECIVE_TOKEN)){
                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                 }else {
                     startActivity(new Intent(WelcomeActivity.this,DeviceSettingActivity.class));
