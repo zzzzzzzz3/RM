@@ -8,6 +8,7 @@ import com.quseit.payapp.bean.request.PointsRequestBean;
 import com.quseit.payapp.bean.response.ResponseBean;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 /**
  * 文 件 名: PointsModelImpl
@@ -21,7 +22,7 @@ import io.reactivex.Observable;
 public class PointsModelImpl extends BaseModel implements PointsContract.PointsModel {
 
     @Override
-    public Observable<ResponseBean> givePoints(PointsRequestBean bean) {
+    public Observable<ResponseBody> givePoints(PointsRequestBean bean) {
 
         return RetrofitManager.getInstance().createService(MemberService.class).givePoints(mToken,bean);
     }

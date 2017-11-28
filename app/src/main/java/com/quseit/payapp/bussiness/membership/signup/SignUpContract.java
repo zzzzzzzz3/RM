@@ -7,6 +7,7 @@ import com.quseit.payapp.contract.IPresenter;
 import com.quseit.payapp.contract.IView;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 /**
  * 文 件 名: SignUpContract
@@ -24,7 +25,7 @@ public interface SignUpContract {
     }
 
     interface SignUpModel extends IModel {
-        Observable<ResponseBean> signUp(MemberRequestBean bean);
+        Observable<ResponseBody> signUp(MemberRequestBean bean);
     }
 
     interface SignUpPresenter extends IPresenter {

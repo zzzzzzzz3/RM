@@ -9,6 +9,7 @@ import com.quseit.payapp.bean.response.ResponseBean;
 import com.quseit.payapp.util.DataStore2;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 /**
  * 文 件 名: SignUpModelImpl
@@ -22,7 +23,7 @@ import io.reactivex.Observable;
 public class SignUpModelImpl extends BaseModel implements SignUpContract.SignUpModel {
 
     @Override
-    public Observable<ResponseBean> signUp(MemberRequestBean bean) {
+    public Observable<ResponseBody> signUp(MemberRequestBean bean) {
         return RetrofitManager.getInstance().createService(MemberService.class).signUp(mToken,bean);
     }
 }

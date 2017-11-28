@@ -7,6 +7,7 @@ import com.quseit.payapp.contract.IPresenter;
 import com.quseit.payapp.contract.IView;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 
 /**
@@ -25,7 +26,7 @@ public interface PointsContract {
     }
 
     interface PointsModel extends IModel {
-        Observable<ResponseBean> givePoints(PointsRequestBean bean);
+        Observable<ResponseBody> givePoints(PointsRequestBean bean);
     }
 
     interface PointsPresenter extends IPresenter {

@@ -10,10 +10,38 @@ package com.quseit.payapp.bean.response;
  */
 
 public class VoucherBean {
-    private String voucherName;
-    private String voucherRemark;
-    private String voucherType;
-    private int voucherCount;
+    private int amount;
+
+    private int balanceQuantity;
+
+    private String createdAt;
+
+    private int discountRate;
+
+    private Expiry expiry;
+
+    private String id;
+
+    private String imageUrl;
+
+    private String label;
+
+    private int minimumSpendAmount;
+
+    private String origin;
+
+    private int quantity;
+
+    private String reason;
+
+    private String status;
+
+    private String type;
+
+    private String uniqueCodes;
+
+    private int usedQuantity;
+
     private boolean selected;
 
     public boolean isSelected() {
@@ -24,45 +52,131 @@ public class VoucherBean {
         this.selected = selected;
     }
 
-    public VoucherBean() {
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
-    public VoucherBean(String voucherName, String voucherRemark, String voucherType, int voucherCount) {
-        this.voucherName = voucherName;
-        this.voucherRemark = voucherRemark;
-        this.voucherType = voucherType;
-        this.voucherCount = voucherCount;
+    public int getAmount() {
+        return this.amount;
     }
 
-    public String getVoucherName() {
-        return voucherName;
+    public void setBalanceQuantity(int balanceQuantity) {
+        this.balanceQuantity = balanceQuantity;
     }
 
-    public void setVoucherName(String voucherName) {
-        this.voucherName = voucherName;
+    public int getBalanceQuantity() {
+        return this.balanceQuantity;
     }
 
-    public String getVoucherRemark() {
-        return voucherRemark;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public void setVoucherRemark(String voucherRemark) {
-        this.voucherRemark = voucherRemark;
+    public String getCreatedAt() {
+        return this.createdAt;
     }
 
-    public String getVoucherType() {
-        return voucherType;
+    public void setDiscountRate(int discountRate) {
+        this.discountRate = discountRate;
     }
 
-    public void setVoucherType(String voucherType) {
-        this.voucherType = voucherType;
+    public int getDiscountRate() {
+        return this.discountRate;
     }
 
-    public int getVoucherCount() {
-        return voucherCount;
+    public void setExpiry(Expiry expiry) {
+        this.expiry = expiry;
     }
 
-    public void setVoucherCount(int voucherCount) {
-        this.voucherCount = voucherCount;
+    public Expiry getExpiry() {
+        return this.expiry;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return this.label;
+    }
+
+    public void setMinimumSpendAmount(int minimumSpendAmount) {
+        this.minimumSpendAmount = minimumSpendAmount;
+    }
+
+    public int getMinimumSpendAmount() {
+        return this.minimumSpendAmount;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public String getOrigin() {
+        return this.origin;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getQuantity() {
+        return this.quantity;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public String getReason() {
+        return this.reason;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public void setUniqueCodes(String uniqueCodes) {
+        this.uniqueCodes = uniqueCodes;
+    }
+
+    public String getUniqueCodes() {
+        return this.uniqueCodes;
+    }
+
+    public void setUsedQuantity(int usedQuantity) {
+        this.usedQuantity = usedQuantity;
+    }
+
+    public int getUsedQuantity() {
+        return this.usedQuantity;
     }
 }

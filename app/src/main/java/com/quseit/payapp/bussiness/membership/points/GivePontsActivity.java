@@ -128,7 +128,7 @@ public class GivePontsActivity extends BaseActivity implements PointsContract.Po
     private void done() {
         String amount = pointsEdit.getText().toString();
         String mobile = mobileEdit.getText().toString();
-        mPointsPresenter.givePoints(amount.equals("")?0:Integer.parseInt(amount),mobile,"60","REDEEM");
+        mPointsPresenter.givePoints(amount.equals("")?0:Integer.parseInt(amount),mobile,"60","PHONENUMBER");
     }
 
     @Override
@@ -210,7 +210,7 @@ public class GivePontsActivity extends BaseActivity implements PointsContract.Po
     @Override
     public void showDialog(String msg, boolean success) {
         if (success){
-            DialogManager.rmDialogSubTextComfirm(this,msg,"1000 Points",GlobalBean.POINTS_ICON,R.color.green);
+            DialogManager.rmDialogSubTextComfirm(this,msg,pointsEdit.getText().toString()+" Points",GlobalBean.POINTS_ICON,R.color.green);
         }else {
             DialogManager.failDialog(this,msg);
         }

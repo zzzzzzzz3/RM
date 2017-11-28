@@ -5,6 +5,7 @@ import com.quseit.payapp.bean.request.PointsRequestBean;
 import com.quseit.payapp.bean.response.ResponseBean;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -21,9 +22,9 @@ import retrofit2.http.PUT;
 
 public interface MemberService {
 
-    @PUT("member")
-    Observable<ResponseBean> signUp(@Header("Authorization") String token, @Body MemberRequestBean bean);
+    @PUT("loyalty/member")
+    Observable<ResponseBody> signUp(@Header("Authorization") String token, @Body MemberRequestBean bean);
 
-    @PUT("loyalty/point/spending")
-    Observable<ResponseBean> givePoints(@Header("Authorization") String token, @Body PointsRequestBean bean);
+    @POST("loyalty/spending/point")
+    Observable<ResponseBody> givePoints(@Header("Authorization") String token, @Body PointsRequestBean bean);
 }

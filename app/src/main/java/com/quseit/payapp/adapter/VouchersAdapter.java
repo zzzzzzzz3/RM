@@ -52,19 +52,19 @@ public class VouchersAdapter extends BaseAdapter<VoucherBean,VouchersAdapter.Vou
     @Override
     public void onBindViewHolder(final VoucherViewHolder holder, final int position) {
         final VoucherBean bean = mData.get(position);
-        holder.voucherName.setText(bean.getVoucherName());
-        holder.voucherType.setText(bean.getVoucherType());
-        if (bean.getVoucherCount() >0){
+        holder.voucherName.setText(bean.getType()+" VOUCHER");
+        holder.voucherType.setText(bean.getDiscountRate()+"%");
+        if (bean.getAmount() >0){
             holder.voucherCount.setVisibility(View.VISIBLE);
             holder.minusIcon.setVisibility(View.VISIBLE);
-            holder.voucherCount.setText(bean.getVoucherCount()+"");
+            holder.voucherCount.setText(bean.getAmount()+"");
         }else {
             holder.voucherCount.setVisibility(View.GONE);
             holder.minusIcon.setVisibility(View.GONE);
             bean.setSelected(false);
         }
 
-        if (bean.getVoucherCount()>0){
+        if (bean.getAmount()>0){
             holder.mRelativeLayout.setEnabled(true);
             holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,14 +85,14 @@ public class VouchersAdapter extends BaseAdapter<VoucherBean,VouchersAdapter.Vou
             holder.mRelativeLayout.setBackground(UIUtil.getInstance().getDrawable(R.mipmap.voucher_bg));
         }
 
-        holder.voucherRemark.setText(bean.getVoucherRemark());
+        holder.voucherRemark.setText(bean.getBalanceQuantity()+" Available");
 
         holder.plusIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 VoucherBean temp = mData.get(position);
-                int count  = temp.getVoucherCount()+1;
-                temp.setVoucherCount(count);
+                int count  = temp.getAmount()+1;
+                temp.setAmount(count);
                 notifyDataSetChanged();
             }
         });
@@ -101,8 +101,8 @@ public class VouchersAdapter extends BaseAdapter<VoucherBean,VouchersAdapter.Vou
             @Override
             public void onClick(View v) {
                 VoucherBean temp = mData.get(position);
-                int count  = temp.getVoucherCount()-1;
-                temp.setVoucherCount(count);
+                int count  = temp.getAmount()-1;
+                temp.setAmount(count);
                 notifyDataSetChanged();
             }
         });

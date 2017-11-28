@@ -6,6 +6,8 @@ import com.quseit.payapp.base.BasePresenter;
 import com.quseit.payapp.bean.request.MemberRequestBean;
 import com.quseit.payapp.bean.response.ResponseBean;
 
+import okhttp3.ResponseBody;
+
 /**
  * 文 件 名: SignUpPresenterImpl
  * 创 建 人: ZhangRonghua
@@ -35,14 +37,10 @@ public class SignUpPresenterImpl extends BasePresenter implements SignUpContract
     public void signUp(String name,String mobile,String countryCode,String email) {
 
         if (checkData(name,mobile,countryCode,email)){
-            logic(mSignUpModel.signUp(new MemberRequestBean(name, mobile, countryCode, email)), new ObserverHandler<ResponseBean>() {
+            logic(mSignUpModel.signUp(new MemberRequestBean(email, name, countryCode, mobile)), new ObserverHandler<ResponseBody>() {
                 @Override
-                public void onResponse(ResponseBean response) {
-                    if (response.success()){
-                        mSignUpView.showDialog(response.getMsg(),true);
-                    }else {
-                        mSignUpView.showDialog(response.getMsg(),false);
-                    }
+                public void onResponse(ResponseBody response) {
+                    mSignUpView.showDialog("sign up succeed",true);
                 }
 
                 @Override

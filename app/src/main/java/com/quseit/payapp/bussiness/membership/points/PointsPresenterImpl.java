@@ -6,6 +6,8 @@ import com.quseit.payapp.base.BasePresenter;
 import com.quseit.payapp.bean.request.PointsRequestBean;
 import com.quseit.payapp.bean.response.ResponseBean;
 
+import okhttp3.ResponseBody;
+
 /**
  * 文 件 名: PointsPresenterImpl
  * 创 建 人: ZhangRonghua
@@ -34,14 +36,10 @@ public class PointsPresenterImpl extends BasePresenter implements PointsContract
     @Override
     public void givePoints(int amount, String mobile, String countryCode, String type) {
         if (checkData(amount, mobile, countryCode, type)) {
-            logic(mPointsModel.givePoints(new PointsRequestBean(amount, type, mobile, countryCode)), new ObserverHandler<ResponseBean>() {
+            logic(mPointsModel.givePoints(new PointsRequestBean(amount, type, mobile, countryCode,"REDEEM")), new ObserverHandler<ResponseBody>() {
                 @Override
-                public void onResponse(ResponseBean response) {
-                    if (response.success()) {
-                        mPointsView.showDialog(response.getMsg(), true);
-                    } else {
-                        mPointsView.showDialog(response.getMsg(), false);
-                    }
+                public void onResponse(ResponseBody response) {
+                        mPointsView.showDialog("Name has earned:", true);
                 }
 
                 @Override
