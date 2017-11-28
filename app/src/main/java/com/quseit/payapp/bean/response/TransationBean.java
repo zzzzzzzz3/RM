@@ -2,6 +2,8 @@ package com.quseit.payapp.bean.response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * 文 件 名: TransationBean
  * 创 建 人: ZhangRonghua
@@ -13,89 +15,132 @@ import com.google.gson.annotations.SerializedName;
 
 public class TransationBean {
 
-    @SerializedName(value = "id")
-    private String orderNo;
-    @SerializedName(value = "remark")
-    private String remark;
-    private String iconFont;
-    @SerializedName(value = "createdAt")
-    private String time;
+    private int amount;
+
+    private String createdAt;
+
+    private String currency;
+
+    private String id;
+
+    private String memberProfile;
+
+    private List<String> orderDescription ;
+
+    private String orderId;
+
+    private String orderTitle;
+
     private String paymentMethod;
+
+    private String platform;
+
+    private String refId;
+
     private String status;
-    private String payload;
-    private String description;
 
-    public String getIconFont() {
-        return iconFont;
+    private String storeKey;
+
+    private String terminalKey;
+
+    private String transactionId;
+
+    private String userKey;
+
+    public void setAmount(int amount){
+        this.amount = amount;
     }
-
-    public void setIconFont(String iconFont) {
-        this.iconFont = iconFont;
+    public int getAmount(){
+        return this.amount;
     }
-
-    public String getPaymentMethod() {
-        return paymentMethod;
+    public void setCreatedAt(String createdAt){
+        this.createdAt = createdAt;
     }
-
-    public void setPaymentMethod(String paymentMethod) {
+    public String getCreatedAt(){
+        return this.createdAt;
+    }
+    public void setCurrency(String currency){
+        this.currency = currency;
+    }
+    public String getCurrency(){
+        return this.currency;
+    }
+    public void setId(String id){
+        this.id = id;
+    }
+    public String getId(){
+        return this.id;
+    }
+    public void setMemberProfile(String memberProfile){
+        this.memberProfile = memberProfile;
+    }
+    public String getMemberProfile(){
+        return this.memberProfile;
+    }
+    public void setString(List<String> orderDescription){
+        this.orderDescription = orderDescription;
+    }
+    public List<String> getString(){
+        return this.orderDescription;
+    }
+    public void setOrderId(String orderId){
+        this.orderId = orderId;
+    }
+    public String getOrderId(){
+        return this.orderId;
+    }
+    public void setOrderTitle(String orderTitle){
+        this.orderTitle = orderTitle;
+    }
+    public String getOrderTitle(){
+        return this.orderTitle;
+    }
+    public void setPaymentMethod(String paymentMethod){
         this.paymentMethod = paymentMethod;
     }
-
-    public String getStatus() {
-        return status;
+    public String getPaymentMethod(){
+        return this.paymentMethod;
     }
-
-    public void setStatus(String status) {
+    public void setPlatform(String platform){
+        this.platform = platform;
+    }
+    public String getPlatform(){
+        return this.platform;
+    }
+    public void setRefId(String refId){
+        this.refId = refId;
+    }
+    public String getRefId(){
+        return this.refId;
+    }
+    public void setStatus(String status){
         this.status = status;
     }
-
-    public String getPayload() {
-        return payload;
+    public String getStatus(){
+        return this.status;
     }
-
-    public void setPayload(String payload) {
-        this.payload = payload;
+    public void setStoreKey(String storeKey){
+        this.storeKey = storeKey;
     }
-
-    public String getDescription() {
-        return description;
+    public String getStoreKey(){
+        return this.storeKey;
     }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTerminalKey(String terminalKey){
+        this.terminalKey = terminalKey;
     }
-
-    public TransationBean() {
+    public String getTerminalKey(){
+        return this.terminalKey;
     }
-
-    public TransationBean(String orderNo, String remark, String iconFont, String time) {
-        this.orderNo = orderNo;
-        this.remark = remark;
-        this.iconFont = iconFont;
-        this.time = time;
+    public void setTransactionId(String transactionId){
+        this.transactionId = transactionId;
     }
-
-    public String getOrderNo() {
-        return orderNo;
+    public String getTransactionId(){
+        return this.transactionId;
     }
-
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
+    public void setUserKey(String userKey){
+        this.userKey = userKey;
     }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    public String getUserKey(){
+        return this.userKey;
     }
 }

@@ -21,7 +21,7 @@ import io.reactivex.Observable;
 public class IssueModelImpl extends BaseModel implements IssueContract.IssueModel {
 
     @Override
-    public Observable<VoucherResponse> getVouchers(RequestBean bean) {
-        return RetrofitManager.getInstance().createService(VoucherService.class).getVouchers(mToken,bean);
+    public Observable<VoucherResponse> getVouchers(String cursor) {
+        return RetrofitManager.getInstance().createService(VoucherService.class).getVouchers(mToken,new RequestBean(cursor));
     }
 }

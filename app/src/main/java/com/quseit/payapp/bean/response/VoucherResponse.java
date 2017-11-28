@@ -13,6 +13,33 @@ import java.util.List;
 
 public class VoucherResponse {
     private List<VoucherBean> items;
+    private int total;
+    private int count;
+    private String cursor;
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public String getCursor() {
+        return cursor;
+    }
+
+    public void setCursor(String cursor) {
+        this.cursor = cursor;
+    }
 
     public List<VoucherBean> getItems() {
         return items;

@@ -1,12 +1,17 @@
 package com.quseit.payapp.bussiness.devicesetting;
 
+import com.quseit.dev.RetrofitManager;
+import com.quseit.payapp.Http.TerminalService;
 import com.quseit.payapp.base.BaseModel;
 import com.quseit.payapp.bean.GlobalBean;
+import com.quseit.payapp.bean.request.ActiveRequestBean;
+import com.quseit.payapp.bean.response.ResponseBean;
 import com.quseit.payapp.util.DataStore2;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import okhttp3.ResponseBody;
 
 /**
  * 文 件 名: DeviceSettingModelImpl
@@ -40,5 +45,10 @@ public class DeviceSettingModelImpl implements DeviceSettingContract.DeviceSetti
 
             }
         });
+    }
+
+    @Override
+    public Observable<ResponseBody> active(String token, String type) {
+        return RetrofitManager.getInstance().createService(TerminalService.class).active(token,new ActiveRequestBean(type));
     }
 }

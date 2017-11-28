@@ -20,7 +20,7 @@ import io.reactivex.Observable;
 public class TransationsModelImpl extends BaseModel implements TransationsContract.TransationsModel {
 
     @Override
-    public Observable<TransationResponse> getTransations() {
-        return RetrofitManager.getInstance().createService(TransationService.class).getTransations(new RequestBean());
+    public Observable<TransationResponse> getTransations(String cursor) {
+        return RetrofitManager.getInstance().createService(TransationService.class).getTransations(mToken,new RequestBean(cursor));
     }
 }

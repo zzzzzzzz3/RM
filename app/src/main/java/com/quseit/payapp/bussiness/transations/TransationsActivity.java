@@ -23,6 +23,7 @@ import com.quseit.payapp.widget.RMEditDialog;
 import com.quseit.payapp.widget.RMProgressDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -54,6 +55,8 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     SmartRefreshLayout mSmartRefreshLayout;
     @BindView(R.id.refunds_checkbox)
     CheckBox refundCheckbox;
+    @BindView(R.id.empty_view)
+    ImageView emptyView;
     private int year, month, day;
     private TransationsAdapter mTransationsAdapter;
     private List<TransationBean> mTransationBeans = new ArrayList<>();
@@ -89,13 +92,18 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         mTransationsAdapter = new TransationsAdapter(this, mTransationBeans);
         mRecyclerView.setAdapter(mTransationsAdapter);
 
+        mSmartRefreshLayout.autoRefresh();
         mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 mTransationsPresenter.getTransation();
             }
+        }).setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                mTransationsPresenter.loadMore();
+            }
         });
-        mSmartRefreshLayout.autoRefresh();
 
         refundCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -107,16 +115,6 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         });
 
         mRMProgressDialog = new RMProgressDialog(this);
-    }
-
-    private List<TransationBean> createList() {
-        List<TransationBean> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            TransationBean bean = new TransationBean("1025489657", "no no no no...", GlobalBean.CASH_ICON, "00:00:00");
-            list.add(bean);
-        }
-
-        return list;
     }
 
     private void search(String editStr) {
@@ -195,8 +193,28 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
 
     @Override
     public void addDataToList(List<TransationBean> data) {
+        if (data.size()>0){
+            emptyView.setVisibility(View.GONE);
+            mTransationBeans = data;
+            mTransationsAdapter.setData(mTransationBeans);
+        }else {
+            emptyView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void loadMore(List<TransationBean> data) {
         mTransationBeans.addAll(data);
         mTransationsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showDialog(String msg, boolean success) {
+        if (success){
+            DialogManager.successDialog(this,msg,null);
+        }else {
+            DialogManager.failDialog(this,msg);
+        }
     }
 
     @Override

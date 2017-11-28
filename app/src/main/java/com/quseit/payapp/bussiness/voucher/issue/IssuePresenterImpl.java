@@ -3,6 +3,7 @@ package com.quseit.payapp.bussiness.voucher.issue;
 import com.quseit.dev.HttpCode;
 import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.base.BasePresenter;
+import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.request.RequestBean;
 import com.quseit.payapp.bean.request.VoucherRequestBean;
 import com.quseit.payapp.bean.response.VoucherResponse;
@@ -20,6 +21,7 @@ public class IssuePresenterImpl extends BasePresenter implements IssueContract.I
 
     private IssueContract.IssueView mIssueView;
     private IssueContract.IssueModel mIssueModel;
+    private String cursor = "";
 
     public IssuePresenterImpl(IssueContract.IssueView view) {
         mIssueView = view;
@@ -34,14 +36,25 @@ public class IssuePresenterImpl extends BasePresenter implements IssueContract.I
 
     @Override
     public void getVouchers() {
+            cursor = "";
+            loadMore();
+    }
 
-            logic(mIssueModel.getVouchers(new RequestBean()), new ObserverHandler<VoucherResponse>() {
+    @Override
+    public void loadMore() {
+        if (!cursor.equals(GlobalBean.NO_DATA)){
+            logic(mIssueModel.getVouchers(cursor), new ObserverHandler<VoucherResponse>() {
                 @Override
                 public void onResponse(VoucherResponse response) {
-                    if (response.getItems() != null) {
+                    if (cursor.equals("")){
                         mIssueView.setDataToList(response.getItems());
+                    }else {
+                        mIssueView.loadMore(response.getItems());
+                    }
+                    if (response.getCount()>0) {
+                        cursor = response.getCursor();
                     } else {
-                        mIssueView.showDialog("no data", false);
+                        cursor = GlobalBean.NO_DATA;
                     }
                 }
 
@@ -54,6 +67,8 @@ public class IssuePresenterImpl extends BasePresenter implements IssueContract.I
                     }
                 }
             });
-
+        }else {
+            mView.hideLoading();
+        }
     }
 }

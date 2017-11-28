@@ -10,11 +10,8 @@ import android.widget.TextView;
 
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseAdapter;
-import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.PayMethodBean;
 import com.quseit.payapp.bean.response.TransationBean;
-import com.quseit.payapp.util.UIUtil;
-import com.quseit.payapp.widget.IconText;
 
 import org.simple.eventbus.EventBus;
 
@@ -49,9 +46,9 @@ public class TransationsAdapter extends BaseAdapter<TransationBean,TransationsAd
     public void onBindViewHolder(TransationViewHolder holder, int position) {
         final TransationBean bean = mData.get(position);
 
-        holder.orderNoTv.setText(bean.getOrderNo());
-        holder.remarkTv.setText(bean.getRemark());
-        String createTime = bean.getTime().split("T|\\.")[1];
+        holder.orderNoTv.setText(bean.getOrderId());
+        holder.remarkTv.setText(bean.getCurrency());
+        String createTime = bean.getCreatedAt().split("T|\\.")[1];
         holder.timeTv.setText(createTime);
         String iconFont = bean.getPaymentMethod();
         switch (iconFont){

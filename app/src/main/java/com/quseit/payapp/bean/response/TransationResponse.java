@@ -14,6 +14,33 @@ import java.util.List;
 public class TransationResponse {
 
     private List<TransationBean> items;
+    private int total;
+    private int count;
+    private String cursor;
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public String getCursor() {
+        return cursor;
+    }
+
+    public void setCursor(String cursor) {
+        this.cursor = cursor;
+    }
 
     public List<TransationBean> getItems() {
         return items;
@@ -22,4 +49,6 @@ public class TransationResponse {
     public void setItems(List<TransationBean> items) {
         this.items = items;
     }
+
+
 }

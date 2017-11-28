@@ -10,4 +10,18 @@ package com.quseit.payapp.bean.request;
  */
 
 public class RequestBean {
+
+    private String cursor;
+
+    public RequestBean(String cursor) {
+        this.cursor = cursor;
+    }
+
+    public String getCursor() {
+        return cursor;
+    }
+
+    public void setCursor(String cursor) {
+        this.cursor = cursor;
+    }
 }

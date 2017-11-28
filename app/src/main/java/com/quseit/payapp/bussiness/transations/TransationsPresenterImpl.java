@@ -3,6 +3,7 @@ package com.quseit.payapp.bussiness.transations;
 import com.quseit.dev.HttpCode;
 import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.base.BasePresenter;
+import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.response.TransationResponse;
 
 /**
@@ -19,7 +20,7 @@ public class TransationsPresenterImpl extends BasePresenter implements Transatio
     private TransationsContract.TransationsView mTransationsView;
     private TransationsContract.TransationsModel mTransationsModel;
 
-    private boolean isFirst = false;
+    private String cursor = "";
 
     public TransationsPresenterImpl(TransationsContract.TransationsView view) {
         mTransationsView = view;
@@ -34,22 +35,39 @@ public class TransationsPresenterImpl extends BasePresenter implements Transatio
 
     @Override
     public void getTransation() {
-        logic(mTransationsModel.getTransations(), isFirst,new ObserverHandler<TransationResponse>() {
-            @Override
-            public void onResponse(TransationResponse response) {
-                mTransationsView.addDataToList(response.getItems());
-                isFirst = false;
-            }
+        cursor = "";
+        loadMore();
+    }
 
-            @Override
-            public void onFail(int code) {
-                isFirst = false;
-                if (code== HttpCode.UNAUTHORIZED){
-                    mTransationsView.setUpToken();
-                }else {
-                    mTransationsView.showMessage("net error");
+    @Override
+    public void loadMore() {
+        if (!cursor.equals(GlobalBean.NO_DATA)) {
+            logic(mTransationsModel.getTransations(cursor), false, new ObserverHandler<TransationResponse>() {
+                @Override
+                public void onResponse(TransationResponse response) {
+                    if (cursor.equals("")) {
+                        mTransationsView.addDataToList(response.getItems());
+                    } else {
+                        mTransationsView.loadMore(response.getItems());
+                    }
+                    if (response.getCount() > 0) {
+                        cursor = response.getCursor();
+                    } else {
+                        cursor = GlobalBean.NO_DATA;
+                    }
                 }
-            }
-        });
+
+                @Override
+                public void onFail(int code) {
+                    if (code == HttpCode.UNAUTHORIZED) {
+                        mTransationsView.setUpToken();
+                    } else {
+                        mTransationsView.showDialog("net error",false);
+                    }
+                }
+            });
+        }else {
+            mView.hideLoading();
+        }
     }
 }

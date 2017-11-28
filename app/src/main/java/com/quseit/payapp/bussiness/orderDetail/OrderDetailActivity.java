@@ -41,7 +41,7 @@ public class OrderDetailActivity extends BaseActivity {
     @BindView(R.id.order_amount_tv)
     TextView orderAmountTv;
     @BindView(R.id.order_type_icon)
-    IconText orderTypeIcon;
+    ImageView orderTypeIcon;
     @BindView(R.id.order_detail_rv)
     RecyclerView mRecyclerView;
     private GoodsAdapter mGoodsAdapter;
@@ -60,7 +60,6 @@ public class OrderDetailActivity extends BaseActivity {
                 refund();
             }
         });
-        orderTypeIcon.setText(GlobalBean.CASH_ICON);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mGoodBeans.addAll(creatList());

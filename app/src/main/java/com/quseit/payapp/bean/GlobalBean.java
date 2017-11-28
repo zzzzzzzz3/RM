@@ -75,5 +75,7 @@ public class GlobalBean {
     public static final String ITEMS = "ITEMS";
     public static final String HAS_TOP = "HAS TOP";
 
+    public static final String NO_DATA = "NO_DATA";
+
     public static final String EXIT_APP = "EXIT";
 }

@@ -27,13 +27,15 @@ public interface IssueContract {
     interface IssueView extends IView {
         void showDialog(String msg,boolean success);
         void setDataToList(List<VoucherBean> data);
+        void loadMore(List<VoucherBean> data);
     }
 
     interface IssueModel extends IModel {
-        Observable<VoucherResponse> getVouchers(RequestBean bean);
+        Observable<VoucherResponse> getVouchers(String cursor);
     }
 
     interface IssuePresenter extends IPresenter {
         void getVouchers();
+        void loadMore();
     }
 }

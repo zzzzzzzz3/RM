@@ -26,7 +26,9 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -46,7 +48,7 @@ public class BaseApplication extends Application {
             @Override
             public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
                 layout.setPrimaryColorsId(R.color.themeColor, android.R.color.white);
-                return new MyHeader(context);
+                return new MyHeader(context).setTimeFormat(new SimpleDateFormat("'Last Update' M-d HH:mm"));
             }
         });
         SmartRefreshLayout.setDefaultRefreshFooterCreater(new DefaultRefreshFooterCreater() {

@@ -1,7 +1,18 @@
 package com.quseit.payapp.bussiness.devicesetting;
 
+import com.quseit.dev.HttpCode;
 import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.base.BasePresenter;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
+
 
 /**
  * 文 件 名: DeviceSettingPresenterImpl
@@ -29,21 +40,48 @@ public class DeviceSettingPresenterImpl extends BasePresenter implements DeviceS
     }
 
     @Override
-    public void saveToken(String token) {
-        logic(mDeviceSettingModel.saveDeciveToken(token), new ObserverHandler<Boolean>() {
-            @Override
-            public void onResponse(Boolean response) {
-                if (response){
-                    mDeviceSettingView.showDialog("save token success",true);
-                }else {
-                    mDeviceSettingView.showDialog("save token fail",false);
-                }
-            }
+    public void saveToken(final String token) {
+        mDeviceSettingModel.active("Bearer " + token, "ACTIVE")
+                .flatMap(new Function<ResponseBody, Observable<Boolean>>() {
+                    @Override
+                    public Observable<Boolean> apply(ResponseBody response) throws Exception {
+                        return mDeviceSettingModel.saveDeciveToken(token);
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        mDeviceSettingView.showLoading();
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        mDeviceSettingView.hideLoading();
+                    }
+                })
+                .subscribe(new ObserverHandler<Boolean>() {
+                    @Override
+                    public void onResponse(Boolean response) {
+                        if (response) {
+                            mDeviceSettingView.showDialog("save token success", true);
+                        } else {
+                            mDeviceSettingView.showDialog("save token fail", false);
+                        }
+                    }
 
-            @Override
-            public void onFail(int code) {
-                mDeviceSettingView.showDialog("save token fail",false);
-            }
-        });
+                    @Override
+                    public void onFail(int code) {
+                        if (code == HttpCode.UNAUTHORIZED) {
+                            mDeviceSettingView.showDialog("illegal token", false);
+                        }
+                        if (code == -1)
+                            mDeviceSettingView.showDialog("save token fail", false);
+                    }
+                });
+
     }
 }

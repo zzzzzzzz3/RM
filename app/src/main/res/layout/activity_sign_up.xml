@@ -157,10 +157,24 @@
                     android:orientation="horizontal"
                     android:gravity="center">
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="MY ("
+                        android:gravity="center"
+                        android:textColor="@color/text_gray"
+                        />
+                    <TextView
                         android:id="@+id/country_code_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="MY (60) "
+                        android:text="60"
+                        android:gravity="center"
+                        android:textColor="@color/text_gray"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text=") "
                         android:gravity="center"
                         android:textColor="@color/text_gray"
                         />

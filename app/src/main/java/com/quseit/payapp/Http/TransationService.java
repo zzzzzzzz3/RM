@@ -5,6 +5,7 @@ import com.quseit.payapp.bean.response.TransationResponse;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 /**
@@ -18,6 +19,6 @@ import retrofit2.http.POST;
 
 public interface TransationService {
 
-    @POST("transaction/list")
-    Observable<TransationResponse> getTransations(@Body RequestBean bean);
+    @POST("transactions")
+    Observable<TransationResponse> getTransations(@Header("Authorization") String token,@Body RequestBean bean);
 }

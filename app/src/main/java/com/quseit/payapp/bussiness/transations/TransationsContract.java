@@ -1,5 +1,6 @@
 package com.quseit.payapp.bussiness.transations;
 
+import com.quseit.payapp.bean.request.RequestBean;
 import com.quseit.payapp.bean.response.TransationBean;
 import com.quseit.payapp.bean.response.TransationResponse;
 import com.quseit.payapp.contract.IModel;
@@ -23,13 +24,16 @@ public interface TransationsContract {
 
     interface TransationsView extends IView {
         void addDataToList(List<TransationBean> data);
+        void loadMore(List<TransationBean> data);
+        void showDialog(String msg,boolean success);
     }
 
     interface TransationsModel extends IModel {
-        Observable<TransationResponse> getTransations();
+        Observable<TransationResponse> getTransations(String cursor);
     }
 
     interface TransationsPresenter extends IPresenter {
         void getTransation();
+        void loadMore();
     }
 }
