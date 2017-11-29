@@ -14,6 +14,8 @@ import com.quseit.payapp.adapter.GoodsAdapter;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.base.GoodBean;
 import com.quseit.payapp.bean.GlobalBean;
+import com.quseit.payapp.bean.PayMethodBean;
+import com.quseit.payapp.bean.response.TransationBean;
 import com.quseit.payapp.widget.IconText;
 
 import java.util.ArrayList;
@@ -42,10 +44,13 @@ public class OrderDetailActivity extends BaseActivity {
     TextView orderAmountTv;
     @BindView(R.id.order_type_icon)
     ImageView orderTypeIcon;
+    @BindView(R.id.order_remark_tv)
+    TextView remarkTv;
     @BindView(R.id.order_detail_rv)
     RecyclerView mRecyclerView;
     private GoodsAdapter mGoodsAdapter;
     private List<GoodBean> mGoodBeans = new ArrayList<>();
+    private TransationBean mTransationBean;
 
     @Override
     public int getRootView() {
@@ -65,6 +70,7 @@ public class OrderDetailActivity extends BaseActivity {
         mGoodBeans.addAll(creatList());
         mGoodsAdapter = new GoodsAdapter(this,mGoodBeans);
         mRecyclerView.setAdapter(mGoodsAdapter);
+
     }
 
     private void refund() {
@@ -84,7 +90,26 @@ public class OrderDetailActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        mTransationBean = (TransationBean) getIntent().getSerializableExtra(GlobalBean.TRANSATION_BEAN);
+        orderNoTv.setText(mTransationBean.getOrderId());
+        String[] date = mTransationBean.getCreatedAt().split("T|\\.");
+        orderDateTv.setText(date[0]);
+        orderTimeTv.setText(date[1]);
+        remarkTv.setText(mTransationBean.getOrderTitle());
+        String amount = String.format("%.2f", (float) mTransationBean.getAmount());
+        orderAmountTv.setText("MYR "+ amount);
+        switch (mTransationBean.getPaymentMethod()){
+            case PayMethodBean.ALIPAY:
+                orderTypeIcon.setImageResource(R.mipmap.alipay_icon);
+                break;
+            case PayMethodBean.WECHATPAY:
+                orderTypeIcon.setImageResource(R.mipmap.wechat_pay_icon);
+                break;
+            default:
+                orderTypeIcon
+                        .setImageResource(R.mipmap.voucher_pay_icon);
+                break;
+        }
     }
 
     @Override

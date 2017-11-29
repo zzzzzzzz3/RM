@@ -1,6 +1,7 @@
 package com.quseit.payapp.bussiness.voucher.redeem;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -28,7 +29,7 @@ import butterknife.OnClick;
  * 修改备注：
  */
 
-public class RedeemActivity extends BaseActivity {
+public class RedeemActivity extends BaseActivity implements RedeemContract.RedeemView{
 
     @BindView(R.id.voucher_code__tv)
     TextView voucherCodeTv;
@@ -36,7 +37,7 @@ public class RedeemActivity extends BaseActivity {
     NumberKeyboard mNumberKeyboard;
     private ScanUtil mScanUtil;
     private RMProgressDialog mRMProgressDialog;
-
+private RedeemContract.RedeemPresenter mRedeemPresenter;
     @Override
     public int getRootView() {
         return R.layout.activity_redeem;
@@ -65,16 +66,23 @@ public class RedeemActivity extends BaseActivity {
                 submit();
             }
         });
+        mRMProgressDialog = new RMProgressDialog(this);
     }
 
     private void submit() {
-        toast("voucher code:" + voucherCodeTv.getText().toString());
+        String code = voucherCodeTv.getText().toString();
+        if (code.equals("")){
+            toast("code must be not empty");
+            return;
+        }
+        mRedeemPresenter.redeem(code);
         voucherCodeTv.setText("");
     }
 
     @Override
     public void initData() {
         mScanUtil = new ScanUtil(this);
+        mRedeemPresenter = new RedeemPresenterImpl(this);
     }
 
     @Override
@@ -109,12 +117,7 @@ public class RedeemActivity extends BaseActivity {
             public void onResult(final String s) {
                 Log.d("Scan", s);
                 voucherCodeTv.setText(s);
-                DialogManager.successDialog(RedeemActivity.this, "Voucher redemption successful", new RMDialog.OnPositiveClickListener() {
-                    @Override
-                    public void onPositiveClick() {
-
-                    }
-                });
+                submit();
             }
 
             @Override
@@ -133,5 +136,39 @@ public class RedeemActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mScanUtil.closeScan();
+    }
+
+    @Override
+    public void showLoading() {
+        mRMProgressDialog.show();
+    }
+
+    @Override
+    public void hideLoading() {
+        mRMProgressDialog.dismiss();
+    }
+
+    @Override
+    public void showMessage(String message) {
+        toast(message);
+    }
+
+    @Override
+    public void killMyself() {
+        finish();
+    }
+
+    @Override
+    public void setUpToken() {
+        settingToken();
+    }
+
+    @Override
+    public void showDialog(String msg, boolean success) {
+        if (success){
+            DialogManager.successDialog(this,msg,null);
+        }else {
+            DialogManager.failDialog(this,msg);
+        }
     }
 }

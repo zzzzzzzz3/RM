@@ -42,16 +42,6 @@ public class VoucherBean {
 
     private int usedQuantity;
 
-    private boolean selected;
-
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
-
     public void setAmount(int amount) {
         this.amount = amount;
     }

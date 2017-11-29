@@ -5,6 +5,7 @@ import com.quseit.payapp.Http.VoucherService;
 import com.quseit.payapp.base.BaseModel;
 import com.quseit.payapp.bean.request.RequestBean;
 import com.quseit.payapp.bean.request.VoucherRequestBean;
+import com.quseit.payapp.bean.response.VoucherQrcode;
 import com.quseit.payapp.bean.response.VoucherResponse;
 
 import io.reactivex.Observable;
@@ -23,5 +24,10 @@ public class IssueModelImpl extends BaseModel implements IssueContract.IssueMode
     @Override
     public Observable<VoucherResponse> getVouchers(String cursor) {
         return RetrofitManager.getInstance().createService(VoucherService.class).getVouchers(mToken,new RequestBean(cursor));
+    }
+
+    @Override
+    public Observable<VoucherQrcode> getVoucherCode(String voucherId) {
+        return RetrofitManager.getInstance().createService(VoucherService.class).getVoucherQrcode(mToken,voucherId,new RequestBean(""));
     }
 }

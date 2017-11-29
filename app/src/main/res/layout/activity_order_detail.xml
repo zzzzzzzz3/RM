@@ -77,6 +77,14 @@
                 android:textColor="@color/text_gray"
                 android:text="00:00:00"/>
         </LinearLayout>
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/order_remark_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/text_gray"
+            android:text="In-Store Payment"/>
         <android.support.v7.widget.RecyclerView
             android:layout_marginTop="20dp"
             android:id="@+id/order_detail_rv"

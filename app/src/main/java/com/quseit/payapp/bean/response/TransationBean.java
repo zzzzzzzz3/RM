@@ -2,6 +2,7 @@ package com.quseit.payapp.bean.response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  * 修改备注：
  */
 
-public class TransationBean {
+public class TransationBean implements Serializable{
 
     private int amount;
 

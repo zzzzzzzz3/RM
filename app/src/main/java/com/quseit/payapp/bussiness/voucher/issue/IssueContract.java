@@ -1,8 +1,11 @@
 package com.quseit.payapp.bussiness.voucher.issue;
 
+import android.content.Context;
+
 import com.quseit.payapp.bean.request.RequestBean;
 import com.quseit.payapp.bean.request.VoucherRequestBean;
 import com.quseit.payapp.bean.response.VoucherBean;
+import com.quseit.payapp.bean.response.VoucherQrcode;
 import com.quseit.payapp.bean.response.VoucherResponse;
 import com.quseit.payapp.contract.IModel;
 import com.quseit.payapp.contract.IPresenter;
@@ -32,10 +35,12 @@ public interface IssueContract {
 
     interface IssueModel extends IModel {
         Observable<VoucherResponse> getVouchers(String cursor);
+        Observable<VoucherQrcode> getVoucherCode(String voucherId);
     }
 
     interface IssuePresenter extends IPresenter {
         void getVouchers();
         void loadMore();
+        void printQRcode(Context context,String voucherId,String date,int count);
     }
 }

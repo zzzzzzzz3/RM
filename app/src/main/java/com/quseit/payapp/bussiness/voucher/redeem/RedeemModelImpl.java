@@ -1,9 +1,13 @@
 package com.quseit.payapp.bussiness.voucher.redeem;
 
+import com.quseit.dev.RetrofitManager;
+import com.quseit.payapp.Http.VoucherService;
 import com.quseit.payapp.base.BaseModel;
+import com.quseit.payapp.bean.request.RequestBean;
 import com.quseit.payapp.bean.response.ResponseBean;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 /**
  * 文 件 名: RedeemModelImpl
@@ -17,7 +21,7 @@ import io.reactivex.Observable;
 public class RedeemModelImpl extends BaseModel implements RedeemContract.RedeemModel {
 
     @Override
-    public Observable<ResponseBean> redeem(String code) {
-        return null;
+    public Observable<ResponseBody> redeem(String code) {
+        return RetrofitManager.getInstance().createService(VoucherService.class).redeemVoucher(mToken,code,new RequestBean(""));
     }
 }

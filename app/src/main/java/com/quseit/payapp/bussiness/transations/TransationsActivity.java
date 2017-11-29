@@ -157,7 +157,9 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
 
     @Subscriber
     public void orderDetail(TransationBean bean) {
-        startActivity(new Intent(this, OrderDetailActivity.class));
+        Intent intent = new Intent(this, OrderDetailActivity.class);
+        intent.putExtra(GlobalBean.TRANSATION_BEAN,bean);
+        startActivity(intent);
     }
 
     @Override

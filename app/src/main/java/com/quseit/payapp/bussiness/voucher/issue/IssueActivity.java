@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.quseit.pay.PrintUtil;
 import com.quseit.payapp.R;
 import com.quseit.payapp.adapter.VouchersAdapter;
 import com.quseit.payapp.base.BaseActivity;
@@ -33,7 +34,7 @@ import butterknife.OnClick;
  * 修改备注：
  */
 
-public class IssueActivity extends BaseActivity implements IssueContract.IssueView{
+public class IssueActivity extends BaseActivity implements IssueContract.IssueView {
 
     @BindView(R.id.issue_voucher_rv)
     RecyclerView mRecyclerView;
@@ -45,6 +46,7 @@ public class IssueActivity extends BaseActivity implements IssueContract.IssueVi
     private List<VoucherBean> mBeanList = new ArrayList<>();
 
     private IssueContract.IssuePresenter mIssuePresenter;
+    private RMProgressDialog mRMProgressDialog;
 
     @Override
     public int getRootView() {
@@ -53,13 +55,18 @@ public class IssueActivity extends BaseActivity implements IssueContract.IssueVi
 
     @Override
     public void initView() {
-        mVouchersAdapter = new VouchersAdapter(this,mBeanList);
+        mVouchersAdapter = new VouchersAdapter(this, mBeanList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mVouchersAdapter);
         setRightText("Print", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toast("print");
+                VoucherBean bean = mVouchersAdapter.getSelected();
+                if (bean==null){
+                    toast("please select a voucher");
+                }else {
+                    mIssuePresenter.printQRcode(IssueActivity.this,bean.getId(),bean.getCreatedAt(),bean.getAmount());
+                }
             }
         });
         mSmartRefreshLayout.autoRefresh();
@@ -74,6 +81,8 @@ public class IssueActivity extends BaseActivity implements IssueContract.IssueVi
                 mIssuePresenter.loadMore();
             }
         });
+
+        mRMProgressDialog = new RMProgressDialog(this);
     }
 
     @Override
@@ -88,14 +97,16 @@ public class IssueActivity extends BaseActivity implements IssueContract.IssueVi
 
     @Override
     public void showLoading() {
+        mRMProgressDialog.show();
     }
 
     @Override
     public void hideLoading() {
-        if (mSmartRefreshLayout.isRefreshing()){
+        mRMProgressDialog.dismiss();
+        if (mSmartRefreshLayout.isRefreshing()) {
             mSmartRefreshLayout.finishRefresh();
         }
-        if (mSmartRefreshLayout.isLoading()){
+        if (mSmartRefreshLayout.isLoading()) {
             mSmartRefreshLayout.finishLoadmore();
         }
     }
@@ -117,20 +128,21 @@ public class IssueActivity extends BaseActivity implements IssueContract.IssueVi
 
     @Override
     public void showDialog(String msg, boolean success) {
-        if (success){
+        if (success) {
             DialogManager.successDialog(this, msg, null);
-        }else {
-            DialogManager.failDialog(this,msg);
+        } else {
+            DialogManager.failDialog(this, msg);
         }
     }
 
     @Override
     public void setDataToList(List<VoucherBean> data) {
-        if (data.size()>0){
+        mVouchersAdapter.reset();
+        if (data.size() > 0) {
             emptyView.setVisibility(View.GONE);
             mBeanList = data;
             mVouchersAdapter.setData(mBeanList);
-        }else {
+        } else {
             emptyView.setVisibility(View.VISIBLE);
         }
     }

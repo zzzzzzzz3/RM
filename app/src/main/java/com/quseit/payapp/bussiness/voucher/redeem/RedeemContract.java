@@ -7,6 +7,7 @@ import com.quseit.payapp.contract.IView;
 import com.quseit.payapp.widget.RMProgressDialog;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 /**
  * 文 件 名: RedeemContract
@@ -24,7 +25,7 @@ public interface RedeemContract {
     }
 
     interface RedeemModel extends IModel {
-        Observable<ResponseBean> redeem(String code);
+        Observable<ResponseBody> redeem(String code);
     }
 
     interface RedeemPresenter extends IPresenter {
