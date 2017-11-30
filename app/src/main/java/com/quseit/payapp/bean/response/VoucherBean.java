@@ -42,6 +42,16 @@ public class VoucherBean {
 
     private int usedQuantity;
 
+    private int count = 0 ;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     public void setAmount(int amount) {
         this.amount = amount;
     }

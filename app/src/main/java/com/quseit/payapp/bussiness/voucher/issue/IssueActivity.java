@@ -62,10 +62,10 @@ public class IssueActivity extends BaseActivity implements IssueContract.IssueVi
             @Override
             public void onClick(View v) {
                 VoucherBean bean = mVouchersAdapter.getSelected();
-                if (bean==null){
+                if (bean == null || bean.getCount() == 0) {
                     toast("please select a voucher");
-                }else {
-                    mIssuePresenter.printQRcode(IssueActivity.this,bean.getId(),bean.getCreatedAt(),bean.getAmount());
+                } else {
+                    mIssuePresenter.printQRcode(IssueActivity.this, bean.getId(), bean.getCreatedAt(), bean.getCount());
                 }
             }
         });

@@ -141,7 +141,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
                     day
             );
             mDatePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
-            mDatePickerDialog.setAccentColor(ContextCompat.getColor(this, R.color.themeColor));
+            mDatePickerDialog.setAccentColor(ContextCompat.getColor(this, R.color.blue));
         }
         mDatePickerDialog.show(getFragmentManager(), "Datepickerdialog");
     }

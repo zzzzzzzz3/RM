@@ -1,68 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/item_bg"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:paddingTop="10dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"
+        android:background="@mipmap/voucher_bg"
         >
 
         <TextView
             android:id="@+id/voucher_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="Cash Voucher"
             android:textColor="@color/white_black_selected"
-            android:text="Cash Voucher"/>
+            android:textSize="18sp"/>
+
         <TextView
             android:id="@+id/voucher_type_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/white_black_selected"
+            android:layout_alignLeft="@+id/voucher_name_tv"
+            android:layout_below="@+id/voucher_name_tv"
             android:text="RM5"
-            android:layout_below="@+id/voucher_name_tv"/>
+            android:textColor="@color/white_black_selected"
+            android:textSize="16sp"/>
+
         <TextView
             android:id="@+id/voucher_remark_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/voucher_name_tv"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
             android:text="2000 aviliable"
-            android:textColor="@color/white_gray_selected"
-            android:layout_alignParentBottom="true"/>
-        <TextView
-            android:id="@+id/voucher_count_tv"
+            android:textColor="@color/white_gray_selected"/>
+
+        <FrameLayout
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            >
+
+            <TextView
+                android:id="@+id/voucher_count_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="5"
+                android:textColor="@color/white_black_selected"
+                android:textSize="36sp"
+                />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/plus_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5"
-            android:textSize="36sp"
-            android:textColor="@color/white_black_selected"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/plus_icon"
-            android:layout_marginRight="17dp"
-            />
-        <ImageView
-            android:id="@+id/plus_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@mipmap/plus_icon"
-            android:layout_alignParentRight="true"/>
-        <ImageView
-            android:id="@+id/minus_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@mipmap/minus_icon"
             android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"/>
+            android:padding="10dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@mipmap/plus_icon"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/minus_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:padding="10dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@mipmap/minus_icon"/>
+        </FrameLayout>
+
     </RelativeLayout>
 </LinearLayout>
