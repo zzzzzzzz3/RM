@@ -156,6 +156,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
 
     public void settingToken(){
         final Intent intent = new Intent(this, DeviceSettingActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         DialogManager.rmDialog(this, "your device token is invaliable", GlobalBean.CANCEL_ICON, R.color.red, new RMDialog.OnPositiveClickListener() {
             @Override
             public void onPositiveClick() {

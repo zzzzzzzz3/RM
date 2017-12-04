@@ -11,10 +11,18 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="52dp"
         android:paddingBottom="5dp"
         >
 
+        <TextView
+            android:id="@+id/transation_order_status_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginRight="5dp"/>
         <TextView
             android:id="@+id/transation_order_no_tv"
             android:layout_width="wrap_content"
@@ -24,7 +32,8 @@
             android:textSize="16sp"
             android:maxLines="1"
             android:ellipsize="end"
-            android:layout_marginRight="30dp"/>
+            android:layout_marginRight="30dp"
+            android:layout_toRightOf="@+id/transation_order_status_tv"/>
 
         <TextView
             android:id="@+id/transation_remark_tv"

@@ -85,15 +85,16 @@ public class RMDialog extends Dialog {
         if (text != null && !text.equals("")) {
             mPositiveButton.setVisibility(View.VISIBLE);
             mPositiveButton.setText(text);
-            if (listener != null) {
-                mPositiveButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dismiss();
+            mPositiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                    if (listener != null) {
                         listener.onPositiveClick();
                     }
-                });
-            }
+                }
+            });
+
         }
         return this;
     }
@@ -102,15 +103,16 @@ public class RMDialog extends Dialog {
         if (text != null && !text.equals("")) {
             mNegativeButton.setVisibility(View.VISIBLE);
             mNegativeButton.setText(text);
-            if (listener != null) {
-                mNegativeButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dismiss();
+            mNegativeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                    if (listener != null) {
                         listener.onNegativeClick();
                     }
-                });
-            }
+                }
+            });
+
         }
         return this;
     }

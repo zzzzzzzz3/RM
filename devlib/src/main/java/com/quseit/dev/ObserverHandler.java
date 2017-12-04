@@ -1,8 +1,18 @@
 package com.quseit.dev;
 
+import com.google.gson.Gson;
+
+import java.io.IOException;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
 /**
@@ -35,11 +45,20 @@ public abstract class ObserverHandler<T> implements Observer<T> {
         if (mDisposable != null && !mDisposable.isDisposed()) {
             mDisposable.dispose();
         }
-        int code = -1;
-        if (e instanceof HttpException){
-            code = ((HttpException) e).code();
+
+        if (e instanceof HttpException) {
+            int code = ((HttpException) e).code();
+            String msg = null;
+            try {
+                msg = ((HttpException) e).response().errorBody().string();
+                msg = new Gson().fromJson(msg, HttpResponse.class).getMessage();
+                onFail(code, msg);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        } else {
+            onFail(-1, "unkonw error");
         }
-        onFail(code);
     }
 
     @Override
@@ -51,5 +70,5 @@ public abstract class ObserverHandler<T> implements Observer<T> {
 
     public abstract void onResponse(@NonNull T response);
 
-    public abstract void onFail(int code);
+    public abstract void onFail(int code, String msg);
 }

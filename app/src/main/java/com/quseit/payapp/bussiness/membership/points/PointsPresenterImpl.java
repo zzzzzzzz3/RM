@@ -43,11 +43,11 @@ public class PointsPresenterImpl extends BasePresenter implements PointsContract
                 }
 
                 @Override
-                public void onFail(int code) {
+                public void onFail(int code,String msg) {
                     if (code== HttpCode.UNAUTHORIZED){
                         mPointsView.setUpToken();
                     }else {
-                        mPointsView.showDialog("net error", false);
+                        mPointsView.showDialog(msg, false);
                     }
                 }
             });

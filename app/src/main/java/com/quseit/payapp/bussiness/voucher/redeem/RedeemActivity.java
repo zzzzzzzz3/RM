@@ -3,6 +3,7 @@ package com.quseit.payapp.bussiness.voucher.redeem;
 import android.Manifest;
 import android.app.Dialog;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.quseit.pay.ScanUtil;
@@ -32,7 +33,7 @@ import butterknife.OnClick;
 public class RedeemActivity extends BaseActivity implements RedeemContract.RedeemView{
 
     @BindView(R.id.voucher_code__tv)
-    TextView voucherCodeTv;
+    EditText voucherCodeTv;
     @BindView(R.id.keyboard_number)
     NumberKeyboard mNumberKeyboard;
     private ScanUtil mScanUtil;
@@ -166,7 +167,7 @@ private RedeemContract.RedeemPresenter mRedeemPresenter;
     @Override
     public void showDialog(String msg, boolean success) {
         if (success){
-            DialogManager.successDialog(this,msg,null);
+            DialogManager.successDialog(this, msg, null);
         }else {
             DialogManager.failDialog(this,msg);
         }

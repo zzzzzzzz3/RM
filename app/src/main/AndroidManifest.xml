@@ -51,7 +51,8 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".bussiness.voucher.redeem.RedeemActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysVisible"/>
         <activity
             android:name=".bussiness.voucher.issue.IssueActivity"
             android:screenOrientation="portrait"/>

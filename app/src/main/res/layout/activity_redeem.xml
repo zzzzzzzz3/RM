@@ -29,13 +29,19 @@
         android:gravity="center"
         android:paddingTop="20dp"
         android:paddingBottom="20dp">
-        <TextView
+        <EditText
             android:id="@+id/voucher_code__tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="28sp"
             android:textColor="@color/white"
             android:textStyle="bold"
+            android:cursorVisible="false"
+            android:hint="ABCD1234"
+            android:background="@android:color/transparent"
+            android:maxLines="1"
+            android:imeOptions="actionDone"
+            android:inputType="text"
             />
     </LinearLayout>
     <com.quseit.payapp.widget.GradientView
@@ -85,6 +91,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="@color/white"
+            android:visibility="gone"
             />
     </RelativeLayout>
 </LinearLayout>

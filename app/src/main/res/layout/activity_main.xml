@@ -6,19 +6,39 @@
               android:orientation="vertical"
               tools:context="com.quseit.payapp.bussiness.main.MainActivity">
 
-    <ImageView
-        android:layout_width="160dp"
-        android:layout_height="70dp"
-        android:background="@color/themeColor"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:src="@mipmap/title_icon"
-        android:scaleType="fitCenter"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp">
+        <ImageView
+            android:id="@+id/avatar_img"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@color/white"
+            android:scaleType="fitCenter"
+            android:layout_marginRight="16dp"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/avatar_img">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Revenue Monster"
+                android:textColor="@color/white"
+                android:textSize="20sp"/>
+        </LinearLayout>
+    </RelativeLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:textSize="14sp"
+        android:layout_marginLeft="16dp"
+        android:textSize="12sp"
         android:textColor="@color/white"
         android:text="@string/sub_title"
         android:gravity="center_vertical"
@@ -30,7 +50,10 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:overScrollMode="never"/>
 
         <LinearLayout
             android:id="@+id/dots_layout"

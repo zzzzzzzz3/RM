@@ -12,6 +12,7 @@ import com.quseit.payapp.adapter.VouchersAdapter;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.response.VoucherBean;
 import com.quseit.payapp.util.DialogManager;
+import com.quseit.payapp.util.TimeConverterUtil;
 import com.quseit.payapp.widget.RMDialog;
 import com.quseit.payapp.widget.RMProgressDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -19,7 +20,10 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -65,7 +69,9 @@ public class IssueActivity extends BaseActivity implements IssueContract.IssueVi
                 if (bean == null || bean.getCount() == 0) {
                     toast("please select a voucher");
                 } else {
-                    mIssuePresenter.printQRcode(IssueActivity.this, bean.getId(), bean.getCreatedAt(), bean.getCount());
+                    String dateStr = new SimpleDateFormat("yyyy-MM-dd HH:ss:mm").format(new Date());
+                    mIssuePresenter.printQRcode(IssueActivity.this, bean.getId(), dateStr, bean.getCount());
+
                 }
             }
         });

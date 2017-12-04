@@ -48,6 +48,8 @@ public class OrderDetailActivity extends BaseActivity {
     TextView remarkTv;
     @BindView(R.id.order_detail_rv)
     RecyclerView mRecyclerView;
+    @BindView(R.id.order_status_id)
+    TextView statusTv;
     private GoodsAdapter mGoodsAdapter;
     private List<GoodBean> mGoodBeans = new ArrayList<>();
     private TransationBean mTransationBean;
@@ -68,7 +70,7 @@ public class OrderDetailActivity extends BaseActivity {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mGoodBeans.addAll(creatList());
-        mGoodsAdapter = new GoodsAdapter(this,mGoodBeans);
+        mGoodsAdapter = new GoodsAdapter(this, mGoodBeans);
         mRecyclerView.setAdapter(mGoodsAdapter);
 
     }
@@ -81,7 +83,7 @@ public class OrderDetailActivity extends BaseActivity {
         List<GoodBean> list = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
-            GoodBean bean = new GoodBean("Ice Cream"+i,6-i);
+            GoodBean bean = new GoodBean("Ice Cream", 6 - i);
             list.add(bean);
         }
 
@@ -95,10 +97,15 @@ public class OrderDetailActivity extends BaseActivity {
         String[] date = mTransationBean.getCreatedAt().split("T|\\.");
         orderDateTv.setText(date[0]);
         orderTimeTv.setText(date[1]);
-        remarkTv.setText(mTransationBean.getOrderTitle());
-        String amount = String.format("%.2f", (float) mTransationBean.getAmount());
-        orderAmountTv.setText("MYR "+ amount);
-        switch (mTransationBean.getPaymentMethod()){
+        if (mTransationBean.getString()!=null&&mTransationBean.getString().get(0)!=null){
+            remarkTv.setText(mTransationBean.getString().get(0));
+        }else {
+            remarkTv.setText("-");
+        }
+        statusTv.setText(mTransationBean.getStatus());
+        String amount = String.format("%.2f", (float) mTransationBean.getAmount() / 100);
+        orderAmountTv.setText("MYR " + amount);
+        switch (mTransationBean.getPaymentMethod()) {
             case PayMethodBean.ALIPAY:
                 orderTypeIcon.setImageResource(R.mipmap.alipay_icon);
                 break;

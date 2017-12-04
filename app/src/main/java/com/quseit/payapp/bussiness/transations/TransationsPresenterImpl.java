@@ -58,11 +58,11 @@ public class TransationsPresenterImpl extends BasePresenter implements Transatio
                 }
 
                 @Override
-                public void onFail(int code) {
+                public void onFail(int code,String msg) {
                     if (code == HttpCode.UNAUTHORIZED) {
                         mTransationsView.setUpToken();
                     } else {
-                        mTransationsView.showDialog("net error",false);
+                        mTransationsView.showDialog(msg,false);
                     }
                 }
             });

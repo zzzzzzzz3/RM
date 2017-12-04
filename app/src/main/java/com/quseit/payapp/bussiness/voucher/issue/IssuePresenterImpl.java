@@ -74,11 +74,11 @@ public class IssuePresenterImpl extends BasePresenter implements IssueContract.I
                 }
 
                 @Override
-                public void onFail(int code) {
+                public void onFail(int code,String msg) {
                     if (code== HttpCode.UNAUTHORIZED){
                         mIssueView.setUpToken();
                     }else {
-                        mIssueView.showDialog("net error", false);
+                        mIssueView.showDialog(msg, false);
                     }
                 }
             });

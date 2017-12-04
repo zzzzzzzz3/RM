@@ -45,11 +45,11 @@ public class PayPresenterImpl extends BasePresenter implements PayContract.PayPr
             }
 
             @Override
-            public void onFail(int code) {
+            public void onFail(int code,String msg) {
                 if (code== HttpCode.UNAUTHORIZED){
                     mPayView.setUpToken();
                 }else {
-                    mPayView.showDialog("net error", false);
+                    mPayView.showDialog(msg, false);
                 }
             }
         });

@@ -40,14 +40,14 @@ public class RedeemPresenterImpl extends BasePresenter implements RedeemContract
             }
 
             @Override
-            public void onFail(int code) {
+            public void onFail(int code,String msg) {
                 if (code == HttpCode.UNAUTHORIZED){
                     mRedeemView.setUpToken();
                 }else if (code == HttpCode.FORBIDDEN){
                     mRedeemView.showDialog("Voucher not redeemed",false);
                 }
                 else {
-                    mRedeemView.showDialog("net error",false);
+                    mRedeemView.showDialog(msg,false);
                 }
             }
         });

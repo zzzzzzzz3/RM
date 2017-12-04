@@ -14,7 +14,7 @@ import java.util.List;
  * 修改备注：
  */
 
-public class TransationBean implements Serializable{
+public class TransationBean implements Serializable {
 
     private int amount;
 
@@ -26,7 +26,7 @@ public class TransationBean implements Serializable{
 
     private String memberProfile;
 
-    private List<String> orderDescription ;
+    private List<String> orderDescription;
 
     private String orderId;
 
@@ -48,100 +48,131 @@ public class TransationBean implements Serializable{
 
     private String userKey;
 
-    public void setAmount(int amount){
+    public void setAmount(int amount) {
         this.amount = amount;
     }
-    public int getAmount(){
+
+    public int getAmount() {
         return this.amount;
     }
-    public void setCreatedAt(String createdAt){
+
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
-    public String getCreatedAt(){
+
+    public String getCreatedAt() {
         return this.createdAt;
     }
-    public void setCurrency(String currency){
+
+    public void setCurrency(String currency) {
         this.currency = currency;
     }
-    public String getCurrency(){
+
+    public String getCurrency() {
         return this.currency;
     }
-    public void setId(String id){
+
+    public void setId(String id) {
         this.id = id;
     }
-    public String getId(){
+
+    public String getId() {
         return this.id;
     }
-    public void setMemberProfile(String memberProfile){
+
+    public void setMemberProfile(String memberProfile) {
         this.memberProfile = memberProfile;
     }
-    public String getMemberProfile(){
+
+    public String getMemberProfile() {
         return this.memberProfile;
     }
-    public void setString(List<String> orderDescription){
+
+    public void setString(List<String> orderDescription) {
         this.orderDescription = orderDescription;
     }
-    public List<String> getString(){
+
+    public List<String> getString() {
         return this.orderDescription;
     }
-    public void setOrderId(String orderId){
+
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
-    public String getOrderId(){
+
+    public String getOrderId() {
         return this.orderId;
     }
-    public void setOrderTitle(String orderTitle){
+
+    public void setOrderTitle(String orderTitle) {
         this.orderTitle = orderTitle;
     }
-    public String getOrderTitle(){
+
+    public String getOrderTitle() {
         return this.orderTitle;
     }
-    public void setPaymentMethod(String paymentMethod){
+
+    public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
-    public String getPaymentMethod(){
+
+    public String getPaymentMethod() {
         return this.paymentMethod;
     }
-    public void setPlatform(String platform){
+
+    public void setPlatform(String platform) {
         this.platform = platform;
     }
-    public String getPlatform(){
+
+    public String getPlatform() {
         return this.platform;
     }
-    public void setRefId(String refId){
+
+    public void setRefId(String refId) {
         this.refId = refId;
     }
-    public String getRefId(){
+
+    public String getRefId() {
         return this.refId;
     }
-    public void setStatus(String status){
+
+    public void setStatus(String status) {
         this.status = status;
     }
-    public String getStatus(){
+
+    public String getStatus() {
         return this.status;
     }
-    public void setStoreKey(String storeKey){
+
+    public void setStoreKey(String storeKey) {
         this.storeKey = storeKey;
     }
-    public String getStoreKey(){
+
+    public String getStoreKey() {
         return this.storeKey;
     }
-    public void setTerminalKey(String terminalKey){
+
+    public void setTerminalKey(String terminalKey) {
         this.terminalKey = terminalKey;
     }
-    public String getTerminalKey(){
+
+    public String getTerminalKey() {
         return this.terminalKey;
     }
-    public void setTransactionId(String transactionId){
+
+    public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
     }
-    public String getTransactionId(){
+
+    public String getTransactionId() {
         return this.transactionId;
     }
-    public void setUserKey(String userKey){
+
+    public void setUserKey(String userKey) {
         this.userKey = userKey;
     }
-    public String getUserKey(){
+
+    public String getUserKey() {
         return this.userKey;
     }
 }

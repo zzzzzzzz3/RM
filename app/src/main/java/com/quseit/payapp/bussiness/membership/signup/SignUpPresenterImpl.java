@@ -44,11 +44,11 @@ public class SignUpPresenterImpl extends BasePresenter implements SignUpContract
                 }
 
                 @Override
-                public void onFail(int code) {
+                public void onFail(int code,String msg) {
                     if (code== HttpCode.UNAUTHORIZED){
                         mSignUpView.setUpToken();
                     }else {
-                        mSignUpView.showDialog("net error", false);
+                        mSignUpView.showDialog(msg, false);
                     }
                 }
             });

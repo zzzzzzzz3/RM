@@ -1,6 +1,7 @@
 package com.quseit.payapp.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +48,11 @@ public class TransationsAdapter extends BaseAdapter<TransationBean,TransationsAd
         final TransationBean bean = mData.get(position);
 
         holder.orderNoTv.setText(bean.getOrderId());
-        holder.remarkTv.setText(bean.getCurrency());
+        if (bean.getString()!=null&&bean.getString().get(0)!=null){
+            holder.remarkTv.setText(bean.getString().get(0));
+        }else {
+            holder.remarkTv.setText("-");
+        }
         String createTime = bean.getCreatedAt().split("T|\\.")[1];
         holder.timeTv.setText(createTime);
         String iconFont = bean.getPaymentMethod();
@@ -60,6 +65,16 @@ public class TransationsAdapter extends BaseAdapter<TransationBean,TransationsAd
                 break;
             default:
                 holder.icon.setImageResource(R.mipmap.voucher_pay_icon);
+                break;
+        }
+        switch (bean.getStatus()){
+            case "SUCCESS":
+                holder.status.setText("[SUCCESS]");
+                holder.status.setTextColor(Color.GREEN);
+                break;
+            case "FAILED":
+                holder.status.setText("[FAILED]");
+                holder.status.setTextColor(Color.RED);
                 break;
         }
 
@@ -81,6 +96,8 @@ public class TransationsAdapter extends BaseAdapter<TransationBean,TransationsAd
         TextView timeTv;
         @BindView(R.id.transation_icon)
         ImageView icon;
+        @BindView(R.id.transation_order_status_tv)
+        TextView status;
 
         public TransationViewHolder(View itemView) {
             super(itemView);

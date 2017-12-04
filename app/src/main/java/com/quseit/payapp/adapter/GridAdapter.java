@@ -15,6 +15,7 @@ import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseAdapter;
 import com.quseit.payapp.bean.ItemBean;
 import com.quseit.payapp.widget.IconText;
+import com.quseit.payapp.widget.RoundDrawable;
 
 import org.simple.eventbus.EventBus;
 
@@ -79,7 +80,7 @@ public class GridAdapter extends BaseAdapter<ItemBean,GridAdapter.MainViewHolder
     @Override
     public void onBindViewHolder(MainViewHolder holder, int position) {
         final ItemBean itemBean = mData.get(position);
-        holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext,itemBean.colorSrc));
+        holder.itemView.setBackgroundDrawable(new RoundDrawable(mContext.getResources(),null,ContextCompat.getColor(mContext,itemBean.colorSrc)));
         holder.itemIcon.setTitle(itemBean.iconFont);
         holder.itemNameTv.setText(itemBean.itemName);
 

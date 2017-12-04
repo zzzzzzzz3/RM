@@ -35,7 +35,8 @@
             android:maxLines="1"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="1000"
+            android:hint="10"
+            android:textColorHint="@color/gray"
             android:textColor="@color/text_gray"
             android:textSize="16sp"
             />
@@ -64,7 +65,8 @@
             android:gravity="center_vertical"
             android:maxLines="1"
             android:paddingLeft="45dp"
-            android:text="1234566"
+            android:hint="1234566"
+            android:textColorHint="@color/gray"
             android:textColor="@color/text_gray"
             android:textSize="16sp"
             />
