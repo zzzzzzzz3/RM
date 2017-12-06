@@ -10,6 +10,7 @@ import com.quseit.payapp.BuildConfig;
 import com.quseit.payapp.Http.Api;
 import com.quseit.dev.RetrofitManager;
 import com.quseit.payapp.R;
+import com.quseit.payapp.db.GreenDaoHelper;
 import com.quseit.payapp.util.DataStore2;
 import com.quseit.payapp.util.DynamicTimeFormat;
 import com.quseit.payapp.util.PreferenceUtil;
@@ -77,5 +78,6 @@ public class BaseApplication extends Application {
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this);
         }
+        GreenDaoHelper.getInstance().init(this);
     }
 }

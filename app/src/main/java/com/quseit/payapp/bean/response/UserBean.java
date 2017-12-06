@@ -1,5 +1,9 @@
 package com.quseit.payapp.bean.response;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
+
 /**
  * 文 件 名: UserBean
  * 创 建 人: ZhangRonghua
@@ -9,16 +13,32 @@ package com.quseit.payapp.bean.response;
  * 修改备注：
  */
 
+@Entity
 public class UserBean {
     private String avatarUrl;
 
     private String firstName;
 
+    @Id
     private String key;
 
     private String lastName;
 
     private String role;
+
+    @Generated(hash = 754763596)
+    public UserBean(String avatarUrl, String firstName, String key, String lastName,
+            String role) {
+        this.avatarUrl = avatarUrl;
+        this.firstName = firstName;
+        this.key = key;
+        this.lastName = lastName;
+        this.role = role;
+    }
+
+    @Generated(hash = 1203313951)
+    public UserBean() {
+    }
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;

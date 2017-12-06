@@ -18,6 +18,8 @@ import com.quseit.payapp.base.GoodBean;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.PayMethodBean;
 import com.quseit.payapp.bean.response.TransationBean;
+import com.quseit.payapp.bean.response.UserBean;
+import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.UIUtil;
 import com.quseit.payapp.widget.IconText;
 
@@ -35,7 +37,7 @@ import butterknife.BindView;
  * 修改备注：
  */
 
-public class OrderDetailActivity extends BaseActivity {
+public class OrderDetailActivity extends BaseActivity implements OrderDetailContract.OrderDetailView{
 
     @BindView(R.id.order_no_tv)
     TextView orderNoTv;
@@ -59,6 +61,8 @@ public class OrderDetailActivity extends BaseActivity {
     private List<GoodBean> mGoodBeans = new ArrayList<>();
     private TransationBean mTransationBean;
 
+    private OrderDetailContract.OrderDetailPresenter mOrderDetailPresenter;
+
     @Override
     public int getRootView() {
         return R.layout.activity_order_detail;
@@ -74,10 +78,6 @@ public class OrderDetailActivity extends BaseActivity {
 
         ViewCompat.setElevation(shadowLayout, UIUtil.dp2Px(this,10));
 
-    }
-
-    private void refund() {
-        toast("refund");
     }
 
     private List<GoodBean> creatList() {
@@ -131,10 +131,59 @@ public class OrderDetailActivity extends BaseActivity {
                         .setImageResource(R.mipmap.voucher_pay_icon);
                 break;
         }
+
+        mOrderDetailPresenter = new OrderDetailPresenterImpl(this);
     }
 
     @Override
     public String getToolbarTitle() {
         return "Transation";
+    }
+
+    private void refund() {
+        mOrderDetailPresenter.getUsers();
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+
+    }
+
+    @Override
+    public void killMyself() {
+
+    }
+
+    @Override
+    public void setUpToken() {
+
+    }
+
+    @Override
+    public void showRefundDialog(List<UserBean> list) {
+        if (list.size()>0){
+            toast(list.get(0).getFirstName());
+        }else {
+            toast("no user");
+        }
+    }
+
+    @Override
+    public void showDialog(String msg, boolean success) {
+        if (success){
+            DialogManager.successDialog(this,msg,null);
+        }else {
+            DialogManager.failDialog(this,msg);
+        }
     }
 }

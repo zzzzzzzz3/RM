@@ -5,6 +5,9 @@ import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.base.BasePresenter;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.response.MerchantBean;
+import com.quseit.payapp.bean.response.UserBean;
+import com.quseit.payapp.db.GreenDaoHelper;
+import com.quseit.payapp.db.UserBeanDao;
 import com.quseit.payapp.util.PreferenceUtil;
 
 /**
@@ -38,8 +41,7 @@ public class MainPresenterImpl extends BasePresenter implements MainContract.Mai
             @Override
             public void onResponse(MerchantBean response) {
                 mMainView.setData(response);
-                PreferenceUtil.getInstance().saveStr(GlobalBean.AVATAR,response.getAvatar());
-                PreferenceUtil.getInstance().saveStr(GlobalBean.MERCHANT,response.getMerchant());
+                saveData(response);
             }
 
             @Override
@@ -51,5 +53,21 @@ public class MainPresenterImpl extends BasePresenter implements MainContract.Mai
                 }
             }
         });
+    }
+
+    private void saveData(final MerchantBean response) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                PreferenceUtil.getInstance().saveStr(GlobalBean.AVATAR,response.getAvatar());
+                PreferenceUtil.getInstance().saveStr(GlobalBean.MERCHANT,response.getMerchant());
+                UserBeanDao dao = GreenDaoHelper.getInstance().getDaoSession().getUserBeanDao();
+                dao.deleteAll();
+                for (UserBean bean:response.getUsers()){
+                    dao.insert(bean);
+                }
+            }
+        }).start();
+
     }
 }

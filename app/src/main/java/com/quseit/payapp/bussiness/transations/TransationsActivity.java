@@ -90,9 +90,9 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         });
         Calendar now = Calendar.getInstance();
         year = now.get(Calendar.YEAR);
-        month = now.get(Calendar.MONTH);
+        month = now.get(Calendar.MONTH)+1;
         day = now.get(Calendar.DAY_OF_MONTH);
-        dateTv.setText(year + "/" + (month + 1) + "/" + day);
+        setDate();
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mTransationsAdapter = new TransationsAdapter(this, mTransationBeans);
@@ -123,10 +123,6 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         mRMProgressDialog = new RMProgressDialog(this);
     }
 
-    private void search(String editStr) {
-        // TODO: 2017/11/13
-    }
-
     @Override
     public void initData() {
         mTransationsPresenter = new TransationsPresenterImpl(this);
@@ -137,13 +133,23 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         return "Transations";
     }
 
+    private void setDate(){
+        String mon = month<10?("0"+month):(""+month);
+        String d = day<10?("0"+day):(""+day);
+        dateTv.setText(year + "/" + mon + "/" + d);
+    }
+
+    private void search(String editStr) {
+        // TODO: 2017/11/13
+    }
+
     @OnClick(R.id.date_pick_layout)
     public void pickDate() {
         if (mDatePickerDialog == null) {
             mDatePickerDialog = DatePickerDialog.newInstance(
                     this,
                     year,
-                    month,
+                    month-1,
                     day
             );
             mDatePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
@@ -155,9 +161,9 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         this.year = year;
-        this.month = monthOfYear;
+        this.month = monthOfYear+1;
         this.day = dayOfMonth;
-        dateTv.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
+        setDate();
     }
 
     @Subscriber
