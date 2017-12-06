@@ -4,7 +4,6 @@ import com.quseit.dev.HttpCode;
 import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.base.BasePresenter;
 import com.quseit.payapp.bean.request.PointsRequestBean;
-import com.quseit.payapp.bean.response.ResponseBean;
 
 import okhttp3.ResponseBody;
 

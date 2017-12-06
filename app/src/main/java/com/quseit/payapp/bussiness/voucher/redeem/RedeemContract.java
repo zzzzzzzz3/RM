@@ -1,11 +1,8 @@
 package com.quseit.payapp.bussiness.voucher.redeem;
 
-import com.quseit.payapp.bean.response.ResponseBean;
 import com.quseit.payapp.contract.IModel;
 import com.quseit.payapp.contract.IPresenter;
 import com.quseit.payapp.contract.IView;
-import com.quseit.payapp.widget.RMProgressDialog;
-
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 

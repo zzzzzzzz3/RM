@@ -56,10 +56,10 @@ public class RMAutoDialog extends Dialog {
 
     public RMAutoDialog setType(TYPE type){
         if (type == TYPE.FAILED){
-            icon.setText(GlobalBean.CANCEL_ICON);
+            icon.setText(getContext().getString(R.string.fail_font));
             icon.setTextColor(ContextCompat.getColor(getContext(),R.color.red));
         }else {
-            icon.setText(GlobalBean.SUCCESSFUL_ICON);
+            icon.setText(getContext().getString(R.string.success_font));
             icon.setTextColor(ContextCompat.getColor(getContext(),R.color.green));
         }
         return this;

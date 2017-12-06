@@ -1,6 +1,7 @@
 package com.quseit.payapp.adapter;
 
 import android.content.Context;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,6 +52,7 @@ public class VouchersAdapter extends BaseAdapter<VoucherBean, VouchersAdapter.Vo
     @Override
     public VoucherViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.rv_item_voucher, parent, false);
+        ViewCompat.setElevation(view,UIUtil.dp2Px(mContext,6));
         return new VoucherViewHolder(view);
     }
 
@@ -60,14 +62,15 @@ public class VouchersAdapter extends BaseAdapter<VoucherBean, VouchersAdapter.Vo
         holder.voucherName.setText(bean.getType() + " VOUCHER");
         holder.voucherType.setText(bean.getDiscountRate() + "%");
         if (bean == selected) {
-            holder.mRelativeLayout.setBackground(UIUtil.getInstance().getDrawable(R.mipmap.voucher_selected_bg));
-            holder.mRelativeLayout.setSelected(true);
+            //holder.mRelativeLayout.setSelected(true);
             holder.plusIcon.setVisibility(View.VISIBLE);
             if (bean.getCount() > 0) {
+                holder.mRelativeLayout.setBackground(UIUtil.getInstance().getDrawable(R.mipmap.voucher_amount_bg));
                 holder.minusIcon.setVisibility(View.VISIBLE);
                 holder.voucherCount.setVisibility(View.VISIBLE);
                 holder.voucherCount.setText(bean.getCount() + "");
             } else {
+                holder.mRelativeLayout.setBackground(UIUtil.getInstance().getDrawable(R.mipmap.voucher_bg));
                 holder.minusIcon.setVisibility(View.GONE);
                 holder.voucherCount.setVisibility(View.GONE);
             }
@@ -75,12 +78,8 @@ public class VouchersAdapter extends BaseAdapter<VoucherBean, VouchersAdapter.Vo
             holder.minusIcon.setVisibility(View.GONE);
             holder.plusIcon.setVisibility(View.GONE);
             holder.voucherCount.setVisibility(View.GONE);
-            if (bean.getCount() > 0) {
-                holder.mRelativeLayout.setBackground(UIUtil.getInstance().getDrawable(R.mipmap.voucher_amount_bg));
-            } else {
-                holder.mRelativeLayout.setBackground(UIUtil.getInstance().getDrawable(R.mipmap.voucher_bg));
-            }
-            holder.mRelativeLayout.setSelected(false);
+            holder.mRelativeLayout.setBackground(UIUtil.getInstance().getDrawable(R.mipmap.voucher_unseleceted));
+            //holder.mRelativeLayout.setSelected(false);
         }
 
         holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {

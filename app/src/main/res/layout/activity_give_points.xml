@@ -89,7 +89,10 @@
             android:layout_height="35dp"
             android:layout_alignRight="@+id/mobile_edit"
             android:layout_alignTop="@+id/mobile_edit"
-            android:textSize="35sp"/>
+            android:textSize="24sp"
+            android:text="@string/qrcode_font"
+            android:textColor="@color/purple_color"
+            android:background="@drawable/black_click_selector"/>
 
         <com.quseit.payapp.widget.NumberKeyboard
             android:id="@+id/keyboard_number"

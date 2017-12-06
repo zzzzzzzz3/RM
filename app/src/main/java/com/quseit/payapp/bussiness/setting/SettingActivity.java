@@ -43,12 +43,12 @@ public class SettingActivity extends BaseActivity {
     @Override
     public void initView() {
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
-        mItemBeans.add(new ItemBean(R.color.wifi_bg_color, GlobalBean.WIFI, GlobalBean.WIFI_ICON));
-        mItemBeans.add(new ItemBean(R.color.sim_bg_color, GlobalBean.SIM, GlobalBean.SIM_ICON));
-        mItemBeans.add(new ItemBean(R.color.sound_bg_color, GlobalBean.SOUND, GlobalBean.SOUND_ICON));
-        mItemBeans.add(new ItemBean(R.color.brightness_bg_color, GlobalBean.BRIGHTNESS, GlobalBean.BRIGHTNESS_ICON));
-        mItemBeans.add(new ItemBean(R.color.about_bg_color, GlobalBean.ABOUT, GlobalBean.ABOUT_ICON));
-        mItemBeans.add(new ItemBean(R.color.language_bg_color, GlobalBean.LANGUAGE, GlobalBean.LANGUAGE_ICON));
+        mItemBeans.add(new ItemBean(R.color.wifi_bg_color, GlobalBean.WIFI, getString(R.string.wifi_font)));
+        mItemBeans.add(new ItemBean(R.color.sim_bg_color, GlobalBean.SIM, getString(R.string.sim_font)));
+        mItemBeans.add(new ItemBean(R.color.sound_bg_color, GlobalBean.SOUND, getString(R.string.sound_font)));
+        mItemBeans.add(new ItemBean(R.color.brightness_bg_color, GlobalBean.BRIGHTNESS, getString(R.string.brightness_font)));
+        mItemBeans.add(new ItemBean(R.color.about_bg_color, GlobalBean.ABOUT, getString(R.string.about_font)));
+        mItemBeans.add(new ItemBean(R.color.language_bg_color, GlobalBean.LANGUAGE, getString(R.string.language_font)));
         mGridAdapter = new GridAdapter(this, mItemBeans);
         mRecyclerView.setAdapter(mGridAdapter);
     }

@@ -1,7 +1,8 @@
 package com.quseit.payapp.bussiness.pay;
 
 import com.quseit.payapp.bean.request.PayRequestBean;
-import com.quseit.payapp.bean.response.ResponseBean;
+import com.quseit.payapp.bean.response.BaseResponse;
+import com.quseit.payapp.bean.response.PayResponseBean;
 import com.quseit.payapp.contract.IModel;
 import com.quseit.payapp.contract.IPresenter;
 import com.quseit.payapp.contract.IView;
@@ -26,7 +27,7 @@ public interface PayContract {
     }
 
     interface PayModel extends IModel{
-        Observable<ResponseBean> pay(PayRequestBean payRequestBean);
+        Observable<BaseResponse<PayResponseBean>> pay(PayRequestBean payRequestBean);
     }
 
     interface PayPresenter extends IPresenter{

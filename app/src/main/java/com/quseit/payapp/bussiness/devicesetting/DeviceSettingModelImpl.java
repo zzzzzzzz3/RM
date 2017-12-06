@@ -2,10 +2,8 @@ package com.quseit.payapp.bussiness.devicesetting;
 
 import com.quseit.dev.RetrofitManager;
 import com.quseit.payapp.Http.TerminalService;
-import com.quseit.payapp.base.BaseModel;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.request.ActiveRequestBean;
-import com.quseit.payapp.bean.response.ResponseBean;
 import com.quseit.payapp.util.DataStore2;
 
 import io.reactivex.Observable;

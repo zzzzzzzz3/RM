@@ -1,17 +1,23 @@
 package com.quseit.payapp.bussiness.main;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.quseit.pay.PrintUtil;
 import com.quseit.payapp.R;
 import com.quseit.payapp.adapter.MainFragmentAdapter;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.ItemBean;
+import com.quseit.payapp.bean.response.MerchantBean;
 import com.quseit.payapp.bussiness.membership.MembershipActivity;
 import com.quseit.payapp.bussiness.pay.PaymentActivity;
 import com.quseit.payapp.bussiness.setting.SettingActivity;
@@ -19,8 +25,10 @@ import com.quseit.payapp.bussiness.support.SupportActivity;
 import com.quseit.payapp.bussiness.transations.TransationsActivity;
 import com.quseit.payapp.bussiness.voucher.VoucherActivity;
 import com.quseit.payapp.util.DialogManager;
+import com.quseit.payapp.util.PreferenceUtil;
 import com.quseit.payapp.util.UIUtil;
 import com.quseit.payapp.widget.RMDialog;
+import com.quseit.payapp.widget.RMProgressDialog;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.simple.eventbus.Subscriber;
@@ -36,14 +44,21 @@ import butterknife.BindView;
  * 修改备注：
  */
 
-public class MainActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener{
+public class MainActivity extends BaseActivity implements MainContract.MainView{
 
     @BindView(R.id.vp_main)
     ViewPager mViewPager;
     @BindView(R.id.dots_layout)
     LinearLayout mDotsLayout;
+    @BindView(R.id.avatar_img)
+    ImageView mAvatarImg;
+    @BindView(R.id.merchant_tv)
+    TextView merchantTv;
     //ViewPager页面数
     private static final int len = 2;
+
+    private RMProgressDialog mRMProgressDialog;
+    private MainContract.MainPresenter mMainPresenter;
 
     @Override
     public int getRootView() {
@@ -54,6 +69,7 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
     public void initView() {
         setUpViewpager();
         setupDotLayout();
+        mRMProgressDialog = new RMProgressDialog(this);
     }
 
     private void setUpViewpager() {
@@ -107,7 +123,16 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
 
     @Override
     public void initData() {
-
+        mMainPresenter = new MainPresenterImpl(this);
+        MerchantBean bean = new MerchantBean();
+        bean.setAvatar(PreferenceUtil.getInstance().getStr(GlobalBean.AVATAR));
+        bean.setMerchant(PreferenceUtil.getInstance().getStr(GlobalBean.MERCHANT));
+        if (!bean.getAvatar().isEmpty()&&!bean.getMerchant().isEmpty()){
+            setData(bean);
+        }else {
+            // TODO: 2017/12/5 获取商户信息
+            mMainPresenter.getMerchantInfo();
+        }
     }
 
     @Override
@@ -131,7 +156,7 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
                 startActivity(new Intent(this, TransationsActivity.class));
                 break;
             case GlobalBean.APP_STORE:
-                PrintUtil.print(this);
+
                 break;
             case GlobalBean.SETTING:
                 startActivity(new Intent(this, SettingActivity.class));
@@ -150,7 +175,38 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
     }
 
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        toast(year+"-"+monthOfYear+"-"+dayOfMonth);
+    public void showLoading() {
+        mRMProgressDialog.show();
+    }
+
+    @Override
+    public void hideLoading() {
+        mRMProgressDialog.dismiss();
+    }
+
+    @Override
+    public void showMessage(String message) {
+        toast(message);
+    }
+
+    @Override
+    public void killMyself() {
+        finish();
+    }
+
+    @Override
+    public void setUpToken() {
+        settingToken();
+    }
+
+    @Override
+    public void setData(MerchantBean bean) {
+        Glide.with(this).asBitmap().load(bean.getAvatar()).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                mAvatarImg.setImageBitmap(resource);
+            }
+        });
+        merchantTv.setText(bean.getMerchant());
     }
 }

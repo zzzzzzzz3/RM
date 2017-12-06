@@ -41,14 +41,6 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
     TextView mPaymentTv;
     @BindView(R.id.remark_tv)
     TextView remarkTv;
-    @BindView(R.id.mumber_icon)
-    IconText memberIcon;
-    @BindView(R.id.desc_icon)
-    IconText descIcon;
-    @BindView(R.id.cash_icon)
-    IconText cashIcon;
-    @BindView(R.id.scan_icon)
-    IconText scanIcon;
     private ScanUtil mScanUtil;
     private final String defaultNum = "0.00";
     private RMProgressDialog mRMProgressDialog;
@@ -80,10 +72,6 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
         });
 
         mPaymentTv.setText(defaultNum);
-        memberIcon.setText(GlobalBean.MEMBERSHIP_ICON);
-        descIcon.setText(GlobalBean.EDIT_ICON);
-        cashIcon.setText(GlobalBean.CASH_ICON);
-        scanIcon.setText(GlobalBean.QRCODE_ICON);
 
         mRMProgressDialog = new RMProgressDialog(this);
     }
@@ -119,7 +107,7 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
             return;
         }
 
-        DialogManager.rmDialog(this, "Continue as cash payment?", GlobalBean.CASH_ICON,R.color.payment_bg_color,new RMDialog.OnPositiveClickListener() {
+        DialogManager.rmDialog(this, "Continue as cash payment?", getString(R.string.cash_font),R.color.payment_bg_color,new RMDialog.OnPositiveClickListener() {
             @Override
             public void onPositiveClick() {
                 String remark = remarkTv.getText().toString();
@@ -227,12 +215,7 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
     @Override
     public void showDialog(String msg, boolean isSuccess) {
         if (isSuccess){
-            DialogManager.successDialog(this, msg, new RMDialog.OnPositiveClickListener() {
-                @Override
-                public void onPositiveClick() {
-
-                }
-            });
+            DialogManager.successDialog(this, msg, null);
         }else {
             DialogManager.failDialog(this,msg);
         }

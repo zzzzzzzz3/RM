@@ -35,7 +35,7 @@ public class PreferenceUtil {
     }
 
     public void saveStr(String key,String value){
-        mPreferences.edit().putString(key,value).commit();
+        mPreferences.edit().putString(key,value).apply();
     }
 
     public String getStr(String key){
@@ -43,10 +43,10 @@ public class PreferenceUtil {
     }
 
     public void delete(String key){
-        mPreferences.edit().remove(key);
+        mPreferences.edit().remove(key).apply();
     }
 
     public void clear(){
-        mPreferences.edit().clear().commit();
+        mPreferences.edit().clear().apply();
     }
 }

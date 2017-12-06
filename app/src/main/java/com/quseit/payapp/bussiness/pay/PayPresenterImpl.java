@@ -4,7 +4,8 @@ import com.quseit.dev.HttpCode;
 import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.base.BasePresenter;
 import com.quseit.payapp.bean.request.PayRequestBean;
-import com.quseit.payapp.bean.response.ResponseBean;
+import com.quseit.payapp.bean.response.BaseResponse;
+import com.quseit.payapp.bean.response.PayResponseBean;
 
 /**
  * 文 件 名: PayPresenterImpl
@@ -34,13 +35,13 @@ public class PayPresenterImpl extends BasePresenter implements PayContract.PayPr
     @Override
     public void pay(String amount, String authCode, String remark, String storeId) {
         int a = (int) (Float.parseFloat(amount)*100);
-        logic(mPayModel.pay(new PayRequestBean(a,authCode,remark)), new ObserverHandler<ResponseBean>() {
+        logic(mPayModel.pay(new PayRequestBean(a,authCode,remark)), new ObserverHandler<BaseResponse<PayResponseBean>>() {
             @Override
-            public void onResponse(ResponseBean response) {
-                if (response.success()){
-                    mPayView.showDialog(response.getMsg(),true);
+            public void onResponse(BaseResponse<PayResponseBean> response) {
+                if (response.getMessage().success()){
+                    mPayView.showDialog(response.getMessage().getMsg(),true);
                 }else {
-                    mPayView.showDialog(response.getMsg(),false);
+                    mPayView.showDialog(response.getMessage().getMsg(),false);
                 }
             }
 

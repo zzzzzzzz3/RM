@@ -3,10 +3,7 @@ package com.quseit.payapp.bussiness.membership.signup;
 import com.quseit.dev.RetrofitManager;
 import com.quseit.payapp.Http.MemberService;
 import com.quseit.payapp.base.BaseModel;
-import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.request.MemberRequestBean;
-import com.quseit.payapp.bean.response.ResponseBean;
-import com.quseit.payapp.util.DataStore2;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;

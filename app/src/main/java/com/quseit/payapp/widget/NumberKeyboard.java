@@ -50,7 +50,7 @@ public class NumberKeyboard extends RecyclerView {
         setAdapter(new KeyboardAdapter());
         setOverScrollMode(OVER_SCROLL_NEVER);
         int ten = UIUtil.dp2Px(mContext,10);
-        setPadding(ten*2,ten,ten*2,0);
+        setPadding(ten,ten,ten,0);
         setMinimumHeight(ten*30);
     }
 

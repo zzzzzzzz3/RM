@@ -1,11 +1,13 @@
 package com.quseit.payapp.bussiness.orderDetail;
 
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -16,6 +18,7 @@ import com.quseit.payapp.base.GoodBean;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.PayMethodBean;
 import com.quseit.payapp.bean.response.TransationBean;
+import com.quseit.payapp.util.UIUtil;
 import com.quseit.payapp.widget.IconText;
 
 import java.util.ArrayList;
@@ -50,6 +53,8 @@ public class OrderDetailActivity extends BaseActivity {
     RecyclerView mRecyclerView;
     @BindView(R.id.order_status_id)
     TextView statusTv;
+    @BindView(R.id.shadow_layout)
+    LinearLayout shadowLayout;
     private GoodsAdapter mGoodsAdapter;
     private List<GoodBean> mGoodBeans = new ArrayList<>();
     private TransationBean mTransationBean;
@@ -73,6 +78,8 @@ public class OrderDetailActivity extends BaseActivity {
         mGoodsAdapter = new GoodsAdapter(this, mGoodBeans);
         mRecyclerView.setAdapter(mGoodsAdapter);
 
+        ViewCompat.setElevation(shadowLayout, UIUtil.dp2Px(this,10));
+
     }
 
     private void refund() {
@@ -93,8 +100,13 @@ public class OrderDetailActivity extends BaseActivity {
     @Override
     public void initData() {
         mTransationBean = (TransationBean) getIntent().getSerializableExtra(GlobalBean.TRANSATION_BEAN);
-        orderNoTv.setText(mTransationBean.getOrderId());
-        String[] date = mTransationBean.getCreatedAt().split("T|\\.");
+        String orderId = mTransationBean.getOrderId();
+        if (orderId.isEmpty()){
+            orderNoTv.setText("-");
+        }else {
+            orderNoTv.setText(orderId);
+        }
+        String[] date = mTransationBean.getCreatedAt().replace("-","/").split("T|\\.");
         orderDateTv.setText(date[0]);
         orderTimeTv.setText(date[1]);
         if (mTransationBean.getString()!=null&&mTransationBean.getString().get(0)!=null){

@@ -38,8 +38,6 @@ public class GivePontsActivity extends BaseActivity implements PointsContract.Po
     TextView mobileEdit;
     @BindView(R.id.keyboard_number)
     NumberKeyboard mNumberKeyboard;
-    @BindView(R.id.scan_icon)
-    IconText scanIcon;
     private ScanUtil mScanUtil;
 
     private Animation inAnim, outAnim;
@@ -53,7 +51,6 @@ public class GivePontsActivity extends BaseActivity implements PointsContract.Po
 
     @Override
     public void initView() {
-        scanIcon.setText(GlobalBean.QRCODE_ICON);
         setRightText("Done", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,7 +207,7 @@ public class GivePontsActivity extends BaseActivity implements PointsContract.Po
     @Override
     public void showDialog(String msg, boolean success) {
         if (success){
-            DialogManager.rmDialogSubTextComfirm(this,msg,pointsEdit.getText().toString()+" Points",GlobalBean.POINTS_ICON,R.color.green);
+            DialogManager.rmDialogSubTextComfirm(this,msg,pointsEdit.getText().toString()+" Points",getString(R.string.points_font),R.color.green);
         }else {
             DialogManager.failDialog(this,msg);
         }

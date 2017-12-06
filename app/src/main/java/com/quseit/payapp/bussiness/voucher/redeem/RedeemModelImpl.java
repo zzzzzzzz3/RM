@@ -4,7 +4,6 @@ import com.quseit.dev.RetrofitManager;
 import com.quseit.payapp.Http.VoucherService;
 import com.quseit.payapp.base.BaseModel;
 import com.quseit.payapp.bean.request.RequestBean;
-import com.quseit.payapp.bean.response.ResponseBean;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;

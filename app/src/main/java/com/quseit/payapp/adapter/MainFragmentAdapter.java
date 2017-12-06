@@ -61,28 +61,32 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
 
     private List<ItemBean> createFirstItems() {
         List<ItemBean> list = new ArrayList<>();
-        ItemBean bean1 = new ItemBean(R.color.payment_bg_color, GlobalBean.PAYMENT, GlobalBean.PAYMENT_ICON);
+        ItemBean bean1 = new ItemBean(R.color.payment_bg_color, GlobalBean.PAYMENT, getString(R.string.payment_font));
         list.add(bean1);
-        ItemBean bean2 = new ItemBean(R.color.voucher_bg_color, GlobalBean.VOUCHER, GlobalBean.VOUCHER_ICON);
+        ItemBean bean2 = new ItemBean(R.color.voucher_bg_color, GlobalBean.VOUCHER, getString(R.string.voucher_font));
         list.add(bean2);
-        ItemBean bean3 = new ItemBean(R.color.membership_bg_color, GlobalBean.MEMBERSHIP, GlobalBean.MEMBERSHIP_ICON);
+        ItemBean bean3 = new ItemBean(R.color.membership_bg_color, GlobalBean.MEMBERSHIP, getString(R.string.membership_font_main));
         list.add(bean3);
-        ItemBean bean4 = new ItemBean(R.color.history_bg_color, GlobalBean.TRANSATIONS, GlobalBean.TRANSATIONS_ICON);
+        ItemBean bean4 = new ItemBean(R.color.history_bg_color, GlobalBean.TRANSATIONS, getString(R.string.transation_font));
         list.add(bean4);
-        ItemBean bean5 = new ItemBean(R.color.app_store_bg_color, GlobalBean.APP_STORE, GlobalBean.APP_STORE_ICON);
+        ItemBean bean5 = new ItemBean(R.color.app_store_bg_color, GlobalBean.APP_STORE, getString(R.string.app_store_font));
         list.add(bean5);
         return list;
     }
 
+    private String getString(int res){
+        return UIUtil.getInstance().getString(res);
+    }
+
     private List<ItemBean> createSeccondItems() {
         List<ItemBean> list = new ArrayList<>();
-        ItemBean bean1 = new ItemBean(R.color.setting_bg_color, GlobalBean.SETTING, GlobalBean.SETTING_ICON);
+        ItemBean bean1 = new ItemBean(R.color.setting_bg_color, GlobalBean.SETTING, getString(R.string.setting_font));
         list.add(bean1);
-        ItemBean bean2 = new ItemBean(R.color.orders_bg_color, GlobalBean.ORDERS, GlobalBean.ORDER_ICON);
+        ItemBean bean2 = new ItemBean(R.color.orders_bg_color, GlobalBean.ORDERS, getString(R.string.order_font));
         list.add(bean2);
-        ItemBean bean3 = new ItemBean(R.color.support_bg_color, GlobalBean.SUPPORT, GlobalBean.SUPPORT_ICON);
+        ItemBean bean3 = new ItemBean(R.color.support_bg_color, GlobalBean.SUPPORT, getString(R.string.support_font));
         list.add(bean3);
-        ItemBean bean4 = new ItemBean(R.color.notification_bg_color, GlobalBean.NOTIFICATION, GlobalBean.NOTIFICATION_ICON);
+        ItemBean bean4 = new ItemBean(R.color.notification_bg_color, GlobalBean.NOTIFICATION, getString(R.string.notification_font));
         list.add(bean4);
         list.add(bean4);
         list.add(bean4);

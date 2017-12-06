@@ -2,11 +2,13 @@ package com.quseit.payapp.bussiness.transations;
 
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ import com.quseit.payapp.bean.response.TransationBean;
 import com.quseit.payapp.bussiness.devicesetting.DeviceSettingActivity;
 import com.quseit.payapp.bussiness.orderDetail.OrderDetailActivity;
 import com.quseit.payapp.util.DialogManager;
+import com.quseit.payapp.util.UIUtil;
 import com.quseit.payapp.widget.RMDialog;
 import com.quseit.payapp.widget.RMEditDialog;
 import com.quseit.payapp.widget.RMProgressDialog;
@@ -57,6 +60,8 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     CheckBox refundCheckbox;
     @BindView(R.id.empty_view)
     ImageView emptyView;
+    @BindView(R.id.shadow_layout)
+    FrameLayout shadowLayout;
     private int year, month, day;
     private TransationsAdapter mTransationsAdapter;
     private List<TransationBean> mTransationBeans = new ArrayList<>();
@@ -71,6 +76,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
 
     @Override
     public void initView() {
+        ViewCompat.setElevation(shadowLayout, UIUtil.dp2Px(this,10));
         setRightIcon(R.mipmap.search_icon, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +147,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
                     day
             );
             mDatePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
-            mDatePickerDialog.setAccentColor(ContextCompat.getColor(this, R.color.blue));
+            mDatePickerDialog.setAccentColor(ContextCompat.getColor(this, R.color.purple_color));
         }
         mDatePickerDialog.show(getFragmentManager(), "Datepickerdialog");
     }
@@ -152,7 +158,6 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         this.month = monthOfYear;
         this.day = dayOfMonth;
         dateTv.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
-        // TODO: 2017/11/13
     }
 
     @Subscriber

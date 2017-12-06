@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+             android:clipChildren="true">
 
     <LinearLayout
         android:layout_width="300dp"
@@ -11,15 +12,20 @@
         android:gravity="center_horizontal"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        >
         <com.quseit.payapp.widget.IconText
             android:id="@+id/dialog_icon"
             android:layout_width="130dp"
             android:layout_height="130dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:textSize="130sp"
-            android:textColor="@color/black"/>
+            android:textSize="110sp"
+            android:textColor="@color/black"
+            android:text="@string/success_font"
+            android:gravity="center"
+            android:background="@drawable/circle_shape"
+            />
         <TextView
             android:id="@+id/dialog_text"
             android:layout_width="match_parent"

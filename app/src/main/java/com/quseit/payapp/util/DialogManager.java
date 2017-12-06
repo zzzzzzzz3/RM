@@ -1,11 +1,13 @@
 package com.quseit.payapp.util;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 
 import com.quseit.payapp.R;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.widget.IOSDialog;
 import com.quseit.payapp.widget.RMAutoDialog;
+import com.quseit.payapp.widget.RMComfirmDialog;
 import com.quseit.payapp.widget.RMDialog;
 import com.quseit.payapp.widget.RMEditDialog;
 import com.quseit.payapp.widget.RMProgressDialog;
@@ -124,20 +126,6 @@ public class DialogManager {
         return dialog;
     }
 
-    public static RMAutoDialog rmAutoDialog(Context context, String msg, RMAutoDialog.TYPE type) {
-        RMAutoDialog dialog = new RMAutoDialog(context)
-                .setMessage(msg)
-                .setType(type);
-        dialog.show();
-        return dialog;
-    }
-
-    public static RMProgressDialog rmProgressDialog(Context context) {
-        RMProgressDialog dialog = new RMProgressDialog(context);
-        dialog.show();
-        return dialog;
-    }
-
     public static RMEditDialog rmEditDialog(Context context, String title, String hint, RMEditDialog.OnPositiveClickListener listener) {
         RMEditDialog dialog = new RMEditDialog(context)
                 .setEditHint(hint)
@@ -148,11 +136,34 @@ public class DialogManager {
     }
 
     public static void successDialog(Context context, String msg, RMDialog.OnPositiveClickListener listener) {
-        rmDialogNoCancel(context, msg, GlobalBean.SUCCESSFUL_ICON, R.color.green, listener);
+        RMComfirmDialog dialog = new RMComfirmDialog(context)
+                .setIcon(context.getString(R.string.success_font))
+                .setIconColor(ContextCompat.getColor(context,R.color.green))
+                .setPositionBtn("OK",listener)
+                .setText(msg);
+                dialog.show(true);
     }
 
     public static void failDialog(Context context, String msg) {
-        rmDialogComfirm(context, msg, GlobalBean.CANCEL_ICON, R.color.red);
+        if (msg.equals("")){
+            netErrorDialog(context);
+        }else {
+            RMComfirmDialog dialog = new RMComfirmDialog(context)
+                    .setIcon(context.getString(R.string.fail_font))
+                    .setIconColor(ContextCompat.getColor(context,R.color.red))
+                    .setNegativeBtn("OK",null)
+                    .setText(msg);
+            dialog.show(false);
+        }
+    }
+
+    public static void netErrorDialog(Context context) {
+        RMComfirmDialog dialog = new RMComfirmDialog(context)
+                .setIcon(context.getString(R.string.net_error_font))
+                .setIconColor(ContextCompat.getColor(context,R.color.red))
+                .setNegativeBtn("OK",null)
+                .setText("Connection error");
+        dialog.show(false);
     }
 
 }

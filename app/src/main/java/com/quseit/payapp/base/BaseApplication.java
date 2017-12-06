@@ -47,7 +47,7 @@ public class BaseApplication extends Application {
         SmartRefreshLayout.setDefaultRefreshHeaderCreater(new DefaultRefreshHeaderCreater() {
             @Override
             public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
-                layout.setPrimaryColorsId(R.color.themeColor, android.R.color.white);
+                layout.setPrimaryColorsId(R.color.window_bg_color, android.R.color.black);
                 return new MyHeader(context).setTimeFormat(new SimpleDateFormat("'Last Update' M-d HH:mm"));
             }
         });

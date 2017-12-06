@@ -1,111 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
     <include layout="@layout/toolbar"/>
 
-    <com.quseit.payapp.widget.GradientView
-        android:layout_width="match_parent"
-        android:layout_height="1.5dp"
-        android:layout_marginTop="30dp"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"/>
+        android:layout_marginTop="30dp"
+        android:text="Enter value"
+        android:textColor="@color/white"
+        android:textSize="14sp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:gravity="center"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="28sp"
-            android:textColor="@color/white"
-            android:text="MYR"
             android:layout_marginRight="5dp"
+            android:text="MR"
+            android:textColor="@color/white"
+            android:textSize="28sp"
             android:textStyle="bold"
             />
+
         <TextView
             android:id="@+id/payment_number_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="28sp"
+            android:layout_weight="1"
+            android:hint="0.00"
             android:textColor="@color/white"
-            android:text="0.00"
+            android:textSize="28sp"
             android:textStyle="bold"
             />
-    </LinearLayout>
-    <com.quseit.payapp.widget.GradientView
-        android:layout_width="match_parent"
-        android:layout_height="1.5dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"/>
 
-    <TextView
-        android:id="@+id/remark_tv"
+        <com.quseit.payapp.widget.IconText
+            android:id="@+id/mumber_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/membership_font"
+            android:textColor="@color/text_gray"
+            android:textSize="28sp"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@color/gray"/>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:textColor="@color/white"
-        />
+        android:layout_weight="1"
+        android:gravity="start"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <com.quseit.payapp.widget.IconText
+            android:id="@+id/desc_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:text="@string/edit_font"
+            android:textColor="@color/text_gray"
+            android:textSize="28sp"
+            />
+
+        <TextView
+            android:id="@+id/remark_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="6dp"
+            android:layout_weight="1"
+            android:hint="remark"
+            android:textColor="@color/white"
+            />
+    </FrameLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        >
+
+        <View
             android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_centerVertical="true"
+            android:background="@color/gray"/>
+
+        <com.quseit.payapp.widget.IconText
+            android:id="@+id/cash_icon"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@+id/scan_icon"
+            android:background="@drawable/cash_click_selector"
+            android:gravity="center"
+            android:text="@string/cash_font"
+            android:textColor="@color/white"
+            android:textSize="36sp"/>
+
+        <com.quseit.payapp.widget.IconText
+            android:id="@+id/scan_icon"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/scan_click_selector"
+            android:gravity="center"
+            android:text="@string/qrcode_font"
+            android:textColor="@color/purple_color"
+            android:textSize="36sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_above="@+id/keyboard_number"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            >
-            <com.quseit.payapp.widget.IconText
-                android:id="@+id/mumber_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:textSize="36sp"
-                android:textColor="@color/text_gray"
-                />
-            <com.quseit.payapp.widget.IconText
-                android:id="@+id/desc_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="36sp"
-                android:textColor="@color/text_gray"/>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"/>
-            <com.quseit.payapp.widget.IconText
-                android:id="@+id/cash_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="56sp"
-                android:layout_marginRight="20dp"
-                android:textColor="@color/about_bg_color"/>
-            <com.quseit.payapp.widget.IconText
-                android:id="@+id/scan_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="56sp"
-                android:textColor="@color/wifi_bg_color"/>
-        </LinearLayout>
-        <com.quseit.payapp.widget.NumberKeyboard
-            android:id="@+id/keyboard_number"
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@color/white"
-            />
+            android:layout_alignBottom="@+id/cash_icon"
+            android:layout_marginLeft="30dp"
+            android:text="Payment Method"
+            android:textColor="@color/white"/>
     </RelativeLayout>
+
+    <com.quseit.payapp.widget.NumberKeyboard
+        android:id="@+id/keyboard_number"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        />
 </LinearLayout>

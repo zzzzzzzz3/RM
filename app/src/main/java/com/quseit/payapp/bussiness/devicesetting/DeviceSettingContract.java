@@ -1,6 +1,5 @@
 package com.quseit.payapp.bussiness.devicesetting;
 
-import com.quseit.payapp.bean.response.ResponseBean;
 import com.quseit.payapp.contract.IModel;
 import com.quseit.payapp.contract.IPresenter;
 import com.quseit.payapp.contract.IView;

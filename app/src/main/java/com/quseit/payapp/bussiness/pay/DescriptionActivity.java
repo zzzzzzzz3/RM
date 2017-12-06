@@ -1,6 +1,7 @@
 package com.quseit.payapp.bussiness.pay;
 
 import android.content.Intent;
+import android.view.View;
 import android.widget.EditText;
 
 import com.quseit.payapp.R;
@@ -37,6 +38,12 @@ public class DescriptionActivity extends BaseActivity {
             descEdit.setText(remarkStr);
             descEdit.setSelection(remarkStr.length());
         }
+        setRightText("Save", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveDesc();
+            }
+        });
     }
 
     @Override
@@ -49,8 +56,7 @@ public class DescriptionActivity extends BaseActivity {
         return "Description";
     }
 
-    @OnClick(R.id.save_btn)
-    public void saveDesc() {
+    private void saveDesc() {
         Intent intent = new Intent();
         intent.putExtra(GlobalBean.REMARK,descEdit.getText().toString());
         setResult(RESULT_OK,intent);

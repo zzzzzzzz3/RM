@@ -2,7 +2,6 @@ package com.quseit.payapp.Http;
 
 import com.quseit.payapp.bean.request.MemberRequestBean;
 import com.quseit.payapp.bean.request.PointsRequestBean;
-import com.quseit.payapp.bean.response.ResponseBean;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;

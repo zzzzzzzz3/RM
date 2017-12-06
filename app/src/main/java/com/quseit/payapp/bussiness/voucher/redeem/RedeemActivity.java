@@ -3,6 +3,7 @@ package com.quseit.payapp.bussiness.voucher.redeem;
 import android.Manifest;
 import android.app.Dialog;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -30,15 +31,14 @@ import butterknife.OnClick;
  * 修改备注：
  */
 
-public class RedeemActivity extends BaseActivity implements RedeemContract.RedeemView{
+public class RedeemActivity extends BaseActivity implements RedeemContract.RedeemView {
 
-    @BindView(R.id.voucher_code__tv)
+    @BindView(R.id.voucher_code_tv)
     EditText voucherCodeTv;
-    @BindView(R.id.keyboard_number)
-    NumberKeyboard mNumberKeyboard;
     private ScanUtil mScanUtil;
     private RMProgressDialog mRMProgressDialog;
-private RedeemContract.RedeemPresenter mRedeemPresenter;
+    private RedeemContract.RedeemPresenter mRedeemPresenter;
+
     @Override
     public int getRootView() {
         return R.layout.activity_redeem;
@@ -46,33 +46,18 @@ private RedeemContract.RedeemPresenter mRedeemPresenter;
 
     @Override
     public void initView() {
-        mNumberKeyboard.setEndKeyName("Enter");
-        mNumberKeyboard.setOnKeyClickListener(new NumberKeyboard.OnKeyClickListener() {
+        mRMProgressDialog = new RMProgressDialog(this);
+        setRightText("Done", new View.OnClickListener() {
             @Override
-            public void onNumberClick(int number) {
-                String msg = voucherCodeTv.getText().toString();
-                if (msg.length() <= 15)
-                    voucherCodeTv.setText(msg + number);
-            }
-
-            @Override
-            public void onDeleteClick() {
-                String msg = voucherCodeTv.getText().toString();
-                if (!msg.equals(""))
-                    voucherCodeTv.setText(msg.substring(0, msg.length() - 1));
-            }
-
-            @Override
-            public void onEndKeyClick() {
+            public void onClick(View v) {
                 submit();
             }
         });
-        mRMProgressDialog = new RMProgressDialog(this);
     }
 
     private void submit() {
         String code = voucherCodeTv.getText().toString();
-        if (code.equals("")){
+        if (code.equals("")) {
             toast("code must be not empty");
             return;
         }
@@ -111,7 +96,7 @@ private RedeemContract.RedeemPresenter mRedeemPresenter;
             @Override
             public void onError(String msg) {
                 Log.d("Scan", msg);
-                DialogManager.failDialog(RedeemActivity.this,"Voucher redemption fail");
+                DialogManager.failDialog(RedeemActivity.this, "Voucher redemption fail");
             }
 
             @Override
@@ -166,10 +151,10 @@ private RedeemContract.RedeemPresenter mRedeemPresenter;
 
     @Override
     public void showDialog(String msg, boolean success) {
-        if (success){
+        if (success) {
             DialogManager.successDialog(this, msg, null);
-        }else {
-            DialogManager.failDialog(this,msg);
+        } else {
+            DialogManager.failDialog(this, msg);
         }
     }
 }

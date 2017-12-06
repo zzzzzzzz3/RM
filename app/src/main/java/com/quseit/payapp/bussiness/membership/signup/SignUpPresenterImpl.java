@@ -4,7 +4,6 @@ import com.quseit.dev.HttpCode;
 import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.base.BasePresenter;
 import com.quseit.payapp.bean.request.MemberRequestBean;
-import com.quseit.payapp.bean.response.ResponseBean;
 
 import okhttp3.ResponseBody;
 
@@ -57,19 +56,19 @@ public class SignUpPresenterImpl extends BasePresenter implements SignUpContract
 
     private boolean checkData(String name, String mobile, String countryCode, String email) {
         if (name.equals("")){
-            mSignUpView.showMessage("name is empty");
+            mSignUpView.showMessage("Name is empty");
             return false;
         }
-        if (mobile.equals("")){
-            mSignUpView.showMessage("mobile is empty");
+        if (mobile.length()<9){
+            mSignUpView.showMessage("Number of digits is not less than 9");
             return false;
         }
         if (countryCode.equals("")){
-            mSignUpView.showMessage("country code is empty");
+            mSignUpView.showMessage("Country code is empty");
             return false;
         }
         if (email.equals("")){
-            mSignUpView.showMessage("email is empty");
+            mSignUpView.showMessage("Email is empty");
             return false;
         }
         return true;

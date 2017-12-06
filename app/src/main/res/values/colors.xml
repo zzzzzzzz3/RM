@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="themeColor">#06050a</color>
-    <color name="window_bg_color">#d1d1d1</color>
+    <color name="window_bg_color">#f5f5f5</color>
     <color name="white">#ffffff</color>
     <color name="alpha_white">#84ffffff</color>
     <color name="black">#000000</color>
@@ -19,6 +19,7 @@
     <color name="red">#fe2727</color>
     <color name="orange">#f17735</color>
     <color name="green">#00cc6a</color>
+    <color name="green_pressed">#09a259</color>
     <color name="yellow">#eeff41</color>
 
     <color name="btn_default_color">#7fc9e5</color>
@@ -47,6 +48,11 @@
     <color name="brightness_bg_color">#0078d7</color>
     <color name="about_bg_color">#00cc6a</color>
     <color name="language_bg_color">#ea436a</color>
+
+    <color name="purple_color">#897ff7</color>
+    <color name="purple_color_pressed">#7066d6</color>
+
+
 
 
 </resources>

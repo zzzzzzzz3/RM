@@ -57,7 +57,7 @@ public abstract class ObserverHandler<T> implements Observer<T> {
                 e1.printStackTrace();
             }
         } else {
-            onFail(-1, "unkonw error");
+            onFail(-1, "");
         }
     }
 

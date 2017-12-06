@@ -12,21 +12,20 @@ import com.google.gson.annotations.SerializedName;
  * 修改备注：
  */
 
-public class ResponseBean<T> {
+public class PayResponseBean {
 
-    @SerializedName(value = "responseCode",alternate = {"code"})
+    @SerializedName(value = "code")
     private String code;
-    @SerializedName(value = "responseMsg",alternate = {"message"})
+    @SerializedName(value = "message")
     private String msg;
-    @SerializedName(value = "data")
-    private T data;
+    private String paymentMethod;
 
-    public T getData() {
-        return data;
+    public String getData() {
+        return paymentMethod;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public void setData(String data) {
+        this.paymentMethod = data;
     }
 
     public String getCode() {
@@ -43,10 +42,6 @@ public class ResponseBean<T> {
 
     public void setMsg(String msg) {
         this.msg = msg;
-    }
-
-    public boolean loginOutTime(){
-        return code.equals("01");
     }
 
     public boolean success(){

@@ -3,19 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/window_bg_color">
 
     <include layout="@layout/toolbar"/>
 
     <FrameLayout
+        android:id="@+id/shadow_layout"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@color/white"
+        android:layout_margin="20dp"
+        android:background="@drawable/dialog_corner_bg"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        >
 
         <LinearLayout
             android:id="@+id/date_pick_layout"
@@ -46,7 +48,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
-            android:buttonTint="@color/text_gray"
+            android:button="@drawable/checkbox_selector"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
             android:text="Refunds"
             android:textColor="@color/text_gray"
             android:textSize="16sp"/>
@@ -54,14 +61,14 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:background="@color/white">
+            >
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/transations_rv"

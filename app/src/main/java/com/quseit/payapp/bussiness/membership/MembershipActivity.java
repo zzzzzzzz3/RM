@@ -45,8 +45,8 @@ public class MembershipActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        pageItems.add(new ItemBean(R.color.points_bg_color, GlobalBean.POINTS,GlobalBean.POINTS_ICON));
-        pageItems.add(new ItemBean(R.color.sign_up_bg_color,GlobalBean.SIGN_UP,GlobalBean.SIGN_UP_ICON));
+        pageItems.add(new ItemBean(R.color.points_bg_color, GlobalBean.POINTS,getString(R.string.points_font)));
+        pageItems.add(new ItemBean(R.color.sign_up_bg_color,GlobalBean.SIGN_UP,getString(R.string.sign_up_font)));
         mGridAdapter = new GridAdapter(this, pageItems);
         rv.setLayoutManager(new GridLayoutManager(this,2));
         rv.setAdapter(mGridAdapter);

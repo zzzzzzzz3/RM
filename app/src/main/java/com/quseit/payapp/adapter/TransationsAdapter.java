@@ -2,6 +2,7 @@ package com.quseit.payapp.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseAdapter;
 import com.quseit.payapp.bean.PayMethodBean;
 import com.quseit.payapp.bean.response.TransationBean;
+import com.quseit.payapp.util.UIUtil;
 
 import org.simple.eventbus.EventBus;
 
@@ -40,6 +42,7 @@ public class TransationsAdapter extends BaseAdapter<TransationBean,TransationsAd
     @Override
     public TransationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.rv_item_transation,parent,false);
+        ViewCompat.setElevation(view, UIUtil.dp2Px(mContext,8));
         return new TransationViewHolder(view);
     }
 
@@ -47,7 +50,12 @@ public class TransationsAdapter extends BaseAdapter<TransationBean,TransationsAd
     public void onBindViewHolder(TransationViewHolder holder, int position) {
         final TransationBean bean = mData.get(position);
 
-        holder.orderNoTv.setText(bean.getOrderId());
+        String orderId = bean.getOrderId();
+        if (orderId.isEmpty()){
+            holder.orderNoTv.setText("-");
+        }else {
+            holder.orderNoTv.setText(orderId);
+        }
         if (bean.getString()!=null&&bean.getString().get(0)!=null){
             holder.remarkTv.setText(bean.getString().get(0));
         }else {
