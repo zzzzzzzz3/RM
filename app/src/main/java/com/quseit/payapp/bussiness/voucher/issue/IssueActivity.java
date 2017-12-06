@@ -73,18 +73,18 @@ public class IssueActivity extends BaseActivity implements IssueContract.IssueVi
                 if (bean == null || bean.getCount() == 0) {
                     toast("please select a voucher");
                 } else {
-                    String dateStr = bean.getCreatedAt();
-                    try {
-                        @SuppressLint("SimpleDateFormat")
-                        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
-                        df.setTimeZone(TimeZone.getTimeZone("GMT"));
-                        Date date = df.parse(dateStr);
-                        dateStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    } finally {
-                        mIssuePresenter.printQRcode(IssueActivity.this, bean.getId(), dateStr, bean.getCount());
-                    }
+                    String dateStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
+//                    try {
+//                        @SuppressLint("SimpleDateFormat")
+//                        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
+//                        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+//                        Date date = df.parse(dateStr);
+//                        dateStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+//                    } catch (ParseException e) {
+//                        e.printStackTrace();
+//                    } finally {
+//                    }
+                    mIssuePresenter.printQRcode(IssueActivity.this, bean.getId(), dateStr, bean.getCount());
 
                 }
             }

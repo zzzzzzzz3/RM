@@ -66,12 +66,6 @@ public class OrderDetailActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        setRightText("Refund", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refund();
-            }
-        });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mGoodBeans.addAll(creatList());
@@ -100,7 +94,15 @@ public class OrderDetailActivity extends BaseActivity {
     @Override
     public void initData() {
         mTransationBean = (TransationBean) getIntent().getSerializableExtra(GlobalBean.TRANSATION_BEAN);
-        String orderId = mTransationBean.getOrderId();
+        if (!mTransationBean.getStatus().equals("REFUNDED")){
+            setRightText("Refund", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    refund();
+                }
+            });
+        }
+        String orderId = mTransationBean.getTransactionId();
         if (orderId.isEmpty()){
             orderNoTv.setText("-");
         }else {

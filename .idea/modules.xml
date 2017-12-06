@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/devlib/devlib.iml" filepath="$PROJECT_DIR$/devlib/devlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/paylib/paylib.iml" filepath="$PROJECT_DIR$/paylib/paylib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rm-app-merchant-terminal.iml" filepath="$PROJECT_DIR$/rm-app-merchant-terminal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rm-terminal-landi.iml" filepath="$PROJECT_DIR$/rm-terminal-landi.iml" />
     </modules>
   </component>
 </project>

@@ -2,6 +2,7 @@ package com.quseit.payapp.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,7 +33,7 @@ import butterknife.ButterKnife;
  * 修改备注：
  */
 
-public class TransationsAdapter extends BaseAdapter<TransationBean,TransationsAdapter.TransationViewHolder> {
+public class TransationsAdapter extends BaseAdapter<TransationBean, TransationsAdapter.TransationViewHolder> {
 
 
     public TransationsAdapter(Context context, List<TransationBean> data) {
@@ -41,8 +42,8 @@ public class TransationsAdapter extends BaseAdapter<TransationBean,TransationsAd
 
     @Override
     public TransationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.rv_item_transation,parent,false);
-        ViewCompat.setElevation(view, UIUtil.dp2Px(mContext,8));
+        View view = LayoutInflater.from(mContext).inflate(R.layout.rv_item_transation, parent, false);
+        ViewCompat.setElevation(view, UIUtil.dp2Px(mContext, 8));
         return new TransationViewHolder(view);
     }
 
@@ -50,21 +51,21 @@ public class TransationsAdapter extends BaseAdapter<TransationBean,TransationsAd
     public void onBindViewHolder(TransationViewHolder holder, int position) {
         final TransationBean bean = mData.get(position);
 
-        String orderId = bean.getOrderId();
-        if (orderId.isEmpty()){
+        String orderId = bean.getTransactionId();
+        if (orderId.isEmpty()) {
             holder.orderNoTv.setText("-");
-        }else {
+        } else {
             holder.orderNoTv.setText(orderId);
         }
-        if (bean.getString()!=null&&bean.getString().get(0)!=null){
+        if (bean.getString() != null && bean.getString().get(0) != null) {
             holder.remarkTv.setText(bean.getString().get(0));
-        }else {
+        } else {
             holder.remarkTv.setText("-");
         }
         String createTime = bean.getCreatedAt().split("T|\\.")[1];
         holder.timeTv.setText(createTime);
         String iconFont = bean.getPaymentMethod();
-        switch (iconFont){
+        switch (iconFont) {
             case PayMethodBean.ALIPAY:
                 holder.icon.setImageResource(R.mipmap.alipay_icon);
                 break;
@@ -75,14 +76,18 @@ public class TransationsAdapter extends BaseAdapter<TransationBean,TransationsAd
                 holder.icon.setImageResource(R.mipmap.voucher_pay_icon);
                 break;
         }
-        switch (bean.getStatus()){
+        switch (bean.getStatus()) {
             case "SUCCESS":
                 holder.status.setText("[SUCCESS]");
-                holder.status.setTextColor(Color.GREEN);
+                holder.status.setTextColor(ContextCompat.getColor(mContext, R.color.purple_color));
                 break;
             case "FAILED":
                 holder.status.setText("[FAILED]");
-                holder.status.setTextColor(Color.RED);
+                holder.status.setTextColor(ContextCompat.getColor(mContext, R.color.purple_color));
+                break;
+            case "REFUNDED":
+                holder.status.setText("[REFUNDED]");
+                holder.status.setTextColor(ContextCompat.getColor(mContext, R.color.purple_color));
                 break;
         }
 
@@ -94,7 +99,7 @@ public class TransationsAdapter extends BaseAdapter<TransationBean,TransationsAd
         });
     }
 
-    public class TransationViewHolder extends RecyclerView.ViewHolder{
+    public class TransationViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.transation_order_no_tv)
         TextView orderNoTv;
@@ -109,7 +114,7 @@ public class TransationsAdapter extends BaseAdapter<TransationBean,TransationsAd
 
         public TransationViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

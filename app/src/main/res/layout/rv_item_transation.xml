@@ -25,7 +25,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="16sp"
-            android:visibility="gone"/>
+            />
 
         <TextView
             android:id="@+id/transation_order_no_tv"
