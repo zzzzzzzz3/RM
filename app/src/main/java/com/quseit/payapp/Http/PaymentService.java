@@ -1,14 +1,17 @@
 package com.quseit.payapp.Http;
 
 import com.quseit.payapp.bean.request.PayRequestBean;
+import com.quseit.payapp.bean.request.RefundRequest;
 import com.quseit.payapp.bean.response.BaseResponse;
 import com.quseit.payapp.bean.response.QRResponseBean;
 import com.quseit.payapp.bean.response.PayResponseBean;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * 文 件 名: PaymentService
@@ -25,6 +28,9 @@ public interface PaymentService {
     Observable<PayResponseBean> pay(@Header("Authorization") String token, @Body PayRequestBean payRequestBean);
 
     @POST("qr/precreate")
-    Observable<QRResponseBean> getQr(@Header("Authorization") String token,@Body PayRequestBean payRequestBean);
+    Observable<QRResponseBean> getQr(@Header("Authorization") String token, @Body PayRequestBean payRequestBean);
+
+    @POST("payment/{key}/refund")
+    Observable<ResponseBody> refund(@Header("Authorization") String token, @Header("X-Rm-Pin") String pin, @Path("key") String key, @Body RefundRequest request);
 
 }

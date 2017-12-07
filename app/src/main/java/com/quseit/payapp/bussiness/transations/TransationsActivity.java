@@ -1,5 +1,6 @@
 package com.quseit.payapp.bussiness.transations;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
@@ -35,6 +36,8 @@ import org.simple.eventbus.Subscriber;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -70,7 +73,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     private DatePickerDialog mDatePickerDialog;
     private RMProgressDialog mRMProgressDialog;
     private TransationsContract.TransationsPresenter mTransationsPresenter;
-    private String endDate ;
+    private String endDate;
 
     @Override
     public int getRootView() {
@@ -96,7 +99,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         month = now.get(Calendar.MONTH) + 1;
         day = now.get(Calendar.DAY_OF_MONTH);
         setDate();
-        endDate = parseDate(year,month+1,day);
+        endDate = parseDate(year, month, day + 1);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mTransationsAdapter = new TransationsAdapter(this, mTransationBeans);
@@ -106,7 +109,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                mTransationsPresenter.getTransation(parseDate(year, month, day), endDate,refundCheckbox.isChecked(),false);
+                mTransationsPresenter.getTransation(parseDate(year, month, day), endDate, refundCheckbox.isChecked(), false);
             }
         }).setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
@@ -118,7 +121,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         refundCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mTransationsPresenter.getTransation(parseDate(year, month, day), endDate,isChecked,true);
+                mTransationsPresenter.getTransation(parseDate(year, month, day), endDate, isChecked, true);
             }
         });
 
@@ -166,7 +169,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         this.month = monthOfYear + 1;
         this.day = dayOfMonth;
         setDate();
-        mTransationsPresenter.getTransation(parseDate(year, month, day), endDate,refundCheckbox.isChecked(),true);
+        mTransationsPresenter.getTransation(parseDate(year, month, day), endDate, refundCheckbox.isChecked(), true);
     }
 
     @Subscriber
@@ -209,8 +212,8 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
 
     @Override
     public void addDataToList(List<TransationBean> data) {
-            mTransationBeans = data;
-            mTransationsAdapter.setData(mTransationBeans);
+        mTransationBeans = data;
+        mTransationsAdapter.setData(mTransationBeans);
     }
 
     @Override
@@ -235,10 +238,18 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     }
 
     private String parseDate(int y, int m, int d) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(y, m - 1, d,0,0,0);
-        return simpleDateFormat.format(calendar.getTime());
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.YEAR, y);
+        calendar.set(Calendar.MONTH, m - 1);
+        calendar.set(Calendar.DAY_OF_MONTH, d);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date date = calendar.getTime();
+        return simpleDateFormat.format(date);
     }
 }
