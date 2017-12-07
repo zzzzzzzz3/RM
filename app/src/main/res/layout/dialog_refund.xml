@@ -71,7 +71,7 @@
                 android:id="@+id/reson_lable"
                 android:layout_width="85dp"
                 android:layout_height="wrap_content"
-                android:text="Reson"
+                android:text="Reason"
                 android:textColor="@color/text_gray"
                 android:gravity="center_vertical"
                 android:layout_below="@+id/line"

@@ -1,6 +1,9 @@
 package com.quseit.payapp.bussiness.orderDetail;
 
+import com.quseit.dev.RetrofitManager;
+import com.quseit.payapp.Http.PaymentService;
 import com.quseit.payapp.base.BaseModel;
+import com.quseit.payapp.bean.request.RefundRequest;
 import com.quseit.payapp.bean.response.UserBean;
 import com.quseit.payapp.db.GreenDaoHelper;
 import com.quseit.payapp.db.UserBeanDao;
@@ -10,6 +13,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import okhttp3.ResponseBody;
 
 /**
  * 文 件 名: OrderDetailModleImpl
@@ -31,5 +35,10 @@ public class OrderDetailModleImpl extends BaseModel implements OrderDetailContra
                 e.onComplete();
             }
         });
+    }
+
+    @Override
+    public Observable<ResponseBody> refund(String pin, String key,String orderId, String reason) {
+        return RetrofitManager.getInstance().createService(PaymentService.class).refund(mToken,pin,orderId,new RefundRequest(key,reason));
     }
 }

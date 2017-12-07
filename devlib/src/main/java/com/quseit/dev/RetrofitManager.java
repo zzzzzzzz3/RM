@@ -40,7 +40,7 @@ public class RetrofitManager {
     private static RetrofitManager instance = null;
     private Retrofit mRetrofit = null;
     //超时时间
-    private static final int DEFAULT_TIMEOUT = 15;
+    private static final int DEFAULT_TIMEOUT = 20;
     private OkHttpClient.Builder mOkhttpBuilder;
 
 

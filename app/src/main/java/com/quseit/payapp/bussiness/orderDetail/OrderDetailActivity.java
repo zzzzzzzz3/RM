@@ -1,5 +1,6 @@
 package com.quseit.payapp.bussiness.orderDetail;
 
+import android.annotation.SuppressLint;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,10 +23,18 @@ import com.quseit.payapp.bean.response.UserBean;
 import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.UIUtil;
 import com.quseit.payapp.widget.IconText;
+import com.quseit.payapp.widget.RMDialog;
+import com.quseit.payapp.widget.RMProgressDialog;
 import com.quseit.payapp.widget.RefundDialog;
 
+import org.simple.eventbus.EventBus;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 
@@ -38,7 +47,7 @@ import butterknife.BindView;
  * 修改备注：
  */
 
-public class OrderDetailActivity extends BaseActivity implements OrderDetailContract.OrderDetailView{
+public class OrderDetailActivity extends BaseActivity implements OrderDetailContract.OrderDetailView {
 
     @BindView(R.id.order_no_tv)
     TextView orderNoTv;
@@ -64,6 +73,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
 
     private OrderDetailContract.OrderDetailPresenter mOrderDetailPresenter;
     private RefundDialog mRefundDialog;
+    private RMProgressDialog mRMProgressDialog;
 
     @Override
     public int getRootView() {
@@ -78,9 +88,10 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
         mGoodsAdapter = new GoodsAdapter(this, mGoodBeans);
         mRecyclerView.setAdapter(mGoodsAdapter);
 
-        ViewCompat.setElevation(shadowLayout, UIUtil.dp2Px(this,10));
+        ViewCompat.setElevation(shadowLayout, UIUtil.dp2Px(this, 10));
 
         mRefundDialog = new RefundDialog(this);
+        mRMProgressDialog = new RMProgressDialog(this);
 
     }
 
@@ -98,7 +109,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
     @Override
     public void initData() {
         mTransationBean = (TransationBean) getIntent().getSerializableExtra(GlobalBean.TRANSATION_BEAN);
-        if (!mTransationBean.getStatus().equals("REFUNDED")){
+        if (!mTransationBean.getStatus().equals("REFUNDED")) {
             setRightText("Refund", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -107,17 +118,27 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
             });
         }
         String orderId = mTransationBean.getTransactionId();
-        if (orderId.isEmpty()){
+        if (orderId.isEmpty()) {
             orderNoTv.setText("-");
-        }else {
+        } else {
             orderNoTv.setText(orderId);
         }
-        String[] date = mTransationBean.getCreatedAt().replace("-","/").split("T|\\.");
-        orderDateTv.setText(date[0]);
-        orderTimeTv.setText(date[1]);
-        if (mTransationBean.getString()!=null&&mTransationBean.getString().get(0)!=null){
+        try {
+            String strDate = mTransationBean.getCreatedAt();
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
+            df.setTimeZone(TimeZone.getTimeZone("GMT"));
+            Date date1 = df.parse(strDate);
+            strDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date1);
+            String[] date = strDate.split(" ");
+            orderDateTv.setText(date[0]);
+            orderTimeTv.setText(date[1]);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (mTransationBean.getString() != null && mTransationBean.getString().get(0) != null) {
             remarkTv.setText(mTransationBean.getString().get(0));
-        }else {
+        } else {
             remarkTv.setText("-");
         }
         statusTv.setText(mTransationBean.getStatus());
@@ -150,53 +171,63 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
 
     @Override
     public void showLoading() {
-
+        mRMProgressDialog.show();
     }
 
     @Override
     public void hideLoading() {
-
+        mRMProgressDialog.dismiss();
     }
 
     @Override
     public void showMessage(String message) {
-
+        toast(message);
     }
 
     @Override
     public void killMyself() {
-
+        finish();
     }
 
     @Override
     public void setUpToken() {
-
+        settingToken();
     }
 
     @Override
     public void showRefundDialog(final List<UserBean> list) {
-        if (list.size()>0){
-            if (mRefundDialog.getUserBean() == null){
+        if (list.size() > 0) {
+            if (mRefundDialog.getUserBean() == null) {
                 mRefundDialog.addUsers(list);
             }
             mRefundDialog.setRefundOnclick(new RefundDialog.OnRefundClick() {
                 @Override
                 public void onClick() {
-                    toast("pass:"+mRefundDialog.getPassword()+"\nreson:"+mRefundDialog.getReson()+"\nuser:"+mRefundDialog.getUserBean().getLastName());
+                    String pin = mRefundDialog.getPassword();
+                    String reason = mRefundDialog.getReson();
+                    String orderId = mTransationBean.getId();
+                    String key = mRefundDialog.getUserBean().getKey();
+                    mOrderDetailPresenter.refund(pin, key, orderId, reason);
                 }
             });
             mRefundDialog.show();
-        }else {
+        } else {
 
         }
     }
 
     @Override
     public void showDialog(String msg, boolean success) {
-        if (success){
-            DialogManager.successDialog(this,msg,null);
-        }else {
-            DialogManager.failDialog(this,msg);
+        if (success) {
+            DialogManager.successDialog(this, msg, new RMDialog.OnPositiveClickListener() {
+                @Override
+                public void onPositiveClick() {
+                    EventBus.getDefault().post(GlobalBean.REFRESH);
+                    finish();
+                }
+            });
+        } else {
+            DialogManager.failDialog(this, msg);
         }
     }
 }

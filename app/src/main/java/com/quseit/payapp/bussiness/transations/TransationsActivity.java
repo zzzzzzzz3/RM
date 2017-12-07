@@ -121,7 +121,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         refundCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mTransationsPresenter.getTransation(parseDate(year, month, day), endDate, isChecked, true);
+                mTransationsPresenter.getTransation(parseDate(year, month, day), parseDate(year, month, day + 1), isChecked, true);
             }
         });
 
@@ -169,7 +169,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         this.month = monthOfYear + 1;
         this.day = dayOfMonth;
         setDate();
-        mTransationsPresenter.getTransation(parseDate(year, month, day), endDate, refundCheckbox.isChecked(), true);
+        mTransationsPresenter.getTransation(parseDate(year, month, day), parseDate(year, month, day + 1), refundCheckbox.isChecked(), true);
     }
 
     @Subscriber
@@ -231,6 +231,13 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         }
     }
 
+    @Subscriber
+    public void refresh(String msg) {
+        if (msg.equals(GlobalBean.REFRESH)) {
+            mTransationsPresenter.getTransation(parseDate(year, month, day), parseDate(year, month, day + 1), refundCheckbox.isChecked(), true);
+        }
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -240,6 +247,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     private String parseDate(int y, int m, int d) {
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(new Date());
         calendar.set(Calendar.YEAR, y);

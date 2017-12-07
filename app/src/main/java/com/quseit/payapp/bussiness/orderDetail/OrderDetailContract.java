@@ -1,5 +1,6 @@
 package com.quseit.payapp.bussiness.orderDetail;
 
+import com.quseit.payapp.bean.request.RefundRequest;
 import com.quseit.payapp.bean.response.UserBean;
 import com.quseit.payapp.contract.IModel;
 import com.quseit.payapp.contract.IPresenter;
@@ -8,6 +9,7 @@ import com.quseit.payapp.contract.IView;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 /**
  * 文 件 名: OrderDetailContract
@@ -27,10 +29,12 @@ public interface OrderDetailContract {
 
     interface OrderDetailModle extends IModel{
         Observable<List<UserBean>> getUsers();
+        Observable<ResponseBody> refund(String pin,String key,String orderId,String reason);
     }
 
     interface OrderDetailPresenter extends IPresenter{
         void getUsers();
+        void refund(String pin,String key,String orderId,String reason);
     }
 
 

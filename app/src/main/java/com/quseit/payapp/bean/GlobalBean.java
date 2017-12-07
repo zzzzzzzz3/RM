@@ -49,4 +49,6 @@ public class GlobalBean {
     public static final String TRANSATION_BEAN = "TRANSATION_BEAN";
 
     public static final String EXIT_APP = "EXIT";
+    public static final String REFRESH = "REFRESH";
+
 }

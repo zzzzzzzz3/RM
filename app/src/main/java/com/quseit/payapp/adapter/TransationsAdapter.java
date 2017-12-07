@@ -1,5 +1,6 @@
 package com.quseit.payapp.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
@@ -19,7 +20,11 @@ import com.quseit.payapp.util.UIUtil;
 
 import org.simple.eventbus.EventBus;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,8 +67,18 @@ public class TransationsAdapter extends BaseAdapter<TransationBean, TransationsA
         } else {
             holder.remarkTv.setText("-");
         }
-        String createTime = bean.getCreatedAt().split("T|\\.")[1];
-        holder.timeTv.setText(createTime);
+        try {
+            String strDate = bean.getCreatedAt();
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
+            df.setTimeZone(TimeZone.getTimeZone("GMT"));
+            Date date1= df.parse(strDate);
+            strDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date1);
+            String[] date = strDate.split(" ");
+            holder.timeTv.setText(date[1]);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         String iconFont = bean.getPaymentMethod();
         switch (iconFont) {
             case PayMethodBean.ALIPAY:
