@@ -4,6 +4,7 @@ import com.quseit.dev.RetrofitManager;
 import com.quseit.payapp.Http.TransationService;
 import com.quseit.payapp.base.BaseModel;
 import com.quseit.payapp.bean.request.RequestBean;
+import com.quseit.payapp.bean.request.TransationsRequest;
 import com.quseit.payapp.bean.response.TransationResponse;
 
 import io.reactivex.Observable;
@@ -20,7 +21,7 @@ import io.reactivex.Observable;
 public class TransationsModelImpl extends BaseModel implements TransationsContract.TransationsModel {
 
     @Override
-    public Observable<TransationResponse> getTransations(String cursor) {
-        return RetrofitManager.getInstance().createService(TransationService.class).getTransations(mToken,new RequestBean(cursor));
+    public Observable<TransationResponse> getTransations(TransationsRequest request) {
+        return RetrofitManager.getInstance().createService(TransationService.class).getTransations(mToken,request);
     }
 }

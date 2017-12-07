@@ -21,7 +21,7 @@ import io.reactivex.Observable;
 public class PayModelImpl extends BaseModel implements PayContract.PayModel {
 
     @Override
-    public Observable<BaseResponse<PayResponseBean>> pay(PayRequestBean payRequestBean) {
+    public Observable<PayResponseBean> pay(PayRequestBean payRequestBean) {
         return RetrofitManager.getInstance().createService(PaymentService.class).pay(mToken,payRequestBean);
     }
 }

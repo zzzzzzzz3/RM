@@ -22,7 +22,7 @@ import retrofit2.http.POST;
 public interface PaymentService {
 
     @POST("pay")
-    Observable<BaseResponse<PayResponseBean>> pay(@Header("Authorization") String token, @Body PayRequestBean payRequestBean);
+    Observable<PayResponseBean> pay(@Header("Authorization") String token, @Body PayRequestBean payRequestBean);
 
     @POST("qr/precreate")
     Observable<QRResponseBean> getQr(@Header("Authorization") String token,@Body PayRequestBean payRequestBean);

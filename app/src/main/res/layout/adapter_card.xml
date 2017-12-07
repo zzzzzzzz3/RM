@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:id="@+id/cardView"
+             android:layout_width="80dp"
+             android:layout_height="110dp"
+             android:layout_gravity="center"
+             android:layout_marginLeft="5dp"
+             android:layout_marginRight="5dp"
+
+    >
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/user_avatar_img"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:src="@mipmap/github"
+        app:riv_border_color="@color/green"
+        app:riv_border_width="2dp"
+        app:riv_corner_radius="10dp"
+        />
+
+    <TextView
+        android:id="@+id/user_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:text="JACK"
+        android:textColor="@color/text_gray"
+        android:layout_marginBottom="10dp"/>
+</FrameLayout>

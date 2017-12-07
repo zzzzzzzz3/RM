@@ -32,9 +32,11 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.simple.eventbus.Subscriber;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -48,7 +50,7 @@ import butterknife.OnClick;
  * 修改备注：
  */
 
-public class TransationsActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener ,TransationsContract.TransationsView{
+public class TransationsActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener, TransationsContract.TransationsView {
 
     @BindView(R.id.date_tv)
     TextView dateTv;
@@ -68,6 +70,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     private DatePickerDialog mDatePickerDialog;
     private RMProgressDialog mRMProgressDialog;
     private TransationsContract.TransationsPresenter mTransationsPresenter;
+    private String endDate ;
 
     @Override
     public int getRootView() {
@@ -76,7 +79,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
 
     @Override
     public void initView() {
-        ViewCompat.setElevation(shadowLayout, UIUtil.dp2Px(this,10));
+        ViewCompat.setElevation(shadowLayout, UIUtil.dp2Px(this, 10));
         setRightIcon(R.mipmap.search_icon, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,9 +93,10 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         });
         Calendar now = Calendar.getInstance();
         year = now.get(Calendar.YEAR);
-        month = now.get(Calendar.MONTH)+1;
+        month = now.get(Calendar.MONTH) + 1;
         day = now.get(Calendar.DAY_OF_MONTH);
         setDate();
+        endDate = parseDate(year,month+1,day);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mTransationsAdapter = new TransationsAdapter(this, mTransationBeans);
@@ -102,21 +106,19 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                mTransationsPresenter.getTransation();
+                mTransationsPresenter.getTransation(parseDate(year, month, day), endDate,refundCheckbox.isChecked(),false);
             }
         }).setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                mTransationsPresenter.loadMore();
+                mTransationsPresenter.loadMore(false);
             }
         });
 
         refundCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // TODO: 2017/11/13
-                }
+                mTransationsPresenter.getTransation(parseDate(year, month, day), endDate,isChecked,true);
             }
         });
 
@@ -133,9 +135,9 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         return "Transations";
     }
 
-    private void setDate(){
-        String mon = month<10?("0"+month):(""+month);
-        String d = day<10?("0"+day):(""+day);
+    private void setDate() {
+        String mon = month < 10 ? ("0" + month) : ("" + month);
+        String d = day < 10 ? ("0" + day) : ("" + day);
         dateTv.setText(year + "/" + mon + "/" + d);
     }
 
@@ -149,7 +151,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
             mDatePickerDialog = DatePickerDialog.newInstance(
                     this,
                     year,
-                    month-1,
+                    month - 1,
                     day
             );
             mDatePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
@@ -161,15 +163,16 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         this.year = year;
-        this.month = monthOfYear+1;
+        this.month = monthOfYear + 1;
         this.day = dayOfMonth;
         setDate();
+        mTransationsPresenter.getTransation(parseDate(year, month, day), endDate,refundCheckbox.isChecked(),true);
     }
 
     @Subscriber
     public void orderDetail(TransationBean bean) {
         Intent intent = new Intent(this, OrderDetailActivity.class);
-        intent.putExtra(GlobalBean.TRANSATION_BEAN,bean);
+        intent.putExtra(GlobalBean.TRANSATION_BEAN, bean);
         startActivity(intent);
     }
 
@@ -181,10 +184,10 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     @Override
     public void hideLoading() {
         mRMProgressDialog.dismiss();
-        if (mSmartRefreshLayout.isRefreshing()){
+        if (mSmartRefreshLayout.isRefreshing()) {
             mSmartRefreshLayout.finishRefresh();
         }
-        if (mSmartRefreshLayout.isLoading()){
+        if (mSmartRefreshLayout.isLoading()) {
             mSmartRefreshLayout.finishLoadmore();
         }
     }
@@ -206,13 +209,8 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
 
     @Override
     public void addDataToList(List<TransationBean> data) {
-        if (data.size()>0){
-            emptyView.setVisibility(View.GONE);
             mTransationBeans = data;
             mTransationsAdapter.setData(mTransationBeans);
-        }else {
-            emptyView.setVisibility(View.VISIBLE);
-        }
     }
 
     @Override
@@ -223,10 +221,10 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
 
     @Override
     public void showDialog(String msg, boolean success) {
-        if (success){
-            DialogManager.successDialog(this,msg,null);
-        }else {
-            DialogManager.failDialog(this,msg);
+        if (success) {
+            DialogManager.successDialog(this, msg, null);
+        } else {
+            DialogManager.failDialog(this, msg);
         }
     }
 
@@ -234,5 +232,13 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     protected void onDestroy() {
         super.onDestroy();
         mTransationsPresenter.onDestroy();
+    }
+
+    private String parseDate(int y, int m, int d) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(y, m - 1, d,0,0,0);
+        return simpleDateFormat.format(calendar.getTime());
     }
 }

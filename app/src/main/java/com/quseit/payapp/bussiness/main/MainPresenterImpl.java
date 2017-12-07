@@ -59,8 +59,8 @@ public class MainPresenterImpl extends BasePresenter implements MainContract.Mai
         new Thread(new Runnable() {
             @Override
             public void run() {
-                PreferenceUtil.getInstance().saveStr(GlobalBean.AVATAR,response.getAvatar());
-                PreferenceUtil.getInstance().saveStr(GlobalBean.MERCHANT,response.getMerchant());
+//                PreferenceUtil.getInstance().saveStr(GlobalBean.AVATAR,response.getAvatar());
+//                PreferenceUtil.getInstance().saveStr(GlobalBean.MERCHANT,response.getMerchant());
                 UserBeanDao dao = GreenDaoHelper.getInstance().getDaoSession().getUserBeanDao();
                 dao.deleteAll();
                 for (UserBean bean:response.getUsers()){

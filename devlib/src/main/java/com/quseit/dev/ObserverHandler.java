@@ -48,13 +48,17 @@ public abstract class ObserverHandler<T> implements Observer<T> {
 
         if (e instanceof HttpException) {
             int code = ((HttpException) e).code();
-            String msg = null;
-            try {
-                msg = ((HttpException) e).response().errorBody().string();
-                msg = new Gson().fromJson(msg, HttpResponse.class).getMessage();
-                onFail(code, msg);
-            } catch (IOException e1) {
-                e1.printStackTrace();
+            if (code<=500){
+                String msg = null;
+                try {
+                    msg = ((HttpException) e).response().errorBody().string();
+                    msg = new Gson().fromJson(msg, HttpResponse.class).getMessage();
+                    onFail(code, msg);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }else {
+                onFail(-1, "");
             }
         } else {
             onFail(-1, "");

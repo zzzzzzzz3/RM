@@ -1,6 +1,7 @@
 package com.quseit.payapp.bussiness.transations;
 
 import com.quseit.payapp.bean.request.RequestBean;
+import com.quseit.payapp.bean.request.TransationsRequest;
 import com.quseit.payapp.bean.response.TransationBean;
 import com.quseit.payapp.bean.response.TransationResponse;
 import com.quseit.payapp.contract.IModel;
@@ -29,11 +30,11 @@ public interface TransationsContract {
     }
 
     interface TransationsModel extends IModel {
-        Observable<TransationResponse> getTransations(String cursor);
+        Observable<TransationResponse> getTransations(TransationsRequest request);
     }
 
     interface TransationsPresenter extends IPresenter {
-        void getTransation();
-        void loadMore();
+        void getTransation(String startAt,String endAt,boolean filter,boolean show);
+        void loadMore(boolean show);
     }
 }

@@ -4,6 +4,8 @@ import com.quseit.dev.HttpCode;
 import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.base.BasePresenter;
 import com.quseit.payapp.bean.GlobalBean;
+import com.quseit.payapp.bean.request.Filter;
+import com.quseit.payapp.bean.request.TransationsRequest;
 import com.quseit.payapp.bean.response.TransationResponse;
 
 /**
@@ -19,8 +21,7 @@ public class TransationsPresenterImpl extends BasePresenter implements Transatio
 
     private TransationsContract.TransationsView mTransationsView;
     private TransationsContract.TransationsModel mTransationsModel;
-
-    private String cursor = "";
+    private TransationsRequest mTransationsRequest;
 
     public TransationsPresenterImpl(TransationsContract.TransationsView view) {
         mTransationsView = view;
@@ -34,26 +35,26 @@ public class TransationsPresenterImpl extends BasePresenter implements Transatio
     }
 
     @Override
-    public void getTransation() {
-        cursor = "";
-        loadMore();
+    public void getTransation(String startAt,String endAt,boolean filter,boolean show) {
+        mTransationsRequest = new TransationsRequest("",startAt,endAt,new Filter(filter?"REFUNDED":""));
+        loadMore(show);
     }
 
     @Override
-    public void loadMore() {
-        if (!cursor.equals(GlobalBean.NO_DATA)) {
-            logic(mTransationsModel.getTransations(cursor), false, new ObserverHandler<TransationResponse>() {
+    public void loadMore(boolean show) {
+        if (!mTransationsRequest.getCursor().equals(GlobalBean.NO_DATA)) {
+            logic(mTransationsModel.getTransations(mTransationsRequest), show, new ObserverHandler<TransationResponse>() {
                 @Override
                 public void onResponse(TransationResponse response) {
-                    if (cursor.equals("")) {
+                    if (mTransationsRequest.getCursor().equals("")) {
                         mTransationsView.addDataToList(response.getItems());
                     } else {
                         mTransationsView.loadMore(response.getItems());
                     }
                     if (response.getCount() > 0) {
-                        cursor = response.getCursor();
+                        mTransationsRequest.setCursor(response.getCursor());
                     } else {
-                        cursor = GlobalBean.NO_DATA;
+                        mTransationsRequest.setCursor(GlobalBean.NO_DATA);
                     }
                 }
 

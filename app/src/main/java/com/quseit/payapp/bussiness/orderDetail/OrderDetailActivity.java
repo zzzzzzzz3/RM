@@ -22,6 +22,7 @@ import com.quseit.payapp.bean.response.UserBean;
 import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.UIUtil;
 import com.quseit.payapp.widget.IconText;
+import com.quseit.payapp.widget.RefundDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
     private TransationBean mTransationBean;
 
     private OrderDetailContract.OrderDetailPresenter mOrderDetailPresenter;
+    private RefundDialog mRefundDialog;
 
     @Override
     public int getRootView() {
@@ -77,6 +79,8 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
         mRecyclerView.setAdapter(mGoodsAdapter);
 
         ViewCompat.setElevation(shadowLayout, UIUtil.dp2Px(this,10));
+
+        mRefundDialog = new RefundDialog(this);
 
     }
 
@@ -170,11 +174,20 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
     }
 
     @Override
-    public void showRefundDialog(List<UserBean> list) {
+    public void showRefundDialog(final List<UserBean> list) {
         if (list.size()>0){
-            toast(list.get(0).getFirstName());
+            if (mRefundDialog.getUserBean() == null){
+                mRefundDialog.addUsers(list);
+            }
+            mRefundDialog.setRefundOnclick(new RefundDialog.OnRefundClick() {
+                @Override
+                public void onClick() {
+                    toast("pass:"+mRefundDialog.getPassword()+"\nreson:"+mRefundDialog.getReson()+"\nuser:"+mRefundDialog.getUserBean().getLastName());
+                }
+            });
+            mRefundDialog.show();
         }else {
-            toast("no user");
+
         }
     }
 

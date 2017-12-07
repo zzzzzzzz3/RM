@@ -27,7 +27,7 @@ public interface PayContract {
     }
 
     interface PayModel extends IModel{
-        Observable<BaseResponse<PayResponseBean>> pay(PayRequestBean payRequestBean);
+        Observable<PayResponseBean> pay(PayRequestBean payRequestBean);
     }
 
     interface PayPresenter extends IPresenter{

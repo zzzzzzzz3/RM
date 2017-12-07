@@ -20,12 +20,15 @@ public class PayRequestBean {
     @SerializedName(value = "remark")
     String remark;
 
+    Member member;
+
     public PayRequestBean() {
     }
 
-    public PayRequestBean(int amount, String authCode, String remark) {
+    public PayRequestBean(int amount, String authCode, String remark,Member member) {
         this.amount = amount;
         this.authCode = authCode;
         this.remark = remark;
+        this.member = member;
     }
 }
