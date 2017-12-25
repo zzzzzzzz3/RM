@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseAdapter;
-import com.quseit.payapp.base.GoodBean;
+import com.quseit.payapp.bean.response.GoodBean;
 
 import java.util.List;
 

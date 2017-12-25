@@ -1,12 +1,14 @@
 package com.quseit.payapp.bussiness.pay;
 
 import android.content.Intent;
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.widget.EditText;
 
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.GlobalBean;
+import com.quseit.payapp.util.UIUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +35,7 @@ public class DescriptionActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        ViewCompat.setElevation(descEdit, UIUtil.dp2Px(this,8));
         String remarkStr = getIntent().getStringExtra(GlobalBean.REMARK);
         if (remarkStr != null){
             descEdit.setText(remarkStr);

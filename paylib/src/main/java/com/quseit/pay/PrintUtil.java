@@ -256,6 +256,11 @@ public class PrintUtil {
         }
     }
 
+    //打印收据
+    public void printReceipt(){
+
+    }
+
     private static void onDeviceServiceCrash() {
         Log.d("onPrintError", "error");
     }

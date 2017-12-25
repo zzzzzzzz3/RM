@@ -1,4 +1,4 @@
-package com.quseit.payapp.base;
+package com.quseit.payapp.bean.response;
 
 /**
  * 文 件 名: GoodBean

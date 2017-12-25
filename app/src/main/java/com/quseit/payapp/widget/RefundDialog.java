@@ -25,18 +25,15 @@ import java.util.List;
  * 修改备注：
  */
 
-public class RefundDialog extends Dialog {
+public class  RefundDialog extends Dialog {
 
 
     private ViewPager mViewPager;
     private EditText password;
     private EditText reson;
     private Button refund;
-
     private UserBean mUserBean;
-
     private CardPagerAdapter mCardAdapter;
-
     public RefundDialog(@NonNull Context context) {
         super(context, R.style.Dialog);
         setContentView(R.layout.dialog_refund);
@@ -55,8 +52,6 @@ public class RefundDialog extends Dialog {
             }
         });
         mCardAdapter = new CardPagerAdapter();
-
-
     }
 
     public void addUsers(List<UserBean> beans) {
@@ -66,7 +61,6 @@ public class RefundDialog extends Dialog {
             mCardAdapter.addCardItem(userBean);
         }
         mViewPager.setAdapter(mCardAdapter);
-        mViewPager.setCurrentItem(0);
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setPageTransformer(false, new AlphaPageTransform());
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

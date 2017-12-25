@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
-            android:text="MR"
+            android:text="MYR"
             android:textColor="@color/white"
             android:textSize="28sp"
             android:textStyle="bold"
@@ -92,7 +92,7 @@
             android:layout_marginLeft="35dp"
             android:layout_marginTop="6dp"
             android:layout_weight="1"
-            android:hint="remark"
+            android:hint="In-store payment"
             android:textColor="@color/white"
             />
     </FrameLayout>

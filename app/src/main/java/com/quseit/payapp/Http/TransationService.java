@@ -22,4 +22,5 @@ public interface TransationService {
 
     @POST("transactions")
     Observable<TransationResponse> getTransations(@Header("Authorization") String token,@Body TransationsRequest bean);
+
 }

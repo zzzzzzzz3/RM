@@ -1,107 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+    <TextView
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:id="@+id/tv_point"
+        android:layout_width="280dp"
+        android:layout_height="24dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        android:gravity="center_vertical"
+        android:text="Entry points" />
 
-        <TextView
-            android:id="@+id/points_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
-            android:text="Points"
-            android:textColor="@color/text_gray"
-            android:textSize="16sp"
-            />
+    <EditText
+        android:id="@+id/points_edit"
+        android:textColor="@color/white"
+        android:maxLength="16"
+        android:inputType="number"
+        android:hint="100"
+        android:layout_width="280dp"
+        android:layout_height="64dp" />
 
-        <TextView
-            android:id="@+id/points_edit"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_below="@+id/points_tv"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/text_selected_frame_selector"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:hint="10"
-            android:textColorHint="@color/gray"
-            android:textColor="@color/text_gray"
-            android:textSize="16sp"
-            />
+    <TextView
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="24dp"
+        android:layout_width="280dp"
+        android:layout_height="32dp"
+        android:text="Send the points via:" />
 
-        <TextView
-            android:id="@+id/mobile_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/points_edit"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp"
-            android:text="Mobile No"
-            android:textColor="@color/text_gray"
-            android:textSize="16sp"
-            />
+    <LinearLayout
+        android:padding="4dp"
+        android:background="@drawable/border_input_points"
+        android:gravity="right"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/lView_points"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/mobile_edit"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_below="@+id/mobile_tv"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/text_selected_frame_selector"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:paddingLeft="45dp"
-            android:hint="1234566"
-            android:textColorHint="@color/gray"
-            android:textColor="@color/text_gray"
-            android:textSize="16sp"
-            />
-
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="35dp"
-            android:layout_alignLeft="@+id/mobile_edit"
-            android:layout_alignTop="@+id/mobile_edit"
-            android:layout_marginLeft="10dp"
-            android:gravity="center"
-            android:text="+60"
-            android:textColor="@color/text_gray"
-            android:textSize="16sp"
-            />
-
-        <com.quseit.payapp.widget.IconText
-            android:id="@+id/scan_icon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignRight="@+id/mobile_edit"
-            android:layout_alignTop="@+id/mobile_edit"
-            android:textSize="24sp"
-            android:text="@string/qrcode_font"
-            android:textColor="@color/purple_color"
-            android:background="@drawable/black_click_selector"/>
-
-        <com.quseit.payapp.widget.NumberKeyboard
-            android:id="@+id/keyboard_number"
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:layout_alignParentBottom="true"
+            android:paddingRight="12dp"
+            android:textColor="@color/white"
+            android:drawableRight="@mipmap/open"
+            android:id="@+id/click_phone"
+            android:layout_width="260dp"
+            android:layout_height="24dp"
             android:layout_centerHorizontal="true"
-            android:background="@color/window_bg_color"
-            android:visibility="gone"
-            />
-    </RelativeLayout>
+            android:gravity="center_vertical"
+            android:text="Phone No." />
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/eLayout_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/click_phone"
+            android:layout_centerHorizontal="true">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_select"
+                android:layout_width="48dp"
+                android:layout_height="48dp"/>
+
+            <EditText
+                android:textColor="@color/white"
+                android:background="@drawable/underline_input_points"
+                android:maxLength="16"
+                android:inputType="number"
+                android:hint="123456789"
+                android:id="@+id/phone_edit"
+                android:layout_width="218dp"
+                android:layout_height="48dp" />
+            </LinearLayout>
+        </net.cachapa.expandablelayout.ExpandableLayout>
+        <TextView
+            android:layout_marginTop="6dp"
+            android:background="@color/gray"
+            android:layout_width="260dp"
+            android:layout_height="1dp" />
+
+        <TextView
+            android:paddingRight="12dp"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/white"
+            android:drawableRight="@mipmap/open"
+            android:id="@+id/click_id"
+            android:layout_width="260dp"
+            android:layout_height="24dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:text="Member ID." />
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/eLayout_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/click_id">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <EditText
+                android:textColor="@color/white"
+                android:background="@drawable/underline_input_points"
+                android:maxLength="16"
+                android:inputType="number"
+                android:hint="123456789"
+                android:id="@+id/id_edit"
+                android:layout_width="220dp"
+                android:layout_height="48dp"
+                />
+            <com.quseit.payapp.widget.IconText
+                android:layout_gravity="bottom"
+                android:textSize="32sp"
+                android:textColor="@color/color_blue_pressed"
+                android:text="@string/qrcode_font"
+                android:id="@+id/scan_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            </LinearLayout>
+
+        </net.cachapa.expandablelayout.ExpandableLayout>
+    </LinearLayout>
 </LinearLayout>

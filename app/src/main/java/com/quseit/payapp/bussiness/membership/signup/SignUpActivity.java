@@ -69,7 +69,7 @@ public class SignUpActivity extends BaseActivity implements SignUpContract.SignU
 
     @OnClick(R.id.country_code_layout)
     public void countryCode(){
-
+        
     }
 
     @Override

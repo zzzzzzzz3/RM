@@ -33,9 +33,9 @@ public class PointsPresenterImpl extends BasePresenter implements PointsContract
     }
 
     @Override
-    public void givePoints(int amount, String mobile, String countryCode, String type) {
+    public void givePoints(int amount, String mobile, String countryCode, String type,String memberId) {
         if (checkData(amount, mobile, countryCode, type)) {
-            logic(mPointsModel.givePoints(new PointsRequestBean(amount, type, mobile, countryCode,"REDEEM")), new ObserverHandler<ResponseBody>() {
+            logic(mPointsModel.givePoints(new PointsRequestBean(amount, type, mobile, countryCode,memberId)), new ObserverHandler<ResponseBody>() {
                 @Override
                 public void onResponse(ResponseBody response) {
                         mPointsView.showDialog("Name has earned:", true);

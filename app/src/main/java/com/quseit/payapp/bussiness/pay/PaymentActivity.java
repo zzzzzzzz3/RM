@@ -130,7 +130,7 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
                 } else {
                     String remark = remarkTv.getText().toString();
                     if (remark.equals("")){
-                        remark = "no remark";
+                        remark = "In-store payment";
                     }
                     doScan(amount,remark);
                 }

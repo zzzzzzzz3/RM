@@ -15,26 +15,28 @@ public class PointsRequestBean {
     private String type;
     private String phoneNumber;
     private String countryCode;
-    private String redemptionType;
+    private String memberId;
 
     public PointsRequestBean() {
     }
 
-    public PointsRequestBean(int amount, String type, String phoneNumber, String countryCode,String redemptionType) {
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
+    }
+
+    public PointsRequestBean(int amount, String type, String phoneNumber, String countryCode , String memberId) {
         this.amount = amount;
         this.type = type;
         this.phoneNumber = phoneNumber;
+
         this.countryCode = countryCode;
-        this.redemptionType = redemptionType;
+        this.memberId=memberId;
     }
 
-    public String getRedemptionType() {
-        return redemptionType;
-    }
-
-    public void setRedemptionType(String redemptionType) {
-        this.redemptionType = redemptionType;
-    }
 
     public int getAmount() {
         return amount;

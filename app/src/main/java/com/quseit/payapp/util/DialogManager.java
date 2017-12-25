@@ -4,13 +4,9 @@ import android.content.Context;
 import android.support.v4.content.ContextCompat;
 
 import com.quseit.payapp.R;
-import com.quseit.payapp.bean.GlobalBean;
-import com.quseit.payapp.widget.IOSDialog;
-import com.quseit.payapp.widget.RMAutoDialog;
 import com.quseit.payapp.widget.RMComfirmDialog;
 import com.quseit.payapp.widget.RMDialog;
 import com.quseit.payapp.widget.RMEditDialog;
-import com.quseit.payapp.widget.RMProgressDialog;
 
 
 /**
@@ -25,38 +21,6 @@ import com.quseit.payapp.widget.RMProgressDialog;
 
 public class DialogManager {
 
-    /**
-     * 确认对话框
-     */
-    public static IOSDialog iosDialog(Context context, String title, String msg, IOSDialog.OnPositiveClickListener listener) {
-        IOSDialog dialog = new IOSDialog(context, R.style.Dialog);
-        dialog.setTitle(title);
-        dialog.setContent(msg);
-        dialog.setPositiveButton("确认", listener);
-        dialog.setNegativeButton("取消", new IOSDialog.OnNegativeClickListener() {
-
-            @Override
-            public void onNegativeClick() {
-
-            }
-        });
-        dialog.show();
-        return dialog;
-    }
-
-    public static IOSDialog iosDialog(Context context, String title, String msg) {
-        IOSDialog dialog = new IOSDialog(context, R.style.Dialog);
-        dialog.setTitle(title);
-        dialog.setContent(msg);
-        dialog.setPositiveButton("确认", new IOSDialog.OnPositiveClickListener() {
-            @Override
-            public void onPositiveClick() {
-
-            }
-        });
-        dialog.show();
-        return dialog;
-    }
 
     public static RMDialog rmDialog(Context context, String text, String iconFont, int iconColor, RMDialog.OnPositiveClickListener listener) {
         RMDialog dialog = new RMDialog(context, R.style.Dialog)
