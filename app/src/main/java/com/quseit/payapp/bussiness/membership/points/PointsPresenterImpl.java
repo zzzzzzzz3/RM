@@ -55,7 +55,7 @@ public class PointsPresenterImpl extends BasePresenter implements PointsContract
 
     private boolean checkData(int amount, String mobile, String countryCode, String type) {
         if (amount <= 0) {
-            mPointsView.showMessage("Minimum amount is 1");
+            mPointsView.showMessage("Points is 1 empty");
             return false;
         }
         if (mobile.equals("")) {

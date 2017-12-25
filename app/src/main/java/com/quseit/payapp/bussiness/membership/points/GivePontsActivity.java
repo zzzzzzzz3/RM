@@ -146,7 +146,7 @@ public class GivePontsActivity extends BaseActivity implements PointsContract.Po
 
     @Override
     public void showMessage(String message) {
-
+        toast(message);
     }
 
     @Override
@@ -193,7 +193,7 @@ public class GivePontsActivity extends BaseActivity implements PointsContract.Po
     }
 
     public void select(){
-        AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         Window window = dialogBuilder.getWindow();
         window.setGravity(Gravity.BOTTOM);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -202,17 +202,17 @@ public class GivePontsActivity extends BaseActivity implements PointsContract.Po
 
 
         LoopView loopView = dialogView.findViewById(R.id.loopView);
+        loopView.setNotLoop();
         final ArrayList<String> list = new ArrayList<>();
         list.add("+60");
         list.add("+80");
-        // 滚动监听
         loopView.setListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(int index) {
                 selectText.setText(list.get(index));
+                dialogBuilder.hide();
             }
         });
-        // 设置原始数据
         loopView.setItems(list);
         dialogBuilder.show();
 
