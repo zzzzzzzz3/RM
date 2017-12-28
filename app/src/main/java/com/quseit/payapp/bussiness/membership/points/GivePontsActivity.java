@@ -115,7 +115,7 @@ public class GivePontsActivity extends BaseActivity implements PointsContract.Po
             @Override
             public void onResult(String s) {
                 mScanUtil.closeScan();
-                phoneEdit.setText(s);
+                idEdit.setText(s);
             }
 
             @Override

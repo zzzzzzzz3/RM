@@ -24,19 +24,26 @@
             />
 
         <LinearLayout
+            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/avatar_img"
             android:orientation="vertical">
 
             <TextView
+                android:textStyle="bold"
                 android:id="@+id/merchant_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Revenue Monster"
                 android:textColor="@color/white"
-                android:textSize="20sp"/>
+                android:textSize="26sp"/>
+            <TextView
+                android:text=""
+                android:textSize="16sp"
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </RelativeLayout>
 

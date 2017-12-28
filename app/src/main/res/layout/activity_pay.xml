@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
-            android:text="MYR"
+            android:text="RM"
             android:textColor="@color/white"
             android:textSize="28sp"
             android:textStyle="bold"
@@ -66,6 +66,7 @@
         android:background="@color/gray"/>
 
     <FrameLayout
+        android:id="@+id/remark_fl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"

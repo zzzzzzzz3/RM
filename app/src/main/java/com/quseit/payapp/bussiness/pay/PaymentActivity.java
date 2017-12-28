@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.quseit.pay.ScanUtil;
@@ -92,7 +93,7 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
         startActivity(new Intent(this, MembershipActivity.class));
     }
 
-    @OnClick(R.id.desc_icon)
+    @OnClick(R.id.remark_fl)
     public void desc() {
         Intent intent = new Intent(this, DescriptionActivity.class);
         intent.putExtra(GlobalBean.REMARK,remarkTv.getText().toString());
@@ -107,7 +108,7 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
             return;
         }
 
-        DialogManager.rmDialog(this, "Continue as cash payment?", getString(R.string.cash_font),R.color.payment_bg_color,new RMDialog.OnPositiveClickListener() {
+        DialogManager.rmDialog(this, "Continue with cash payment?", getString(R.string.cash_font),R.color.payment_bg_color,new RMDialog.OnPositiveClickListener() {
             @Override
             public void onPositiveClick() {
                 String remark = remarkTv.getText().toString();

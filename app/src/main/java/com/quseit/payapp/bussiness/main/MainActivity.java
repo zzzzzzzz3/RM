@@ -54,6 +54,8 @@ public class MainActivity extends BaseActivity implements MainContract.MainView{
     ImageView mAvatarImg;
     @BindView(R.id.merchant_tv)
     TextView merchantTv;
+    @BindView(R.id.user_name)
+    TextView userNmae;
     //ViewPager页面数
     private static final int len = 2;
 
@@ -208,5 +210,6 @@ public class MainActivity extends BaseActivity implements MainContract.MainView{
             }
         });
         merchantTv.setText(bean.getMerchant());
+        userNmae.setText(bean.getUsers().get(0).getFirstName()+" "+bean.getUsers().get(0).getLastName());
     }
 }

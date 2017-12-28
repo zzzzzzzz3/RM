@@ -102,7 +102,6 @@ public final class ScanView extends View {
     protected void onDraw(Canvas canvas) {
         //中间的扫描框,想要修改扫描框的大小可以去CameraManager里面修改
         Rect frame = new Rect(0+60,0+320,canvas.getWidth()-60,canvas.getHeight()-320);
-        Log.e("tag---->","top:"+frame.top+"--->left"+frame.left+"--->right:"+frame.right+"--->bottom:"+frame.bottom);
         if( frame == null ){
             return;
         }
@@ -166,7 +165,7 @@ public final class ScanView extends View {
             paint.setTextSize(TEXT_SIZE * density);
             paint.setAlpha(0x40);
             paint.setTypeface(Typeface.create("System", Typeface.BOLD));
-            canvas.drawText("请将二维码对准屏幕正中央扫描框", frame.left, (float) (frame.bottom + (float)TEXT_PADDING_TOP *density), paint);
+            canvas.drawText("Align the QR Code within the frame to scan", frame.left, (float) (frame.bottom + (float)TEXT_PADDING_TOP *density), paint);
 
 
             //只刷新扫描框的内容，其他地方不刷新

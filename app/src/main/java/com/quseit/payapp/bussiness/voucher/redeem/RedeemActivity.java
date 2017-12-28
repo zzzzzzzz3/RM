@@ -47,7 +47,7 @@ public class RedeemActivity extends BaseActivity implements RedeemContract.Redee
     @Override
     public void initView() {
         mRMProgressDialog = new RMProgressDialog(this);
-        setRightText("Done", new View.OnClickListener() {
+        setRightText("Redeem", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 submit();
