@@ -1,5 +1,6 @@
 package com.quseit.payapp.bussiness.pay;
 
+import com.quseit.payapp.bean.request.Member;
 import com.quseit.payapp.bean.request.PayRequestBean;
 import com.quseit.payapp.bean.response.BaseResponse;
 import com.quseit.payapp.bean.response.PayResponseBean;
@@ -31,6 +32,6 @@ public interface PayContract {
     }
 
     interface PayPresenter extends IPresenter{
-        void pay(String Amount, String AuthCode, String Remark, String StoreID);
+        void pay(String Amount, String AuthCode, String Remark, String StoreID, Member member);
     }
 }

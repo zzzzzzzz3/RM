@@ -31,13 +31,15 @@
             android:theme="@style/WelcomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".bussiness.main.MainActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
+
+        </activity>
         <activity
             android:name=".bussiness.pay.PaymentActivity"
             android:screenOrientation="portrait"
@@ -93,6 +95,9 @@
         <activity
             android:name=".bussiness.membership.points.PointsActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".bussiness.pay.MemberActivity"
+                  android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

@@ -33,9 +33,9 @@ public class PointsPresenterImpl extends BasePresenter implements PointsContract
     }
 
     @Override
-    public void givePoints(int amount, String mobile, String countryCode, String type) {
-        if (checkData(amount, mobile, countryCode, type)) {
-            logic(mPointsModel.givePoints(new PointsRequestBean(amount, type, mobile, countryCode,"REDEEM")), new ObserverHandler<ResponseBody>() {
+    public void givePoints(int amount, String mobile, String countryCode, String type,long memberId) {
+        if (checkData(amount, mobile, countryCode, type,memberId)) {
+            logic(mPointsModel.givePoints(new PointsRequestBean(amount, type, mobile, countryCode,memberId)), new ObserverHandler<ResponseBody>() {
                 @Override
                 public void onResponse(ResponseBody response) {
                         mPointsView.showDialog("Name has earned:", true);
@@ -53,23 +53,27 @@ public class PointsPresenterImpl extends BasePresenter implements PointsContract
         }
     }
 
-    private boolean checkData(int amount, String mobile, String countryCode, String type) {
+    private boolean checkData(int amount, String mobile, String countryCode, String type,long memberId) {
         if (amount <= 0) {
-            mPointsView.showMessage("Minimum amount is 1");
+            mPointsView.showMessage("Points is minimum 1");
             return false;
         }
-        if (mobile.equals("")) {
-            mPointsView.showMessage("mobile is empty");
-            return false;
+        if (type.equals(PointsRequestBean.PHONENUMBER)){
+            if (mobile.equals("")) {
+                mPointsView.showMessage("mobile is empty");
+                return false;
+            }
+            if (countryCode.equals("")) {
+                mPointsView.showMessage("country code is empty");
+                return false;
+            }
+        }else {
+            if (memberId<=0) {
+                mPointsView.showMessage("memberId is empty");
+                return false;
+            }
         }
-        if (countryCode.equals("")) {
-            mPointsView.showMessage("country code is empty");
-            return false;
-        }
-        if (type.equals("")) {
-            mPointsView.showMessage("type is empty");
-            return false;
-        }
+
         return true;
     }
 }

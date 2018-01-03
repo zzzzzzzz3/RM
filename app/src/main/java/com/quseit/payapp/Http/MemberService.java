@@ -24,6 +24,6 @@ public interface MemberService {
     @PUT("loyalty/member")
     Observable<ResponseBody> signUp(@Header("Authorization") String token, @Body MemberRequestBean bean);
 
-    @POST("loyalty/spending/point")
+    @POST("loyalty/reward")
     Observable<ResponseBody> givePoints(@Header("Authorization") String token, @Body PointsRequestBean bean);
 }

@@ -16,6 +16,7 @@ public class GlobalBean {
     //保存账号密码的关键字
     public static final String AVATAR = "AVATAR";
     public static final String MERCHANT = "MERCHANT";
+    public static final String OWNER = "OWNER";
 
     public static final String DECIVE_TOKEN = "DECIVE_TOKEN";
 
@@ -41,6 +42,8 @@ public class GlobalBean {
 
     public static final String REMARK = "REMARK";
     public static final int REMARK_REQUEST = 0X001;
+    public static final String MEMBER = "MEMBER";
+    public static final int MEMBER_REQUEST = 0X002;
 
     public static final String ITEMS = "ITEMS";
     public static final String HAS_TOP = "HAS TOP";

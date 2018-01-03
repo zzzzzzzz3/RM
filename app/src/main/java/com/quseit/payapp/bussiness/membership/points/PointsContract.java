@@ -29,6 +29,6 @@ public interface PointsContract {
     }
 
     interface PointsPresenter extends IPresenter {
-        void givePoints(int amount,String mobile,String countryCode,String type);
+        void givePoints(int amount,String mobile,String countryCode,String type,long memberId);
     }
 }

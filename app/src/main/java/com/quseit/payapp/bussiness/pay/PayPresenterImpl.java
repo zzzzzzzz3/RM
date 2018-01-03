@@ -34,9 +34,9 @@ public class PayPresenterImpl extends BasePresenter implements PayContract.PayPr
     }
 
     @Override
-    public void pay(String amount, String authCode, String remark, String storeId) {
+    public void pay(String amount, String authCode, String remark, String storeId,Member member) {
         int a = (int) (Float.parseFloat(amount)*100);
-        logic(mPayModel.pay(new PayRequestBean(a,authCode,remark,null)), new ObserverHandler<PayResponseBean>() {
+        logic(mPayModel.pay(new PayRequestBean(a,authCode,remark,member)), new ObserverHandler<PayResponseBean>() {
             @Override
             public void onResponse(PayResponseBean response) {
                 if (response.success()){

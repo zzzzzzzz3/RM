@@ -9,6 +9,7 @@ import android.support.annotation.StyleRes;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.quseit.payapp.R;
@@ -29,6 +30,8 @@ public class RMDialog extends Dialog {
     private TextView subTextTv;
     private Button mPositiveButton;
     private Button mNegativeButton;
+    private LinearLayout btnLayout;
+    private Button mComfirmBtn;
 
     public RMDialog(@NonNull Context context) {
         this(context,R.style.Dialog);
@@ -46,6 +49,15 @@ public class RMDialog extends Dialog {
         subTextTv = (TextView) findViewById(R.id.dialog_sub_text);
         mPositiveButton = (Button) findViewById(R.id.btn_ok);
         mNegativeButton = (Button) findViewById(R.id.btn_cancel);
+        mComfirmBtn = findViewById(R.id.btn_comfirm);
+        btnLayout = findViewById(R.id.btn_layout);
+
+        mNegativeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
     }
 
     public RMDialog setIcon(String fontIcon){
@@ -81,10 +93,8 @@ public class RMDialog extends Dialog {
         return this;
     }
 
-    public RMDialog setPositionBtn(String text,final OnPositiveClickListener listener){
-        if (text != null && !text.equals("")) {
-            mPositiveButton.setVisibility(View.VISIBLE);
-            mPositiveButton.setText(text);
+    public RMDialog setPositionBtn(final OnPositiveClickListener listener){
+        btnLayout.setVisibility(View.VISIBLE);
             mPositiveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -95,25 +105,20 @@ public class RMDialog extends Dialog {
                 }
             });
 
-        }
         return this;
     }
 
-    public RMDialog setNegativeBtn(String text,final OnNegativeClickListener listener){
-        if (text != null && !text.equals("")) {
-            mNegativeButton.setVisibility(View.VISIBLE);
-            mNegativeButton.setText(text);
-            mNegativeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dismiss();
-                    if (listener != null) {
-                        listener.onNegativeClick();
-                    }
+    public RMDialog setComfirmBtn(final OnComfirmClickListener listener){
+        mComfirmBtn.setVisibility(View.VISIBLE);
+        mComfirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+                if (listener!=null){
+                    listener.onComfirmClick();
                 }
-            });
-
-        }
+            }
+        });
         return this;
     }
 
@@ -121,7 +126,7 @@ public class RMDialog extends Dialog {
         void onPositiveClick();
     }
 
-    public interface OnNegativeClickListener {
-        void onNegativeClick();
+    public interface OnComfirmClickListener {
+        void onComfirmClick();
     }
 }

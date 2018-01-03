@@ -48,7 +48,7 @@ public class IssueActivity extends BaseActivity implements IssueContract.IssueVi
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout mSmartRefreshLayout;
     @BindView(R.id.empty_view)
-    ImageView emptyView;
+    View emptyView;
     private VouchersAdapter mVouchersAdapter;
     private List<VoucherBean> mBeanList = new ArrayList<>();
 
@@ -147,11 +147,13 @@ public class IssueActivity extends BaseActivity implements IssueContract.IssueVi
     @Override
     public void setDataToList(List<VoucherBean> data) {
         mVouchersAdapter.reset();
-        if (data.size() > 0) {
+        if (data != null && data.size() > 0) {
+            mRecyclerView.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.GONE);
             mBeanList = data;
             mVouchersAdapter.setData(mBeanList);
         } else {
+            mRecyclerView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
         }
     }

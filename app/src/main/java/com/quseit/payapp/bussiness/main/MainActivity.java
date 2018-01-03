@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.quseit.pay.PrintUtil;
 import com.quseit.payapp.R;
 import com.quseit.payapp.adapter.MainFragmentAdapter;
 import com.quseit.payapp.base.BaseActivity;
@@ -24,12 +23,9 @@ import com.quseit.payapp.bussiness.setting.SettingActivity;
 import com.quseit.payapp.bussiness.support.SupportActivity;
 import com.quseit.payapp.bussiness.transations.TransationsActivity;
 import com.quseit.payapp.bussiness.voucher.VoucherActivity;
-import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.PreferenceUtil;
 import com.quseit.payapp.util.UIUtil;
-import com.quseit.payapp.widget.RMDialog;
 import com.quseit.payapp.widget.RMProgressDialog;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.simple.eventbus.Subscriber;
 
@@ -54,6 +50,8 @@ public class MainActivity extends BaseActivity implements MainContract.MainView{
     ImageView mAvatarImg;
     @BindView(R.id.merchant_tv)
     TextView merchantTv;
+    @BindView(R.id.user_name)
+    TextView userName;
     //ViewPager页面数
     private static final int len = 2;
 
@@ -124,15 +122,18 @@ public class MainActivity extends BaseActivity implements MainContract.MainView{
     @Override
     public void initData() {
         mMainPresenter = new MainPresenterImpl(this);
-        MerchantBean bean = new MerchantBean();
-        bean.setAvatar(PreferenceUtil.getInstance().getStr(GlobalBean.AVATAR));
-        bean.setMerchant(PreferenceUtil.getInstance().getStr(GlobalBean.MERCHANT));
-        if (!bean.getAvatar().isEmpty()&&!bean.getMerchant().isEmpty()){
-            setData(bean);
-        }else {
-            // TODO: 2017/12/5 获取商户信息
-            mMainPresenter.getMerchantInfo();
-        }
+        String avatar = PreferenceUtil.getInstance().getStr(GlobalBean.AVATAR);
+        String merchant = PreferenceUtil.getInstance().getStr(GlobalBean.MERCHANT);
+        String owner = PreferenceUtil.getInstance().getStr(GlobalBean.OWNER);
+        Glide.with(this).asBitmap().load(avatar).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                mAvatarImg.setImageBitmap(resource);
+            }
+        });
+        merchantTv.setText(merchant);
+        userName.setText(owner);
+        mMainPresenter.getMerchantInfo();
     }
 
     @Override
@@ -208,5 +209,6 @@ public class MainActivity extends BaseActivity implements MainContract.MainView{
             }
         });
         merchantTv.setText(bean.getMerchant());
+        userName.setText(bean.getUsers().get(0).getFirstName()+" "+bean.getUsers().get(0).getLastName());
     }
 }

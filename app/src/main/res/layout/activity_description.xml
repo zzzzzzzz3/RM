@@ -15,7 +15,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="50dp"
-        android:background="@drawable/black_frame_shape"
+        android:background="@color/white"
         android:gravity="start"
         android:hint="@string/your_awesome_content_goes_here"
         android:padding="15dp"

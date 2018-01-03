@@ -46,9 +46,9 @@ public class MainPresenterImpl extends BasePresenter implements MainContract.Mai
 
             @Override
             public void onFail(int code, String msg) {
-                if (code == HttpCode.UNAUTHORIZED){
+                if (code == HttpCode.UNAUTHORIZED) {
                     mMainView.setUpToken();
-                }else {
+                } else {
                     mMainView.showMessage(msg);
                 }
             }
@@ -59,15 +59,16 @@ public class MainPresenterImpl extends BasePresenter implements MainContract.Mai
         new Thread(new Runnable() {
             @Override
             public void run() {
-//                PreferenceUtil.getInstance().saveStr(GlobalBean.AVATAR,response.getAvatar());
-//                PreferenceUtil.getInstance().saveStr(GlobalBean.MERCHANT,response.getMerchant());
+                PreferenceUtil.getInstance().saveStr(GlobalBean.AVATAR, response.getAvatar());
+                PreferenceUtil.getInstance().saveStr(GlobalBean.MERCHANT, response.getMerchant());
+                UserBean owner = response.getUsers().get(0);
+                PreferenceUtil.getInstance().saveStr(GlobalBean.OWNER, owner.getFirstName() + " " + owner.getLastName());
                 UserBeanDao dao = GreenDaoHelper.getInstance().getDaoSession().getUserBeanDao();
                 dao.deleteAll();
-                for (UserBean bean:response.getUsers()){
+                for (UserBean bean : response.getUsers()) {
                     dao.insert(bean);
                 }
             }
         }).start();
-
     }
 }

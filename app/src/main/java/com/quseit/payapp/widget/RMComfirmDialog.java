@@ -81,7 +81,7 @@ public class RMComfirmDialog extends Dialog {
         return this;
     }
 
-    public RMComfirmDialog setNegativeBtn(String text, final RMDialog.OnNegativeClickListener listener) {
+    public RMComfirmDialog setNegativeBtn(String text, final RMDialog.OnComfirmClickListener listener) {
         if (text != null && !text.equals("")) {
             mNegativeButton.setVisibility(View.VISIBLE);
             mNegativeButton.setText(text);
@@ -90,7 +90,7 @@ public class RMComfirmDialog extends Dialog {
                 public void onClick(View v) {
                     dismiss();
                     if (listener != null) {
-                        listener.onNegativeClick();
+                        listener.onComfirmClick();
                     }
                 }
             });

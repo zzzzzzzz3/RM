@@ -64,7 +64,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     @BindView(R.id.refunds_checkbox)
     CheckBox refundCheckbox;
     @BindView(R.id.empty_view)
-    ImageView emptyView;
+    View emptyView;
     @BindView(R.id.shadow_layout)
     FrameLayout shadowLayout;
     private int year, month, day;
@@ -212,8 +212,15 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
 
     @Override
     public void addDataToList(List<TransationBean> data) {
-        mTransationBeans = data;
-        mTransationsAdapter.setData(mTransationBeans);
+        if (data == null || data.isEmpty()){
+            emptyView.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+        }else {
+            emptyView.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mTransationBeans = data;
+            mTransationsAdapter.setData(mTransationBeans);
+        }
     }
 
     @Override

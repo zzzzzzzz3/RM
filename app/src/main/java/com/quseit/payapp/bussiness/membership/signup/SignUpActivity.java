@@ -9,6 +9,9 @@ import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.widget.RMDialog;
 import com.quseit.payapp.widget.RMProgressDialog;
+import com.quseit.payapp.widget.SelectDialog;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,6 +35,7 @@ public class SignUpActivity extends BaseActivity implements SignUpContract.SignU
     EditText mobileEdit;
     @BindView(R.id.country_code_tv)
     TextView countryCodeTv;
+    private SelectDialog mSelectDialog;
 
     private SignUpContract.SignUpPresenter mSignUpPresenter;
     private RMProgressDialog mRMProgressDialog;
@@ -55,6 +59,7 @@ public class SignUpActivity extends BaseActivity implements SignUpContract.SignU
             }
         });
         mRMProgressDialog = new RMProgressDialog(this);
+        initSelectDialog();
     }
 
     @Override
@@ -69,7 +74,21 @@ public class SignUpActivity extends BaseActivity implements SignUpContract.SignU
 
     @OnClick(R.id.country_code_layout)
     public void countryCode(){
+        mSelectDialog.show();
+    }
 
+    private void initSelectDialog() {
+        mSelectDialog = new SelectDialog(this);
+        mSelectDialog.setOkCallback(new SelectDialog.OkCallback() {
+            @Override
+            public void onOk(String item) {
+                countryCodeTv.setText(item);
+            }
+        });
+        ArrayList<String> list = new ArrayList<>();
+        list.add("60");
+        list.add("80");
+        mSelectDialog.setItems(list);
     }
 
     @Override

@@ -4,12 +4,16 @@ import android.Manifest;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.quseit.pay.ScanUtil;
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.GlobalBean;
+import com.quseit.payapp.bean.request.Member;
 import com.quseit.payapp.bussiness.membership.MembershipActivity;
 import com.quseit.payapp.util.AmountInputUtil;
 import com.quseit.payapp.util.DialogManager;
@@ -33,7 +37,7 @@ import butterknife.OnClick;
  * 修改备注：
  */
 
-public class PaymentActivity extends BaseActivity implements PayContract.PayView{
+public class PaymentActivity extends BaseActivity implements PayContract.PayView {
 
     @BindView(R.id.keyboard_number)
     NumberKeyboard mNumberKeyboard;
@@ -41,11 +45,14 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
     TextView mPaymentTv;
     @BindView(R.id.remark_tv)
     TextView remarkTv;
+    @BindView(R.id.sure_iv)
+    ImageView mSureIV;
     private ScanUtil mScanUtil;
     private final String defaultNum = "0.00";
     private RMProgressDialog mRMProgressDialog;
 
     private PayContract.PayPresenter mPayPresenter;
+    private Member mMember;
 
     @Override
     public int getRootView() {
@@ -57,12 +64,12 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
         mNumberKeyboard.setOnKeyClickListener(new NumberKeyboard.OnKeyClickListener() {
             @Override
             public void onNumberClick(int number) {
-                mPaymentTv.setText(AmountInputUtil.input(number+"",mPaymentTv.getText().toString()));
+                mPaymentTv.setText(AmountInputUtil.input(number + "", mPaymentTv.getText().toString()));
             }
 
             @Override
             public void onDeleteClick() {
-                mPaymentTv.setText(AmountInputUtil.deleteNum(mPaymentTv.getText().toString(),true));
+                mPaymentTv.setText(AmountInputUtil.deleteNum(mPaymentTv.getText().toString(), true));
             }
 
             @Override
@@ -89,14 +96,14 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
 
     @OnClick(R.id.mumber_icon)
     public void mumber() {
-        startActivity(new Intent(this, MembershipActivity.class));
+        startActivityForResult(new Intent(this, MemberActivity.class), GlobalBean.MEMBER_REQUEST);
     }
 
-    @OnClick(R.id.desc_icon)
+    @OnClick(R.id.remark_fl)
     public void desc() {
         Intent intent = new Intent(this, DescriptionActivity.class);
-        intent.putExtra(GlobalBean.REMARK,remarkTv.getText().toString());
-        startActivityForResult(intent,GlobalBean.REMARK_REQUEST);
+        intent.putExtra(GlobalBean.REMARK, remarkTv.getText().toString());
+        startActivityForResult(intent, GlobalBean.REMARK_REQUEST);
     }
 
     @OnClick(R.id.cash_icon)
@@ -107,14 +114,14 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
             return;
         }
 
-        DialogManager.rmDialog(this, "Continue as cash payment?", getString(R.string.cash_font),R.color.payment_bg_color,new RMDialog.OnPositiveClickListener() {
+        DialogManager.rmDialog(this, "Continue with cash payment?", getString(R.string.cash_font), R.color.payment_bg_color, new RMDialog.OnPositiveClickListener() {
             @Override
             public void onPositiveClick() {
                 String remark = remarkTv.getText().toString();
-                if (remark.equals("")){
+                if (remark.equals("")) {
                     remark = "no remark";
                 }
-                mPayPresenter.pay(amount,"",remark,"123456");
+                mPayPresenter.pay(amount, "", remark, "123456", mMember);
             }
         });
     }
@@ -129,10 +136,10 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
                     toast("Minimum amount is RM 0.1");
                 } else {
                     String remark = remarkTv.getText().toString();
-                    if (remark.equals("")){
-                        remark = "no remark";
+                    if (remark.equals("")) {
+                        remark = "In-store payment";
                     }
-                    doScan(amount,remark);
+                    doScan(amount, remark);
                 }
             }
 
@@ -143,7 +150,7 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
         });
     }
 
-    private void doScan(final String amount,final String remark) {
+    private void doScan(final String amount, final String remark) {
         mScanUtil.beginScan(this, new ScanUtil.ScanCallback() {
             @Override
             public void onError(String msg) {
@@ -152,7 +159,7 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
 
             @Override
             public void onResult(final String s) {
-                pay(s,amount,remark);
+                pay(s, amount, remark);
             }
 
             @Override
@@ -167,8 +174,8 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
         });
     }
 
-    private void pay(String authcode, String amount,String remark) {
-        mPayPresenter.pay(amount,authcode,remark,"123456");
+    private void pay(String authcode, String amount, String remark) {
+        mPayPresenter.pay(amount, authcode, remark, "123456", mMember);
     }
 
     @Override
@@ -180,9 +187,21 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == GlobalBean.REMARK_REQUEST  && resultCode == RESULT_OK){
+        if (requestCode == GlobalBean.REMARK_REQUEST && resultCode == RESULT_OK) {
             String remarkStr = data.getStringExtra(GlobalBean.REMARK);
             remarkTv.setText(remarkStr);
+        } else if (requestCode == GlobalBean.MEMBER_REQUEST && resultCode == RESULT_OK) {
+            mMember = (Member) data.getSerializableExtra(GlobalBean.MEMBER);
+            if (mMember != null) {
+                if ((mMember.getType() == Member.ID && mMember.getMemberId() == 0) || (mMember.getType() == Member.PHONENUMBER && mMember.getPhoneNumber().isEmpty())) {
+                    mSureIV.setVisibility(View.GONE);
+                    mMember = null;
+                } else {
+                    mSureIV.setVisibility(View.VISIBLE);
+                }
+            } else {
+                mSureIV.setVisibility(View.GONE);
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -214,10 +233,10 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
 
     @Override
     public void showDialog(String msg, boolean isSuccess) {
-        if (isSuccess){
+        if (isSuccess) {
             DialogManager.successDialog(this, msg, null);
-        }else {
-            DialogManager.failDialog(this,msg);
+        } else {
+            DialogManager.failDialog(this, msg);
         }
     }
 }

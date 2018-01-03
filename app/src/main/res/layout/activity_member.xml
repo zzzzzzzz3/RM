@@ -7,38 +7,6 @@
     <include layout="@layout/toolbar"/>
 
     <TextView
-        android:id="@+id/tv_point"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="64dp"
-        android:text="Entry points"
-        android:textColor="@color/white"
-        android:textSize="18sp"/>
-
-    <EditText
-        android:id="@+id/points_edit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@android:color/transparent"
-        android:gravity="center_vertical"
-        android:hint="100"
-        android:inputType="number"
-        android:maxLength="16"
-        android:textColor="@color/white"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@color/white"/>
-
-    <TextView
         android:layout_width="280dp"
         android:layout_height="32dp"
         android:layout_marginLeft="30dp"

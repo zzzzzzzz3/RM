@@ -99,7 +99,7 @@ public class NumberKeyboard extends RecyclerView {
                case -2:
                    numTv.setVisibility(VISIBLE);
                    numTv.setText(endKeyName==null?"Clear":endKeyName);
-                   numTv.setTextColor(endKeyName==null?Color.GREEN:Color.BLUE);
+                   numTv.setTextColor(endKeyName==null?Color.GRAY:Color.BLUE);
                    img.setVisibility(GONE);
                    holder.itemView.setOnClickListener(new OnClickListener() {
                        @Override

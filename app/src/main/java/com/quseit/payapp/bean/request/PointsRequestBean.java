@@ -1,5 +1,7 @@
 package com.quseit.payapp.bean.request;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * 文 件 名: PointsRequestBean
  * 创 建 人: ZhangRonghua
@@ -11,30 +13,37 @@ package com.quseit.payapp.bean.request;
 
 public class PointsRequestBean {
 
+    @SerializedName(value = "point")
     private int amount;
     private String type;
     private String phoneNumber;
     private String countryCode;
-    private String redemptionType;
+    private long memberId;
+
+    public static final String ID = "ID";
+    public static final String PHONENUMBER = "PHONENUMBER";
+
 
     public PointsRequestBean() {
     }
 
-    public PointsRequestBean(int amount, String type, String phoneNumber, String countryCode,String redemptionType) {
+    public PointsRequestBean(int amount, String type, String phoneNumber, String countryCode , long memberId) {
         this.amount = amount;
         this.type = type;
         this.phoneNumber = phoneNumber;
+
         this.countryCode = countryCode;
-        this.redemptionType = redemptionType;
+        this.memberId=memberId;
     }
 
-    public String getRedemptionType() {
-        return redemptionType;
+    public long getMemberId() {
+        return memberId;
     }
 
-    public void setRedemptionType(String redemptionType) {
-        this.redemptionType = redemptionType;
+    public void setMemberId(long memberId) {
+        this.memberId = memberId;
     }
+
 
     public int getAmount() {
         return amount;

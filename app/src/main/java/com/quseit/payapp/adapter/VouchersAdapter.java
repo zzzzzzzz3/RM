@@ -59,8 +59,8 @@ public class VouchersAdapter extends BaseAdapter<VoucherBean, VouchersAdapter.Vo
     @Override
     public void onBindViewHolder(final VoucherViewHolder holder, final int position) {
         final VoucherBean bean = mData.get(position);
-        holder.voucherName.setText(bean.getType() + " VOUCHER");
-        holder.voucherType.setText(bean.getDiscountRate() + "%");
+        holder.voucherName.setText(bean.getType());
+        holder.voucherType.setText(bean.getLabel());
         if (bean == selected) {
             //holder.mRelativeLayout.setSelected(true);
             holder.plusIcon.setVisibility(View.VISIBLE);

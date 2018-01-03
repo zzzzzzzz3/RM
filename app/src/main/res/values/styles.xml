@@ -54,4 +54,9 @@
         <item name="android:windowFrame">@null</item><!--边框-->
         <item name="android:windowCloseOnTouchOutside">false</item>
     </style>
+
+    <style name="BottomAnim" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
 </resources>

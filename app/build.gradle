@@ -79,6 +79,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
     compile 'com.makeramen:roundedimageview:2.3.0'
     compile 'org.greenrobot:greendao:3.2.2'
+    compile 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
     compile project(':devlib')
     compile project(':paylib')
 }
