@@ -1,12 +1,23 @@
 package com.quseit.payapp.bussiness.pay;
 
+import android.annotation.SuppressLint;
+
 import com.quseit.dev.HttpCode;
 import com.quseit.dev.ObserverHandler;
+import com.quseit.pay.PayInfoBean;
 import com.quseit.payapp.base.BasePresenter;
+import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.request.Member;
 import com.quseit.payapp.bean.request.PayRequestBean;
 import com.quseit.payapp.bean.response.BaseResponse;
 import com.quseit.payapp.bean.response.PayResponseBean;
+import com.quseit.payapp.util.PreferenceUtil;
+import com.quseit.payapp.util.TimeConverterUtil;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * 文 件 名: PayPresenterImpl
@@ -41,6 +52,7 @@ public class PayPresenterImpl extends BasePresenter implements PayContract.PayPr
             public void onResponse(PayResponseBean response) {
                 if (response.success()){
                     mPayView.showDialog(response.getMsg(),true);
+                    printPayInfo(response);
                 }else {
                     mPayView.showDialog(response.getMsg(),false);
                 }
@@ -55,5 +67,20 @@ public class PayPresenterImpl extends BasePresenter implements PayContract.PayPr
                 }
             }
         });
+    }
+
+    private void printPayInfo(PayResponseBean response) {
+        PayInfoBean payInfoBean = new PayInfoBean();
+        String strDate = TimeConverterUtil.utc2Local(response.getTransactionAt(),"yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'","yyyy-MM-dd HH:mm:ss");
+        payInfoBean.setTransactionAt(strDate);
+        payInfoBean.setPaymentAmount(response.getPaymentAmount());
+        payInfoBean.setPaymentMethod(response.getPaymentMethod());
+        payInfoBean.setRemark(response.getRemark());
+        payInfoBean.setStoreName(PreferenceUtil.getInstance().getStr(GlobalBean.MERCHANT));
+        payInfoBean.setTransactionId(response.getTransactionId());
+        payInfoBean.setMessage(response.getMsg());
+        String curr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
+        payInfoBean.setDate(curr);
+        mPayView.printPayInfo(payInfoBean);
     }
 }

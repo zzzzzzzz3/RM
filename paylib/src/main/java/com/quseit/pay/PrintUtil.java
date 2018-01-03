@@ -140,8 +140,7 @@ public class PrintUtil {
         DeviceService.logout();
     }
 
-    public static void print(Context context) {
-
+    public void printPayInfo(Context context, final PayInfoBean info) {
         /** 1、创建 Printer.Progress 实例 */
         Printer.Progress progress = new Printer.Progress() {
             /** 2、在 Printer.Progress 的 doPrint 方法中设置签购单的打印样式 */
@@ -154,39 +153,24 @@ public class PrintUtil {
                 format.setAscSize(Printer.Format.ASC_DOT5x7);
                 format.setAscScale(Printer.Format.ASC_SC1x2);
                 printer.setFormat(format);
-                printer.printText(Printer.Alignment.CENTER, "联迪支付\n");
+                printer.printText(Printer.Alignment.CENTER, info.getStoreName()+"\n");
+                printer.printText("\n");
 
                 /** 西文字符打印， 此处使用 5x7 点， 1 倍宽&&1 倍高打印签购单内容 */
                 format.setAscScale(Printer.Format.ASC_SC1x1);
                 printer.setFormat(format);
-                printer.printText("--Public utility bill payment receipt--\n");
+                printer.setAutoTrunc(false);
+                printer.println("Transaction ID: "+info.getTransactionId());
+                printer.println("Date: "+info.getTransactionAt());
+                printer.println("Method: "+info.getPaymentMethod());
+                printer.println("Status: "+info.getMessage());
+                printer.println("Net Total: "+info.getPaymentAmount());
+                printer.println("PRN ON: "+info.getDate());
                 printer.printText("\n");
-                printer.printText("Transaction : Repayment\n");
-                printer.printText("Credit Card No.: XXXX XXXX XXXX XXXX\n");
-                printer.printText("Term No.: 2200306\n");
-                printer.printText("Amount: RMB 100.00\n");
-                printer.printText("Reference No.: 191017234668\n");
+                printer.printText("--------------Remark------------");
                 printer.printText("\n");
-                printer.printText("---The Client Stub---\n");
-
-                /** 中文字符打印，此处使用 16x16 点，1 倍宽&&1 倍高 */
-                format.setHzScale(Printer.Format.HZ_SC1x1);
-                format.setHzSize(Printer.Format.HZ_DOT16x16);
-                printer.printText("---福建联迪商用设备有限公司---\n");
+                printer.printText(info.getRemark());
                 printer.printText("\n");
-
-                /** 打印条码 */
-                printer.printBarCode("01234567890123456789");
-
-                /** 打印二维码 */
-                printer.printQrCode(0, new QrCode("sdafsadf", QrCode.ECLEVEL_Q), 100);
-                printer.printQrCode(Printer.Alignment.CENTER, new QrCode("landi",
-                        QrCode.ECLEVEL_Q), 124);
-                printer.printQrCode(Printer.Alignment.RIGHT, new QrCode("landi",
-                        QrCode.ECLEVEL_Q), 124);
-                printer.printText(Printer.Alignment.CENTER, "------landicorp------\n");
-                printer.printText(Printer.Alignment.RIGHT, "www.landicorp.com\n");
-
                 /**进纸5行 */
                 printer.feedLine(5);
             }
@@ -194,7 +178,6 @@ public class PrintUtil {
             @Override
             public void onFinish(int code) {
 
-                /** Printer.ERROR_NONE 即打印成功 */
                 if (code == Printer.ERROR_NONE) {
                     Log.d("print", "打印签购单成功!");
                 } else {

@@ -39,6 +39,9 @@ android {
             //签名文件配置
             signingConfig signingConfigs.release
         }
+        debug {
+            signingConfig signingConfigs.release
+        }
     }
 
     sourceSets { main { jniLibs.srcDirs = ['libs'] } }

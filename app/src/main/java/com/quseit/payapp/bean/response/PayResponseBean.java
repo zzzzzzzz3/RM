@@ -19,6 +19,59 @@ public class PayResponseBean {
     @SerializedName(value = "message")
     private String msg;
     private String paymentMethod;
+    private String storeName;
+    private String transactionId;
+    private String transactionAt;
+    private String paymentAmount;
+    private String remark;
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public String getTransactionAt() {
+        return transactionAt;
+    }
+
+    public void setTransactionAt(String transactionAt) {
+        this.transactionAt = transactionAt;
+    }
+
+    public String getPaymentAmount() {
+        return paymentAmount;
+    }
+
+    public void setPaymentAmount(String paymentAmount) {
+        this.paymentAmount = paymentAmount;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     public String getData() {
         return paymentMethod;

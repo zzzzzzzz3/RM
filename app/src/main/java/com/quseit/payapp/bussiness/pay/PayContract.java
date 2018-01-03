@@ -1,5 +1,8 @@
 package com.quseit.payapp.bussiness.pay;
 
+import android.content.Context;
+
+import com.quseit.pay.PayInfoBean;
 import com.quseit.payapp.bean.request.Member;
 import com.quseit.payapp.bean.request.PayRequestBean;
 import com.quseit.payapp.bean.response.BaseResponse;
@@ -23,7 +26,7 @@ import io.reactivex.Observable;
 public interface PayContract {
 
     interface PayView extends IView{
-
+        void printPayInfo(PayInfoBean payInfo);
         void showDialog(String msg,boolean isSuccess);
     }
 

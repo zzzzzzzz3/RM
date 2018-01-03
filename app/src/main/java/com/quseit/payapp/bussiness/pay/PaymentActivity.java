@@ -9,11 +9,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.quseit.pay.PayInfoBean;
+import com.quseit.pay.PrintUtil;
 import com.quseit.pay.ScanUtil;
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.request.Member;
+import com.quseit.payapp.bean.response.PayResponseBean;
 import com.quseit.payapp.bussiness.membership.MembershipActivity;
 import com.quseit.payapp.util.AmountInputUtil;
 import com.quseit.payapp.util.DialogManager;
@@ -53,6 +56,7 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
 
     private PayContract.PayPresenter mPayPresenter;
     private Member mMember;
+    private PrintUtil mPrintUtil;
 
     @Override
     public int getRootView() {
@@ -183,6 +187,7 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
         super.onDestroy();
         mScanUtil.closeScan();
         mPayPresenter.onDestroy();
+        mPrintUtil.logout();
     }
 
     @Override
@@ -229,6 +234,15 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
     @Override
     public void setUpToken() {
         settingToken();
+    }
+
+    @Override
+    public void printPayInfo(PayInfoBean payInfo) {
+        if (mPrintUtil == null){
+            mPrintUtil = new PrintUtil();
+            mPrintUtil.deviceLogin(this);
+        }
+        mPrintUtil.printPayInfo(this,payInfo);
     }
 
     @Override
