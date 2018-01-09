@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -210,5 +211,10 @@ public class MainActivity extends BaseActivity implements MainContract.MainView{
         });
         merchantTv.setText(bean.getMerchant());
         userName.setText(bean.getUsers().get(0).getFirstName()+" "+bean.getUsers().get(0).getLastName());
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return true;
     }
 }

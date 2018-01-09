@@ -102,7 +102,7 @@
 }
 
 # for DexGuard only
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
 #greendao
 -keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {

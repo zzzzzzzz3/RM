@@ -164,7 +164,8 @@ public class PrintUtil {
                 printer.println("Date: "+info.getTransactionAt());
                 printer.println("Method: "+info.getPaymentMethod());
                 printer.println("Status: "+info.getMessage());
-                printer.println("Net Total: "+info.getPaymentAmount());
+                String total = String.format("%.2f",Float.parseFloat(info.getPaymentAmount())/100.0);
+                printer.println("Net Total: RM "+total);
                 printer.println("PRN ON: "+info.getDate());
                 printer.printText("\n");
                 printer.printText("--------------Remark------------");

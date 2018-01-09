@@ -123,7 +123,7 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
             public void onPositiveClick() {
                 String remark = remarkTv.getText().toString();
                 if (remark.equals("")) {
-                    remark = "no remark";
+                    remark = "In-store payment";
                 }
                 mPayPresenter.pay(amount, "", remark, "123456", mMember);
             }
@@ -187,7 +187,8 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
         super.onDestroy();
         mScanUtil.closeScan();
         mPayPresenter.onDestroy();
-        mPrintUtil.logout();
+        if (mPrintUtil != null)
+            mPrintUtil.logout();
     }
 
     @Override
@@ -238,11 +239,11 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
 
     @Override
     public void printPayInfo(PayInfoBean payInfo) {
-        if (mPrintUtil == null){
+        if (mPrintUtil == null) {
             mPrintUtil = new PrintUtil();
             mPrintUtil.deviceLogin(this);
         }
-        mPrintUtil.printPayInfo(this,payInfo);
+        mPrintUtil.printPayInfo(this, payInfo);
     }
 
     @Override

@@ -48,6 +48,6 @@
     <string name="fail_font">\ue901</string>
     <string name="success_font">\ue903</string>
     <string name="net_error_font">\ue902</string>
-    <string name="cacel">Cacel</string>
+    <string name="cacel">Cancel</string>
     <string name="ok">OK</string>
 </resources>

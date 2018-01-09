@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.quseit.pay.ScanUtil;
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.GlobalBean;
@@ -46,6 +47,7 @@ public class MemberActivity extends BaseActivity {
     FrameLayout idClick;
 
     private SelectDialog mSelectDialog;
+    private ScanUtil mScanUtil;
 
     @Override
     public int getRootView() {
@@ -90,7 +92,7 @@ public class MemberActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        mScanUtil = new ScanUtil(this);
     }
 
     @Override
@@ -135,5 +137,36 @@ public class MemberActivity extends BaseActivity {
         list.add("60");
         list.add("80");
         mSelectDialog.setItems(list);
+    }
+
+    @OnClick(R.id.scan_icon)
+    public void scan() {
+        mScanUtil.beginScan(this, new ScanUtil.ScanCallback() {
+            @Override
+            public void onError(String msg) {
+
+            }
+
+            @Override
+            public void onResult(String s) {
+                idEdit.setText(s);
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onTimeout() {
+                toast("error");
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mScanUtil.closeScan();
     }
 }
