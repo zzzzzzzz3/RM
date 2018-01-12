@@ -102,7 +102,7 @@ public class GivePontsActivity extends BaseActivity implements PointsContract.Po
 
     @Override
     public String getToolbarTitle() {
-        return "Loyaty Points";
+        return "Loyalty Points";
     }
 
     @OnClick(R.id.scan_icon)

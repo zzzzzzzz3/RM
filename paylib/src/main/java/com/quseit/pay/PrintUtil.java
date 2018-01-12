@@ -2,6 +2,7 @@ package com.quseit.pay;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.landicorp.android.eptapi.DeviceService;
 import com.landicorp.android.eptapi.device.Printer;
@@ -43,7 +44,7 @@ public class PrintUtil {
         return loginSuccess;
     }
 
-    public void print(final String code,final String date,final int count){
+    public void print(final Context context,final String code,final String date,final int count){
         /** 1、创建 Printer.Progress 实例 */
         Printer.Progress progress = new Printer.Progress() {
             /** 2、在 Printer.Progress 的 doPrint 方法中设置签购单的打印样式 */
@@ -74,11 +75,12 @@ public class PrintUtil {
             @Override
             public void onFinish(int code) {
 
-                /** Printer.ERROR_NONE 即打印成功 */
                 if (code == Printer.ERROR_NONE) {
+                    Toast.makeText(context,"print success!",Toast.LENGTH_SHORT).show();
                     Log.d("print", "打印签购单成功!");
                 } else {
                     Log.d("print", "[打印失败]" + getErrorDescription(code));
+                    Toast.makeText(context,getErrorDescription(code),Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -140,7 +142,7 @@ public class PrintUtil {
         DeviceService.logout();
     }
 
-    public void printPayInfo(Context context, final PayInfoBean info) {
+    public void printPayInfo(final Context context, final PayInfoBean info) {
         /** 1、创建 Printer.Progress 实例 */
         Printer.Progress progress = new Printer.Progress() {
             /** 2、在 Printer.Progress 的 doPrint 方法中设置签购单的打印样式 */
@@ -180,9 +182,11 @@ public class PrintUtil {
             public void onFinish(int code) {
 
                 if (code == Printer.ERROR_NONE) {
+                    Toast.makeText(context,"print success!",Toast.LENGTH_SHORT).show();
                     Log.d("print", "打印签购单成功!");
                 } else {
                     Log.d("print", "[打印失败]" + getErrorDescription(code));
+                    Toast.makeText(context,getErrorDescription(code),Toast.LENGTH_SHORT).show();
                 }
             }
 

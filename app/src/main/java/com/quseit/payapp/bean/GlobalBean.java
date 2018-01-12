@@ -23,7 +23,7 @@ public class GlobalBean {
     public static final String PAYMENT = "PAYMENT";
     public static final String VOUCHER = "VOUCHER";
     public static final String MEMBERSHIP = "MEMBERSHIP";
-    public static final String TRANSATIONS = "TRANSATIONS";
+    public static final String TRANSATIONS = "TRANSACTIONS";
     public static final String APP_STORE = "APP STORE";
     public static final String SETTING = "SETTING";
     public static final String ORDERS = "ORDERS";

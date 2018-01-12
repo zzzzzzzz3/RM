@@ -134,6 +134,11 @@ public class MainActivity extends BaseActivity implements MainContract.MainView{
         });
         merchantTv.setText(merchant);
         userName.setText(owner);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         mMainPresenter.getMerchantInfo();
     }
 

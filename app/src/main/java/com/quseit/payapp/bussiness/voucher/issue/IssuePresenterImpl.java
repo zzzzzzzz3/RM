@@ -88,7 +88,7 @@ public class IssuePresenterImpl extends BasePresenter implements IssueContract.I
     }
 
     @Override
-    public void printQRcode(Context context, String voucherId,final String date, final int count) {
+    public void printQRcode(final Context context, String voucherId,final String date, final int count) {
         mPrintUtil.deviceLogin(context);
         if (mPrintUtil.isLogined()){
             cursor="";
@@ -120,7 +120,7 @@ public class IssuePresenterImpl extends BasePresenter implements IssueContract.I
                         public void onNext(Object o) {
                             if (o instanceof VoucherQrcode){
                                 VoucherQrcode voucherQrcode = (VoucherQrcode) o;
-                                mPrintUtil.print(voucherQrcode.getCode(),date,count);
+                                mPrintUtil.print(context,voucherQrcode.getCode(),date,count);
                             }else if (o instanceof VoucherResponse){
                                 VoucherResponse voucherResponse = (VoucherResponse) o;
                                 mIssueView.setDataToList(voucherResponse.getItems());
