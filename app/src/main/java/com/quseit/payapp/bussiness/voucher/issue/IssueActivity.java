@@ -73,8 +73,7 @@ public class IssueActivity extends BaseActivity implements IssueContract.IssueVi
                 if (bean == null || bean.getCount() == 0) {
                     toast("please select a voucher");
                 } else {
-                    String dateStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
-                    mIssuePresenter.printQRcode(IssueActivity.this, bean.getId(), dateStr, bean.getCount());
+                    mIssuePresenter.printQRcode2(IssueActivity.this, bean.getId(), bean.getCount());
                 }
             }
         });

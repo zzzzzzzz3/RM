@@ -41,6 +41,7 @@ public interface IssueContract {
     interface IssuePresenter extends IPresenter {
         void getVouchers();
         void loadMore();
-        void printQRcode(Context context,String voucherId,String date,int count);
+        void printQRcode(Context context,String voucherId,int count);
+        void printQRcode2(Context context,String voucherId,int count);
     }
 }
