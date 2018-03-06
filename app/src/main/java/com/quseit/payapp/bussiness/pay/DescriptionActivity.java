@@ -56,7 +56,7 @@ public class DescriptionActivity extends BaseActivity {
 
     @Override
     public String getToolbarTitle() {
-        return "Description";
+        return "Remark";
     }
 
     private void saveDesc() {

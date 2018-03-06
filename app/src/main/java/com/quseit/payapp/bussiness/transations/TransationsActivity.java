@@ -135,7 +135,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
 
     @Override
     public String getToolbarTitle() {
-        return "Transations";
+        return "Transactions";
     }
 
     private void setDate() {

@@ -33,19 +33,23 @@ public class PointsPresenterImpl extends BasePresenter implements PointsContract
     }
 
     @Override
-    public void givePoints(int amount, String mobile, String countryCode, String type,long memberId) {
-        if (checkData(amount, mobile, countryCode, type,memberId)) {
-            logic(mPointsModel.givePoints(new PointsRequestBean(amount, type, mobile, countryCode,memberId)), new ObserverHandler<ResponseBody>() {
+    public void givePoints(int amount, final String mobile, String countryCode, String type, final long memberId) {
+        if (checkData(amount, mobile, countryCode, type, memberId)) {
+            logic(mPointsModel.givePoints(new PointsRequestBean(amount, type, mobile, countryCode, memberId)), new ObserverHandler<ResponseBody>() {
                 @Override
                 public void onResponse(ResponseBody response) {
-                        mPointsView.showDialog("Name has earned:", true);
+                    if (memberId == 0) {
+                        mPointsView.showDialog(mobile + " has earned:", true);
+                    } else {
+                        mPointsView.showDialog(memberId + " has earned:", true);
+                    }
                 }
 
                 @Override
-                public void onFail(int code,String msg) {
-                    if (code== HttpCode.UNAUTHORIZED){
+                public void onFail(int code, String msg) {
+                    if (code == HttpCode.UNAUTHORIZED) {
                         mPointsView.setUpToken();
-                    }else {
+                    } else {
                         mPointsView.showDialog(msg, false);
                     }
                 }
@@ -53,12 +57,12 @@ public class PointsPresenterImpl extends BasePresenter implements PointsContract
         }
     }
 
-    private boolean checkData(int amount, String mobile, String countryCode, String type,long memberId) {
+    private boolean checkData(int amount, String mobile, String countryCode, String type, long memberId) {
         if (amount <= 0) {
             mPointsView.showMessage("Points is minimum 1");
             return false;
         }
-        if (type.equals(PointsRequestBean.PHONENUMBER)){
+        if (type.equals(PointsRequestBean.PHONENUMBER)) {
             if (mobile.equals("")) {
                 mPointsView.showMessage("mobile is empty");
                 return false;
@@ -67,8 +71,8 @@ public class PointsPresenterImpl extends BasePresenter implements PointsContract
                 mPointsView.showMessage("country code is empty");
                 return false;
             }
-        }else {
-            if (memberId<=0) {
+        } else {
+            if (memberId <= 0) {
                 mPointsView.showMessage("memberId is empty");
                 return false;
             }

@@ -137,7 +137,7 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
             public void onGranted() {
                 String amount = mPaymentTv.getText().toString();
                 if (Double.parseDouble(amount) < 0.1) {
-                    toast("Minimum amount is RM 0.1");
+                    toast("Minimum amount is RM 0.10");
                 } else {
                     String remark = remarkTv.getText().toString();
                     if (remark.equals("")) {
