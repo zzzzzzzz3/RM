@@ -88,6 +88,13 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
         mPaymentTv.setText(defaultNum);
 
         mRMProgressDialog = new RMProgressDialog(this);
+
+        setRightText("Print", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPayPresenter.printLastReceipt();
+            }
+        });
     }
 
     @Override

@@ -242,7 +242,6 @@ public class PrintUtil {
             public void onFinish(int code) {
 
                 if (code == Printer.ERROR_NONE) {
-                    Toast.makeText(context,"print success!",Toast.LENGTH_SHORT).show();
                     Log.d("print", "打印签购单成功!");
                 } else {
                     Log.d("print", "[打印失败]" + getErrorDescription(code));

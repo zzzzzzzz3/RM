@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.quseit.pay.PayInfoBean;
+import com.quseit.pay.PrintUtil;
 import com.quseit.payapp.R;
 import com.quseit.payapp.adapter.GoodsAdapter;
 import com.quseit.payapp.base.BaseActivity;
@@ -19,6 +21,8 @@ import com.quseit.payapp.bean.PayMethodBean;
 import com.quseit.payapp.bean.response.TransationBean;
 import com.quseit.payapp.bean.response.UserBean;
 import com.quseit.payapp.util.DialogManager;
+import com.quseit.payapp.util.PreferenceUtil;
+import com.quseit.payapp.util.TimeConverterUtil;
 import com.quseit.payapp.util.UIUtil;
 import com.quseit.payapp.widget.RMDialog;
 import com.quseit.payapp.widget.RMProgressDialog;
@@ -34,6 +38,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 文 件 名: OrderDetailActivity
@@ -71,6 +76,8 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
     private OrderDetailContract.OrderDetailPresenter mOrderDetailPresenter;
     private RefundDialog mRefundDialog;
     private RMProgressDialog mRMProgressDialog;
+    private PrintUtil mPrintUtil;
+    private PayInfoBean mPayInfo;
 
     @Override
     public int getRootView() {
@@ -106,6 +113,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
     @Override
     public void initData() {
         mTransationBean = (TransationBean) getIntent().getSerializableExtra(GlobalBean.TRANSATION_BEAN);
+        initReceipt();
         if (!mTransationBean.getStatus().equals("REFUNDED")) {
             setRightText("Refund", new View.OnClickListener() {
                 @Override
@@ -155,6 +163,24 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
         }
 
         mOrderDetailPresenter = new OrderDetailPresenterImpl(this);
+    }
+
+    private void initReceipt() {
+        mPayInfo = new PayInfoBean();
+        String strDate = TimeConverterUtil.utc2Local(mTransationBean.getCreatedAt(), "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", "yyyy-MM-dd HH:mm:ss");
+        mPayInfo.setTransactionAt(strDate);
+        mPayInfo.setPaymentAmount(mTransationBean.getAmount() + "");
+        mPayInfo.setPaymentMethod(mTransationBean.getPaymentMethod());
+        if (mTransationBean.getString() != null && mTransationBean.getString().get(0) != null) {
+            mPayInfo.setRemark(mTransationBean.getString().get(0));
+        } else {
+            mPayInfo.setRemark("");
+        }
+        mPayInfo.setStoreName(PreferenceUtil.getInstance().getStr(GlobalBean.MERCHANT));
+        mPayInfo.setTransactionId(mTransationBean.getTransactionId());
+        mPayInfo.setMessage(mTransationBean.getStatus());
+        String curr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
+        mPayInfo.setDate(curr);
     }
 
     @Override
@@ -225,6 +251,24 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
             });
         } else {
             DialogManager.failDialog(this, msg);
+        }
+    }
+
+    @OnClick(R.id.btn_print)
+    public void printPayInfo() {
+        if (mPrintUtil == null) {
+            mPrintUtil = new PrintUtil();
+            mPrintUtil.deviceLogin(this);
+        }
+        mPrintUtil.printPayInfo(this, mPayInfo);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mOrderDetailPresenter.onDestroy();
+        if (mPrintUtil != null) {
+            mPrintUtil.logout();
         }
     }
 }

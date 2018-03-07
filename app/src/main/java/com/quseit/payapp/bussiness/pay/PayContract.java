@@ -36,5 +36,6 @@ public interface PayContract {
 
     interface PayPresenter extends IPresenter{
         void pay(String Amount, String AuthCode, String Remark, String StoreID, Member member);
+        void printLastReceipt();
     }
 }

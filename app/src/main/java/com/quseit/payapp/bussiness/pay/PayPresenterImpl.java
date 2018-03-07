@@ -32,6 +32,7 @@ public class PayPresenterImpl extends BasePresenter implements PayContract.PayPr
 
     private PayContract.PayView mPayView;
     private PayContract.PayModel mPayModel;
+    private PayResponseBean mPayResponseBean;
 
     public PayPresenterImpl(PayContract.PayView payView) {
         mPayView = payView;
@@ -53,6 +54,7 @@ public class PayPresenterImpl extends BasePresenter implements PayContract.PayPr
                 if (response.success()){
                     mPayView.showDialog(response.getMsg(),true);
                     printPayInfo(response);
+                    mPayResponseBean = response;
                 }else {
                     mPayView.showDialog(response.getMsg(),false);
                 }
@@ -67,6 +69,15 @@ public class PayPresenterImpl extends BasePresenter implements PayContract.PayPr
                 }
             }
         });
+    }
+
+    @Override
+    public void printLastReceipt() {
+        if (mPayResponseBean==null){
+            mPayView.showMessage("No receipt to print");
+        }else {
+            printPayInfo(mPayResponseBean);
+        }
     }
 
     private void printPayInfo(PayResponseBean response) {
