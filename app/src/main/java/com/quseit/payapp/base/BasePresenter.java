@@ -3,6 +3,7 @@ package com.quseit.payapp.base;
 
 import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.contract.IView;
+import com.quseit.payapp.util.EspressoIdlingResource;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -51,6 +52,7 @@ public abstract class BasePresenter {
     }
 
     protected <T> void logic(Observable<T> observable, final boolean showLoading, ObserverHandler<T> observerHandler) {
+        EspressoIdlingResource.increment();
         observable.subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -69,6 +71,15 @@ public abstract class BasePresenter {
                             mView.hideLoading();
                         }
                     }
-                }).subscribe(observerHandler);
+                })
+                .doFinally(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        if (!EspressoIdlingResource.getIdlingResource().isIdleNow()) {
+                            EspressoIdlingResource.decrement(); // Set app as idle.
+                        }
+                    }
+                })
+                .subscribe(observerHandler);
     }
 }

@@ -2,6 +2,8 @@ package com.quseit.payapp.bussiness.pay;
 
 import android.Manifest;
 import android.content.Intent;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.quseit.payapp.bean.response.PayResponseBean;
 import com.quseit.payapp.bussiness.membership.MembershipActivity;
 import com.quseit.payapp.util.AmountInputUtil;
 import com.quseit.payapp.util.DialogManager;
+import com.quseit.payapp.util.EspressoIdlingResource;
 import com.quseit.payapp.util.PermissionUtil;
 import com.quseit.payapp.widget.IconText;
 import com.quseit.payapp.widget.NumberKeyboard;
@@ -253,5 +256,10 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
         } else {
             DialogManager.failDialog(this, msg);
         }
+    }
+
+    @VisibleForTesting
+    public IdlingResource getCountingIdlingResource() {
+        return EspressoIdlingResource.getIdlingResource();
     }
 }
