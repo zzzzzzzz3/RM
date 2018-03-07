@@ -69,7 +69,8 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
         list.add(bean3);
         ItemBean bean4 = new ItemBean(R.color.history_bg_color, GlobalBean.TRANSATIONS, getString(R.string.transation_font));
         list.add(bean4);
-        ItemBean bean5 = new ItemBean(R.color.app_store_bg_color, GlobalBean.APP_STORE, getString(R.string.app_store_font));
+//        ItemBean bean5 = new ItemBean(R.color.app_store_bg_color, GlobalBean.APP_STORE, getString(R.string.app_store_font));
+        ItemBean bean5 = new ItemBean(R.color.support_bg_color, GlobalBean.SUPPORT, getString(R.string.support_font));
         list.add(bean5);
         return list;
     }
@@ -82,14 +83,14 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
         List<ItemBean> list = new ArrayList<>();
         ItemBean bean1 = new ItemBean(R.color.setting_bg_color, GlobalBean.SETTING, getString(R.string.setting_font));
         list.add(bean1);
-        ItemBean bean2 = new ItemBean(R.color.orders_bg_color, GlobalBean.ORDERS, getString(R.string.order_font));
-        list.add(bean2);
-        ItemBean bean3 = new ItemBean(R.color.support_bg_color, GlobalBean.SUPPORT, getString(R.string.support_font));
-        list.add(bean3);
-        ItemBean bean4 = new ItemBean(R.color.notification_bg_color, GlobalBean.NOTIFICATION, getString(R.string.notification_font));
-        list.add(bean4);
-        list.add(bean4);
-        list.add(bean4);
+//        ItemBean bean2 = new ItemBean(R.color.orders_bg_color, GlobalBean.ORDERS, getString(R.string.order_font));
+//        list.add(bean2);
+//        ItemBean bean3 = new ItemBean(R.color.support_bg_color, GlobalBean.SUPPORT, getString(R.string.support_font));
+//        list.add(bean3);
+//        ItemBean bean4 = new ItemBean(R.color.notification_bg_color, GlobalBean.NOTIFICATION, getString(R.string.notification_font));
+//        list.add(bean4);
+//        list.add(bean4);
+//        list.add(bean4);
         return list;
     }
 

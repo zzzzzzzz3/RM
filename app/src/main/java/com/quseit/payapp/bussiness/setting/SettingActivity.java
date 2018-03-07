@@ -47,7 +47,7 @@ public class SettingActivity extends BaseActivity {
         mItemBeans.add(new ItemBean(R.color.sim_bg_color, GlobalBean.SIM, getString(R.string.sim_font)));
         mItemBeans.add(new ItemBean(R.color.sound_bg_color, GlobalBean.SOUND, getString(R.string.sound_font)));
         mItemBeans.add(new ItemBean(R.color.brightness_bg_color, GlobalBean.BRIGHTNESS, getString(R.string.brightness_font)));
-        mItemBeans.add(new ItemBean(R.color.about_bg_color, GlobalBean.ABOUT, getString(R.string.about_font)));
+//        mItemBeans.add(new ItemBean(R.color.about_bg_color, GlobalBean.ABOUT, getString(R.string.about_font)));
         mItemBeans.add(new ItemBean(R.color.language_bg_color, GlobalBean.LANGUAGE, getString(R.string.language_font)));
         mGridAdapter = new GridAdapter(this, mItemBeans);
         mRecyclerView.setAdapter(mGridAdapter);
