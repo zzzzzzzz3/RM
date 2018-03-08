@@ -27,6 +27,18 @@
     *;
 }
 
+-keep class com.landicorp.android.eptapi.** {
+    *;
+}
+
+-keep class com.landicorp.pinpad.** {
+    *;
+}
+
+-keep class com.landicorp.android.** {
+    *;
+}
+
 -keep class com.quseit.pay.** {
     *;
 }
