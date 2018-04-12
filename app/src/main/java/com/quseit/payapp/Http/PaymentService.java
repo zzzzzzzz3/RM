@@ -1,8 +1,9 @@
 package com.quseit.payapp.Http;
 
 import com.quseit.payapp.bean.request.PayRequestBean;
+import com.quseit.payapp.bean.request.pay_v3.PayRequestV3;
 import com.quseit.payapp.bean.request.RefundRequest;
-import com.quseit.payapp.bean.response.BaseResponse;
+import com.quseit.payapp.bean.response.PayResponseV3;
 import com.quseit.payapp.bean.response.QRResponseBean;
 import com.quseit.payapp.bean.response.PayResponseBean;
 
@@ -32,5 +33,8 @@ public interface PaymentService {
 
     @POST("payment/{key}/refund")
     Observable<ResponseBody> refund(@Header("Authorization") String token, @Header("X-Rm-Pin") String pin, @Path("key") String key, @Body RefundRequest request);
+
+    @POST("payment/quickpay")
+    Observable<PayResponseV3> quickPay(@Header("Authorization") String token, @Body PayRequestV3 payRequestBean);
 
 }

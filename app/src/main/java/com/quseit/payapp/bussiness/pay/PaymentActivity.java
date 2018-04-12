@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.quseit.pay.PayInfoBean;
+import com.quseit.pay.PayInfoBeanV3;
 import com.quseit.pay.PrintUtil;
 import com.quseit.pay.ScanUtil;
 import com.quseit.payapp.R;
@@ -189,7 +190,8 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
     }
 
     private void pay(String authcode, String amount, String remark) {
-        mPayPresenter.pay(amount, authcode, remark, "123456", mMember);
+//        mPayPresenter.pay(amount, authcode, remark, "123456", mMember);
+        mPayPresenter.qiuckPay(amount, authcode, remark, "123456", mMember);
     }
 
     @Override
@@ -254,6 +256,15 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
             mPrintUtil.deviceLogin(this);
         }
         mPrintUtil.printPayInfo(this, payInfo);
+    }
+
+    @Override
+    public void printPayInfoV3(PayInfoBeanV3 payInfo) {
+        if (mPrintUtil == null) {
+            mPrintUtil = new PrintUtil();
+            mPrintUtil.deviceLogin(this);
+        }
+        mPrintUtil.printPayInfoV3(this, payInfo);
     }
 
     @Override

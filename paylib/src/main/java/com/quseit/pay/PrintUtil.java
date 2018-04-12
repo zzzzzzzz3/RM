@@ -265,7 +265,7 @@ public class PrintUtil {
         }
     }
 
-    public void printPayInfo2(final Context context, final PayInfoBean info) {
+    public void printPayInfoV3(final Context context, final PayInfoBeanV3 info) {
         Printer.Progress progress = new Printer.Progress() {
             @Override
             public void doPrint(Printer printer) throws Exception {
@@ -287,29 +287,29 @@ public class PrintUtil {
                 printer.printText(Printer.Alignment.CENTER,"Revenue Monster\n");
 
                 printer.setFormat(formatTitle2);
-                printer.printText(Printer.Alignment.CENTER,"Store Name\n");
+                printer.printText(Printer.Alignment.CENTER,info.getStoreName()+"\n");
 
                 printer.setFormat(formatText);
-                printer.printText(Printer.Alignment.CENTER,"\nMerchant A\n");
+                printer.printText(Printer.Alignment.CENTER,"\n"+info.getMerchantName()+"\n");
                 printer.println("");
-                printer.println("DATE/TIME: 12/03/18     17:30:09");
-                printer.println("MID: 123456789101");
-                printer.println("TID: 123456789101");
+                printer.println("DATE/TIME: "+info.getDate()+"     "+info.getTime());
+                printer.println("MID: "+info.getMerchantId());
+                printer.println("TID: "+info.getTerminalId());
 
                 printer.setFormat(formatTitle2);
                 printer.printText(Printer.Alignment.CENTER,"\nSALE\n");
 
                 printer.setFormat(formatText);
-                printText(printer,"METHOD: ","ALIPAY","TYPE: ","CASH");
+                printText(printer,"METHOD: ",info.getMethod(),"TYPE: ",info.getType());
                 printer.println("");
-                printer.println("APPR CODE: 123456");
-                printer.println("REF NUM: 123456789");
-                printer.println("TMNL ID: 123456789");
+                printer.println("APPR CODE: "+info.getApprcode());
+                printer.println("REF NUM: "+info.getReferenceId());
+                printer.println("TMNL ID: "+info.getTerminalId());
                 printer.println("");
-                printText(printer,"AMOUNT: RM","0.12");
+                printText(printer,"AMOUNT: RM",info.getAmount());
                 printer.println("");
                 printer.printText(Printer.Alignment.CENTER,"\nREMARK\n");
-                printer.println("IN STORE PAYMENT");
+                printer.println(info.getRemark());
                 printer.println("");
                 printer.printText(Printer.Alignment.CENTER,"I AGREE TO PAY THE ABOVE TOTAL AMOUNT ACCORDING TO PAYMENT PROVIDER AGREEMENT");
                 printer.println("");
