@@ -12,7 +12,6 @@ import com.landicorp.android.eptapi.exception.ServiceOccupiedException;
 import com.landicorp.android.eptapi.exception.UnsupportMultiProcess;
 import com.landicorp.android.eptapi.utils.QrCode;
 
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -212,7 +211,7 @@ public class PrintUtil {
                 /** 设置打印格式 */
                 Printer.Format format = new Printer.Format();
                 /** 西文字符打印， 此处使用 5x7 点， 1 倍宽&&2 倍高打印签购单标题 */
-                format.setAscSize(Printer.Format.ASC_DOT5x7);
+                format.setAscSize(Printer.Format.ASC_DOT7x7);
                 format.setAscScale(Printer.Format.ASC_SC1x2);
                 printer.setFormat(format);
                 printer.printText(Printer.Alignment.CENTER, info.getStoreName()+"\n");
@@ -234,6 +233,8 @@ public class PrintUtil {
                 printer.printText("\n");
                 printer.printText(info.getRemark());
                 printer.printText("\n");
+                printer.printText("----------------------------------------");
+                printer.printText("                                   -----");
                 /**进纸5行 */
                 printer.feedLine(5);
             }
@@ -264,9 +265,109 @@ public class PrintUtil {
         }
     }
 
-    //打印收据
-    public void printReceipt(){
+    public void printPayInfo2(final Context context, final PayInfoBean info) {
+        Printer.Progress progress = new Printer.Progress() {
+            @Override
+            public void doPrint(Printer printer) throws Exception {
 
+                Printer.Format formatTitle = new Printer.Format();
+                formatTitle.setAscSize(Printer.Format.ASC_DOT5x7);
+                formatTitle.setAscScale(Printer.Format.ASC_SC2x2);
+
+                Printer.Format formatTitle2 = new Printer.Format();
+                formatTitle2.setAscSize(Printer.Format.ASC_DOT5x7);
+                formatTitle2.setAscScale(Printer.Format.ASC_SC2x1);
+
+                Printer.Format formatText = new Printer.Format();
+                formatText.setAscSize(Printer.Format.ASC_DOT5x7);
+                formatText.setAscScale(Printer.Format.ASC_SC1x1);
+
+                printer.setAutoTrunc(false);
+                printer.setFormat(formatTitle);
+                printer.printText(Printer.Alignment.CENTER,"Revenue Monster\n");
+
+                printer.setFormat(formatTitle2);
+                printer.printText(Printer.Alignment.CENTER,"Store Name\n");
+
+                printer.setFormat(formatText);
+                printer.printText(Printer.Alignment.CENTER,"\nMerchant A\n");
+                printer.println("");
+                printer.println("DATE/TIME: 12/03/18     17:30:09");
+                printer.println("MID: 123456789101");
+                printer.println("TID: 123456789101");
+
+                printer.setFormat(formatTitle2);
+                printer.printText(Printer.Alignment.CENTER,"\nSALE\n");
+
+                printer.setFormat(formatText);
+                printText(printer,"METHOD: ","ALIPAY","TYPE: ","CASH");
+                printer.println("");
+                printer.println("APPR CODE: 123456");
+                printer.println("REF NUM: 123456789");
+                printer.println("TMNL ID: 123456789");
+                printer.println("");
+                printText(printer,"AMOUNT: RM","0.12");
+                printer.println("");
+                printer.printText(Printer.Alignment.CENTER,"\nREMARK\n");
+                printer.println("IN STORE PAYMENT");
+                printer.println("");
+                printer.printText(Printer.Alignment.CENTER,"I AGREE TO PAY THE ABOVE TOTAL AMOUNT ACCORDING TO PAYMENT PROVIDER AGREEMENT");
+                printer.println("");
+                printer.println("");
+                printer.printText(Printer.Alignment.CENTER,"****CUSTOMER COPY****");
+
+
+
+                printer.feedLine(5);
+            }
+
+            @Override
+            public void onFinish(int code) {
+
+                if (code == Printer.ERROR_NONE) {
+                    Log.d("print", "打印签购单成功!");
+                } else {
+                    Log.d("print", "[打印失败]" + getErrorDescription(code));
+                    Toast.makeText(context,getErrorDescription(code),Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCrash() {
+                onDeviceServiceCrash();
+            }
+        };
+
+        /** 3、启动打印 */
+        try {
+            progress.start();
+        } catch (RequestException e) {
+            e.printStackTrace();
+            onDeviceServiceCrash();
+        }
+    }
+
+    private void printText(Printer printer,String lable1,String value1,String lable2,String value2) throws Exception {
+        StringBuffer stringBuffer = new StringBuffer(lable1);
+        stringBuffer.append(value1);
+        appendBlank(stringBuffer,lable1.length()+value1.length());
+        stringBuffer.append(lable2);
+        stringBuffer.append(value2);
+        printer.printText(stringBuffer.toString());
+    }
+
+    private void printText(Printer printer,String value1,String value2) throws Exception {
+        StringBuffer stringBuffer = new StringBuffer(value1);
+        appendBlank(stringBuffer,value1.length());
+        appendBlank(stringBuffer,value2.length());
+        stringBuffer.append(value2);
+        printer.printText(stringBuffer.toString());
+    }
+
+    private void appendBlank(StringBuffer stringBuffer,int len){
+        for (int i = len; i < 16; i++) {
+            stringBuffer.append(" ");
+        }
     }
 
     private static void onDeviceServiceCrash() {

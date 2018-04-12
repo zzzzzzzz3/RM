@@ -260,7 +260,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
             mPrintUtil = new PrintUtil();
             mPrintUtil.deviceLogin(this);
         }
-        mPrintUtil.printPayInfo(this, mPayInfo);
+        mPrintUtil.printPayInfo2(this, mPayInfo);
     }
 
     @Override

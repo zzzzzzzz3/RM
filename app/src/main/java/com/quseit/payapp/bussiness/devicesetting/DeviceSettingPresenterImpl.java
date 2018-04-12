@@ -67,9 +67,9 @@ public class DeviceSettingPresenterImpl extends BasePresenter implements DeviceS
                     @Override
                     public void onResponse(Boolean response) {
                         if (response) {
-                            mDeviceSettingView.showDialog("save token success", true);
+                            mDeviceSettingView.showDialog("Token Updated Successfully", true);
                         } else {
-                            mDeviceSettingView.showDialog("save token fail", false);
+                            mDeviceSettingView.showDialog("Token Updated Failed", false);
                         }
                     }
 
@@ -79,7 +79,7 @@ public class DeviceSettingPresenterImpl extends BasePresenter implements DeviceS
                             mDeviceSettingView.showDialog("illegal token", false);
                         }
                         if (code == -1)
-                            mDeviceSettingView.showDialog("save token fail", false);
+                            mDeviceSettingView.showDialog("Token Updated Failed", false);
                     }
                 });
 
