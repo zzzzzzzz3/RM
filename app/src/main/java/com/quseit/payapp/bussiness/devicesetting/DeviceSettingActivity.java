@@ -67,7 +67,7 @@ public class DeviceSettingActivity extends BaseActivity implements DeviceSetting
             toast("device token is illegal");
             return;
         }
-        mDeviceSettingPresenter.saveToken(token);
+        mDeviceSettingPresenter.saveTokenV3(token);
     }
 
     @Override

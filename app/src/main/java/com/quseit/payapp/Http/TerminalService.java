@@ -1,6 +1,8 @@
 package com.quseit.payapp.Http;
 
 import com.quseit.payapp.bean.request.ActiveRequestBean;
+import com.quseit.payapp.bean.request.TokenRequest;
+import com.quseit.payapp.bean.response.TokenBean;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -21,4 +23,7 @@ public interface TerminalService {
 
     @POST("active")
     Observable<ResponseBody> active(@Header("Authorization") String token, @Body ActiveRequestBean bean);
+
+    @POST("refresh-token")
+    Observable<TokenBean> refreshToken(@Body TokenRequest token);
 }

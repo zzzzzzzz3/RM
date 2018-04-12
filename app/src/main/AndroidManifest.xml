@@ -104,6 +104,8 @@
         <activity android:name=".bussiness.pay.MemberActivity"
                   android:screenOrientation="portrait"
             />
+
+        <service android:name=".service.RefreshTokenService"/>
     </application>
 
 </manifest>

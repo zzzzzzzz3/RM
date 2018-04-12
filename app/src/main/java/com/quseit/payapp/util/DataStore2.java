@@ -68,17 +68,26 @@ public class DataStore2 {
     }
 
     public void save(String key, String value) throws Exception {
-        mSharedPreferences.edit().putString(key, encryptString(value, alias)).apply();
+//        mSharedPreferences.edit().putString(key, encryptString(value, alias)).apply();
+        mSharedPreferences.edit().putString(key, value).apply();
+    }
+
+    public void save(String key, int value) throws Exception {
+//        mSharedPreferences.edit().putString(key, encryptString(value, alias)).apply();
+        mSharedPreferences.edit().putInt(key, value).apply();
+    }
+
+    public int getInt(String key){
+        return mSharedPreferences.getInt(key, 0);
     }
 
     public String getData(String key){
-        String result = mSharedPreferences.getString(key, null);
-        try {
-            result = decryptString(result, alias);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
+        //        try {
+//            result = decryptString(result, alias);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        return mSharedPreferences.getString(key, null);
     }
 
     public boolean hasData(String key){

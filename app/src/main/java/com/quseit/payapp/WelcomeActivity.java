@@ -7,22 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bussiness.devicesetting.DeviceSettingActivity;
+import com.quseit.payapp.bussiness.devicesetting.DeviceSettingContract;
+import com.quseit.payapp.bussiness.devicesetting.DeviceSettingPresenterImpl;
 import com.quseit.payapp.bussiness.main.MainActivity;
+import com.quseit.payapp.service.RefreshTokenService;
 import com.quseit.payapp.util.DataStore2;
-import com.quseit.payapp.util.PreferenceUtil;
 
-import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.UnrecoverableEntryException;
-import java.security.cert.CertificateException;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import javax.crypto.NoSuchPaddingException;
 
 /**
  * 文 件 名: WelcomeActivity
@@ -33,21 +23,59 @@ import javax.crypto.NoSuchPaddingException;
  * 修改备注：
  */
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity implements DeviceSettingContract.DeviceSettingView {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                if (DataStore2.getInstance().hasData(GlobalBean.DECIVE_TOKEN)){
-                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                }else {
-                    startActivity(new Intent(WelcomeActivity.this,DeviceSettingActivity.class));
-                }
-                finish();
-            }
-        },1000);
+        DeviceSettingContract.DeviceSettingPresenter deviceSettingPresenter = new DeviceSettingPresenterImpl(this);
+        if (DataStore2.getInstance().hasData(GlobalBean.REFRESH_TOKEN)) {
+            deviceSettingPresenter.saveTokenV3(DataStore2.getInstance().getData(GlobalBean.REFRESH_TOKEN));
+        } else {
+            startActivity(new Intent(WelcomeActivity.this, DeviceSettingActivity.class));
+            finish();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startService(new Intent(this, RefreshTokenService.class));
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+
+    }
+
+    @Override
+    public void killMyself() {
+
+    }
+
+    @Override
+    public void setUpToken() {
+
+    }
+
+    @Override
+    public void showDialog(String msg, boolean success) {
+        if (success){
+            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+            finish();
+        }else {
+            startActivity(new Intent(WelcomeActivity.this, DeviceSettingActivity.class));
+            finish();
+        }
     }
 }

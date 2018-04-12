@@ -1,5 +1,6 @@
 package com.quseit.payapp.bussiness.devicesetting;
 
+import com.quseit.payapp.bean.response.TokenBean;
 import com.quseit.payapp.contract.IModel;
 import com.quseit.payapp.contract.IPresenter;
 import com.quseit.payapp.contract.IView;
@@ -24,10 +25,13 @@ public interface DeviceSettingContract {
 
     interface DeviceSettingModel extends IModel {
         Observable<Boolean> saveDeciveToken(String token);
+        Observable<Boolean> saveRefreshAndAccessToken(String refreshToken,String accessToken,int expires);
         Observable<ResponseBody> active(String token, String type);
+        Observable<TokenBean> refreshToken(String token);
     }
 
     interface DeviceSettingPresenter extends IPresenter {
         void saveToken(String token);
+        void saveTokenV3(String token);
     }
 }

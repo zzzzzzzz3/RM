@@ -3,6 +3,7 @@ package com.quseit.payapp.bussiness.devicesetting;
 import com.quseit.dev.HttpCode;
 import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.base.BasePresenter;
+import com.quseit.payapp.bean.response.TokenBean;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -83,5 +84,50 @@ public class DeviceSettingPresenterImpl extends BasePresenter implements DeviceS
                     }
                 });
 
+    }
+
+    @Override
+    public void saveTokenV3(String token) {
+        mDeviceSettingModel.refreshToken(token)
+                .flatMap(new Function<TokenBean, Observable<Boolean>>() {
+                    @Override
+                    public Observable<Boolean> apply(TokenBean response) throws Exception {
+                        return mDeviceSettingModel.saveRefreshAndAccessToken(response.getRefreshToken(),response.getAccessToken(),response.getExpiresIn());
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        mDeviceSettingView.showLoading();
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        mDeviceSettingView.hideLoading();
+                    }
+                })
+                .subscribe(new ObserverHandler<Boolean>() {
+                    @Override
+                    public void onResponse(Boolean response) {
+                        if (response) {
+                            mDeviceSettingView.showDialog("Token Updated Successfully", true);
+                        } else {
+                            mDeviceSettingView.showDialog("Token Updated Failed", false);
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int code,String msg) {
+                        if (code == HttpCode.UNAUTHORIZED) {
+                            mDeviceSettingView.showDialog("illegal token", false);
+                        }
+                        if (code == -1)
+                            mDeviceSettingView.showDialog("Token Updated Failed", false);
+                    }
+                });
     }
 }

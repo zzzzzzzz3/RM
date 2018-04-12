@@ -19,6 +19,8 @@ public class GlobalBean {
     public static final String OWNER = "OWNER";
 
     public static final String DECIVE_TOKEN = "DECIVE_TOKEN";
+    public static final String REFRESH_TOKEN = "REFRESH_TOKEN";
+    public static final String TOKEN_EXPIRES = "TOKEN_EXPIRES";
 
     public static final String PAYMENT = "PAYMENT";
     public static final String VOUCHER = "VOUCHER";
