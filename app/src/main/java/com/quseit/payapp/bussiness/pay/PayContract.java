@@ -6,7 +6,7 @@ import com.quseit.payapp.bean.request.Member;
 import com.quseit.payapp.bean.request.PayRequestBean;
 import com.quseit.payapp.bean.request.pay_v3.PayRequestV3;
 import com.quseit.payapp.bean.response.PayResponseBean;
-import com.quseit.payapp.bean.response.PayResponseV3;
+import com.quseit.payapp.bean.response.pay_v3.PayResponseV3;
 import com.quseit.payapp.contract.IModel;
 import com.quseit.payapp.contract.IPresenter;
 import com.quseit.payapp.contract.IView;

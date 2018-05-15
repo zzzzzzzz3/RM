@@ -72,7 +72,7 @@ public class DataStore2 {
         mSharedPreferences.edit().putString(key, value).apply();
     }
 
-    public void save(String key, int value) throws Exception {
+    public void saveInt(String key, int value) throws Exception {
 //        mSharedPreferences.edit().putString(key, encryptString(value, alias)).apply();
         mSharedPreferences.edit().putInt(key, value).apply();
     }

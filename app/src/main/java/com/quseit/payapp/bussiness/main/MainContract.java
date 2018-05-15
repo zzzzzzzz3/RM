@@ -1,6 +1,7 @@
 package com.quseit.payapp.bussiness.main;
 
 import com.quseit.payapp.bean.response.MerchantBean;
+import com.quseit.payapp.bean.response.terminal_info.TerminalInfo;
 import com.quseit.payapp.contract.IModel;
 import com.quseit.payapp.contract.IPresenter;
 import com.quseit.payapp.contract.IView;
@@ -20,13 +21,16 @@ public interface MainContract {
 
     interface MainView extends IView {
         void setData(MerchantBean bean);
+        void setTerminalInfo(TerminalInfo info);
     }
 
     interface MainModel extends IModel {
         Observable<MerchantBean> getMerchantInfo();
+        Observable<TerminalInfo> getTerminalInfo();
     }
 
     interface MainPresenter extends IPresenter {
         void getMerchantInfo();
+        void getTerminalInfo();
     }
 }

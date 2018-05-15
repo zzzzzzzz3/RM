@@ -294,7 +294,7 @@ public class PrintUtil {
                 printer.println("");
                 printer.println("DATE/TIME: "+info.getDate()+"     "+info.getTime());
                 printer.println("MID: "+info.getMerchantId());
-                printer.println("TID: "+info.getTerminalId());
+                printer.println("TID: "+info.getTransactionId());
 
                 printer.setFormat(formatTitle2);
                 printer.printText(Printer.Alignment.CENTER,"\nSALE\n");

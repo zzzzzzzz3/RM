@@ -122,11 +122,7 @@ public class DeviceSettingPresenterImpl extends BasePresenter implements DeviceS
 
                     @Override
                     public void onFail(int code,String msg) {
-                        if (code == HttpCode.UNAUTHORIZED) {
-                            mDeviceSettingView.showDialog("illegal token", false);
-                        }
-                        if (code == -1)
-                            mDeviceSettingView.showDialog("Token Updated Failed", false);
+                        mDeviceSettingView.showDialog("illegal token", false);
                     }
                 });
     }

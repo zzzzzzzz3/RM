@@ -3,11 +3,14 @@ package com.quseit.payapp.Http;
 import com.quseit.payapp.bean.request.ActiveRequestBean;
 import com.quseit.payapp.bean.request.TokenRequest;
 import com.quseit.payapp.bean.response.TokenBean;
+import com.quseit.payapp.bean.response.terminal_info.TerminalInfo;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 /**
@@ -26,4 +29,8 @@ public interface TerminalService {
 
     @POST("refresh-token")
     Observable<TokenBean> refreshToken(@Body TokenRequest token);
+
+    @GET("info")
+    @Headers("Content-Type: application/json")
+    Observable<TerminalInfo> getTerminalInfo(@Header("Authorization") String token);
 }

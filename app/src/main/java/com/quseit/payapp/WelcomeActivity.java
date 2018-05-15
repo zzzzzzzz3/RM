@@ -65,7 +65,8 @@ public class WelcomeActivity extends AppCompatActivity implements DeviceSettingC
 
     @Override
     public void setUpToken() {
-
+        startActivity(new Intent(WelcomeActivity.this, DeviceSettingActivity.class));
+        finish();
     }
 
     @Override

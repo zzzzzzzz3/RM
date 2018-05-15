@@ -47,7 +47,11 @@ public class RefreshTokenService extends Service implements DeviceSettingContrac
             public void run() {
                 while (!isStop){
                     try {
-                        Thread.sleep((DataStore2.getInstance().getInt(GlobalBean.TOKEN_EXPIRES)-1000)*1000);
+                        long timing = DataStore2.getInstance().getInt(GlobalBean.TOKEN_EXPIRES)*1000;
+                        if(timing<0){
+                            timing = 7200000;
+                        }
+                        Thread.sleep(timing);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

@@ -6,6 +6,7 @@ import com.quseit.payapp.base.BasePresenter;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.response.MerchantBean;
 import com.quseit.payapp.bean.response.UserBean;
+import com.quseit.payapp.bean.response.terminal_info.TerminalInfo;
 import com.quseit.payapp.db.GreenDaoHelper;
 import com.quseit.payapp.db.UserBeanDao;
 import com.quseit.payapp.util.PreferenceUtil;
@@ -53,6 +54,34 @@ public class MainPresenterImpl extends BasePresenter implements MainContract.Mai
                 }
             }
         });
+    }
+
+    @Override
+    public void getTerminalInfo() {
+        logic(mMainModel.getTerminalInfo(), false, new ObserverHandler<TerminalInfo>() {
+            @Override
+            public void onResponse(TerminalInfo response) {
+                mMainView.setTerminalInfo(response);
+                saveTerminalInfo(response);
+            }
+
+            @Override
+            public void onFail(int code, String msg) {
+                if (code == HttpCode.UNAUTHORIZED) {
+                    mMainView.setUpToken();
+                } else {
+                    mMainView.showMessage(msg);
+                }
+            }
+        });
+    }
+
+    private void saveTerminalInfo(TerminalInfo response) {
+        PreferenceUtil.getInstance().saveStr(GlobalBean.TERMINAL_ID,response.getItem().getId());
+        PreferenceUtil.getInstance().saveStr(GlobalBean.MERCHANT,response.getItem().getMerchant().getCompanyName());
+        PreferenceUtil.getInstance().saveStr(GlobalBean.MERCHANT_ID,response.getItem().getMerchant().getId());
+        PreferenceUtil.getInstance().saveStr(GlobalBean.STORE_NAME,response.getItem().getStore().getName());
+        PreferenceUtil.getInstance().saveStr(GlobalBean.STORE_ID,response.getItem().getStore().getId());
     }
 
     private void saveData(final MerchantBean response) {

@@ -2,7 +2,6 @@ package com.quseit.payapp.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +14,8 @@ import android.widget.TextView;
 import com.quseit.payapp.R;
 import com.quseit.payapp.base.BaseAdapter;
 import com.quseit.payapp.bean.PayMethodBean;
-import com.quseit.payapp.bean.response.TransationBean;
+import com.quseit.payapp.bean.response.pay_v3.PayResponseV3;
+import com.quseit.payapp.bean.response.pay_v3.Transaction;
 import com.quseit.payapp.util.UIUtil;
 
 import org.simple.eventbus.EventBus;
@@ -38,10 +38,10 @@ import butterknife.ButterKnife;
  * 修改备注：
  */
 
-public class TransationsAdapter extends BaseAdapter<TransationBean, TransationsAdapter.TransationViewHolder> {
+public class TransationsAdapter extends BaseAdapter<Transaction, TransationsAdapter.TransationViewHolder> {
 
 
-    public TransationsAdapter(Context context, List<TransationBean> data) {
+    public TransationsAdapter(Context context, List<Transaction> data) {
         super(context, data);
     }
 
@@ -54,23 +54,23 @@ public class TransationsAdapter extends BaseAdapter<TransationBean, TransationsA
 
     @Override
     public void onBindViewHolder(TransationViewHolder holder, int position) {
-        final TransationBean bean = mData.get(position);
+        final Transaction bean = mData.get(position);
 
-        String orderId = bean.getTransactionId();
+        String orderId = bean.getOrder().getId();
         if (orderId.isEmpty()) {
             holder.orderNoTv.setText("-");
         } else {
             holder.orderNoTv.setText(orderId);
         }
-        if (bean.getString() != null && bean.getString().get(0) != null) {
-            holder.remarkTv.setText(bean.getString().get(0));
+        if (bean.getOrder().getAdditionalData()!=null) {
+            holder.remarkTv.setText(bean.getOrder().getAdditionalData());
         } else {
             holder.remarkTv.setText("-");
         }
         try {
             String strDate = bean.getCreatedAt();
             @SuppressLint("SimpleDateFormat")
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
             df.setTimeZone(TimeZone.getTimeZone("GMT"));
             Date date1= df.parse(strDate);
             strDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date1);
@@ -79,7 +79,7 @@ public class TransationsAdapter extends BaseAdapter<TransationBean, TransationsA
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String iconFont = bean.getPaymentMethod();
+        String iconFont = bean.getMethod();
         switch (iconFont) {
             case PayMethodBean.ALIPAY:
                 holder.icon.setImageResource(R.mipmap.alipay_icon);

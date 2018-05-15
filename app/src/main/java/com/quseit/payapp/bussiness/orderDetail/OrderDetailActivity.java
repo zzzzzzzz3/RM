@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 
 import com.quseit.pay.PayInfoBean;
+import com.quseit.pay.PayInfoBeanV3;
 import com.quseit.pay.PrintUtil;
 import com.quseit.payapp.R;
 import com.quseit.payapp.adapter.GoodsAdapter;
@@ -20,6 +21,7 @@ import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.PayMethodBean;
 import com.quseit.payapp.bean.response.TransationBean;
 import com.quseit.payapp.bean.response.UserBean;
+import com.quseit.payapp.bean.response.pay_v3.Transaction;
 import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.PreferenceUtil;
 import com.quseit.payapp.util.TimeConverterUtil;
@@ -71,13 +73,13 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
     LinearLayout shadowLayout;
     private GoodsAdapter mGoodsAdapter;
     private List<GoodBean> mGoodBeans = new ArrayList<>();
-    private TransationBean mTransationBean;
+    private Transaction mTransationBean;
 
     private OrderDetailContract.OrderDetailPresenter mOrderDetailPresenter;
     private RefundDialog mRefundDialog;
     private RMProgressDialog mRMProgressDialog;
     private PrintUtil mPrintUtil;
-    private PayInfoBean mPayInfo;
+    private PayInfoBeanV3 mPayInfo;
 
     @Override
     public int getRootView() {
@@ -112,7 +114,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
 
     @Override
     public void initData() {
-        mTransationBean = (TransationBean) getIntent().getSerializableExtra(GlobalBean.TRANSATION_BEAN);
+        mTransationBean = (Transaction) getIntent().getSerializableExtra(GlobalBean.TRANSATION_BEAN);
         initReceipt();
         if (!mTransationBean.getStatus().equals("REFUNDED")) {
             setRightText("Refund", new View.OnClickListener() {
@@ -131,7 +133,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
         try {
             String strDate = mTransationBean.getCreatedAt();
             @SuppressLint("SimpleDateFormat")
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
             df.setTimeZone(TimeZone.getTimeZone("GMT"));
             Date date1 = df.parse(strDate);
             strDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date1);
@@ -141,15 +143,15 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if (mTransationBean.getString() != null && mTransationBean.getString().get(0) != null) {
-            remarkTv.setText(mTransationBean.getString().get(0));
+        if (mTransationBean.getOrder().getAdditionalData() != null) {
+            remarkTv.setText(mTransationBean.getOrder().getAdditionalData());
         } else {
             remarkTv.setText("-");
         }
         statusTv.setText(mTransationBean.getStatus());
-        String amount = String.format("%.2f", (float) mTransationBean.getAmount() / 100);
+        String amount = String.format("%.2f", (float) mTransationBean.getOrder().getAmount() / 100);
         orderAmountTv.setText("MYR " + amount);
-        switch (mTransationBean.getPaymentMethod()) {
+        switch (mTransationBean.getMethod()) {
             case PayMethodBean.ALIPAY:
                 orderTypeIcon.setImageResource(R.mipmap.alipay_icon);
                 break;
@@ -166,21 +168,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
     }
 
     private void initReceipt() {
-        mPayInfo = new PayInfoBean();
-        String strDate = TimeConverterUtil.utc2Local(mTransationBean.getCreatedAt(), "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", "yyyy-MM-dd HH:mm:ss");
-        mPayInfo.setTransactionAt(strDate);
-        mPayInfo.setPaymentAmount(mTransationBean.getAmount() + "");
-        mPayInfo.setPaymentMethod(mTransationBean.getPaymentMethod());
-        if (mTransationBean.getString() != null && mTransationBean.getString().get(0) != null) {
-            mPayInfo.setRemark(mTransationBean.getString().get(0));
-        } else {
-            mPayInfo.setRemark("");
-        }
-        mPayInfo.setStoreName(PreferenceUtil.getInstance().getStr(GlobalBean.MERCHANT));
-        mPayInfo.setTransactionId(mTransationBean.getTransactionId());
-        mPayInfo.setMessage(mTransationBean.getStatus());
-        String curr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
-        mPayInfo.setDate(curr);
+        mPayInfo = mTransationBean.getPrintInfo();
     }
 
     @Override
@@ -228,14 +216,14 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
                 public void onClick() {
                     String pin = mRefundDialog.getPassword();
                     String reason = mRefundDialog.getReson();
-                    String orderId = mTransationBean.getId();
+                    String orderId = mTransationBean.getOrder().getId();
                     String key = mRefundDialog.getUserBean().getKey();
                     mOrderDetailPresenter.refund(pin, key, orderId, reason);
                 }
             });
             mRefundDialog.show();
         } else {
-
+            toast("no permission");
         }
     }
 
@@ -260,7 +248,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
             mPrintUtil = new PrintUtil();
             mPrintUtil.deviceLogin(this);
         }
-//        mPrintUtil.printPayInfoV3(this, mPayInfo);
+        mPrintUtil.printPayInfoV3(this, mPayInfo);
     }
 
     @Override

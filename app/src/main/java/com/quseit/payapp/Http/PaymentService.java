@@ -3,7 +3,7 @@ package com.quseit.payapp.Http;
 import com.quseit.payapp.bean.request.PayRequestBean;
 import com.quseit.payapp.bean.request.pay_v3.PayRequestV3;
 import com.quseit.payapp.bean.request.RefundRequest;
-import com.quseit.payapp.bean.response.PayResponseV3;
+import com.quseit.payapp.bean.response.pay_v3.PayResponseV3;
 import com.quseit.payapp.bean.response.QRResponseBean;
 import com.quseit.payapp.bean.response.PayResponseBean;
 

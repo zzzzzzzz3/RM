@@ -55,7 +55,7 @@ public class DeviceSettingModelImpl implements DeviceSettingContract.DeviceSetti
                 try {
                     DataStore2.getInstance().save(GlobalBean.DECIVE_TOKEN,accessToken);
                     DataStore2.getInstance().save(GlobalBean.REFRESH_TOKEN,refreshToken);
-                    DataStore2.getInstance().save(GlobalBean.TOKEN_EXPIRES,expires);
+                    DataStore2.getInstance().saveInt(GlobalBean.TOKEN_EXPIRES,expires);
                     if (DataStore2.getInstance().getData(GlobalBean.DECIVE_TOKEN)!=null && DataStore2.getInstance().getData(GlobalBean.REFRESH_TOKEN)!=null){
                         e.onNext(Boolean.TRUE);
                         e.onComplete();

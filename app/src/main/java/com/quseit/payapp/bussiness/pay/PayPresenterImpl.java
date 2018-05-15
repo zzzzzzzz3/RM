@@ -14,7 +14,7 @@ import com.quseit.payapp.bean.request.PayRequestBean;
 import com.quseit.payapp.bean.request.pay_v3.Order;
 import com.quseit.payapp.bean.request.pay_v3.PayRequestV3;
 import com.quseit.payapp.bean.response.PayResponseBean;
-import com.quseit.payapp.bean.response.PayResponseV3;
+import com.quseit.payapp.bean.response.pay_v3.PayResponseV3;
 import com.quseit.payapp.util.PreferenceUtil;
 import com.quseit.payapp.util.TimeConverterUtil;
 
@@ -137,16 +137,18 @@ public class PayPresenterImpl extends BasePresenter implements PayContract.PayPr
         payInfoBean.setDate(date[0]);
         payInfoBean.setTime(date[1]);
         payInfoBean.setStoreName(response.getData().getStore().getName());
-        payInfoBean.setMerchantName("Merchant Name");
-        payInfoBean.setMerchantId(response.getData().getStore().getId());
+        payInfoBean.setMerchantName("Merchant Name unknow");
+//        payInfoBean.setMerchantId(response.getData().getStore().getId());
+        payInfoBean.setMerchantId("unknow");
         payInfoBean.setTransactionId(response.getData().getTransactionId());
         payInfoBean.setMethod(response.getData().getMethod());
         payInfoBean.setType(response.getData().getType());
         payInfoBean.setReferenceId(response.getData().getReferenceId());
-        payInfoBean.setTerminalId(response.getData().getStore().getId());
+//        payInfoBean.setTerminalId(response.getData().getStore().getId());
+        payInfoBean.setTerminalId("unknow");
         payInfoBean.setAmount(String.format("%.2f",response.getData().getOrder().getAmount()/100.0));
         payInfoBean.setRemark(response.getData().getOrder().getAdditionalData());
-        payInfoBean.setApprcode(response.getData().getOrder().getId());
+        payInfoBean.setApprcode("unknow");
 
 //        String curr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
 //        payInfoBean.setDate(curr);

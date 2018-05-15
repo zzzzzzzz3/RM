@@ -18,6 +18,7 @@ import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.ItemBean;
 import com.quseit.payapp.bean.response.MerchantBean;
+import com.quseit.payapp.bean.response.terminal_info.TerminalInfo;
 import com.quseit.payapp.bussiness.membership.MembershipActivity;
 import com.quseit.payapp.bussiness.pay.PaymentActivity;
 import com.quseit.payapp.bussiness.setting.SettingActivity;
@@ -139,7 +140,8 @@ public class MainActivity extends BaseActivity implements MainContract.MainView{
     @Override
     protected void onResume() {
         super.onResume();
-        mMainPresenter.getMerchantInfo();
+        //mMainPresenter.getMerchantInfo();
+        mMainPresenter.getTerminalInfo();
     }
 
     @Override
@@ -216,6 +218,11 @@ public class MainActivity extends BaseActivity implements MainContract.MainView{
         });
         merchantTv.setText(bean.getMerchant());
         userName.setText(bean.getUsers().get(0).getFirstName()+" "+bean.getUsers().get(0).getLastName());
+    }
+
+    @Override
+    public void setTerminalInfo(TerminalInfo info) {
+        merchantTv.setText(info.getItem().getMerchant().getCompanyName());
     }
 
     @Override

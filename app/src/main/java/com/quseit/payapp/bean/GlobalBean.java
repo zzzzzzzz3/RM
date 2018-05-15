@@ -16,6 +16,10 @@ public class GlobalBean {
     //保存账号密码的关键字
     public static final String AVATAR = "AVATAR";
     public static final String MERCHANT = "MERCHANT";
+    public static final String MERCHANT_ID = "MERCHANT ID";
+    public static final String TERMINAL_ID = "TERMINAL ID";
+    public static final String STORE_ID = "STORE ID";
+    public static final String STORE_NAME = "STORE NAME";
     public static final String OWNER = "OWNER";
 
     public static final String DECIVE_TOKEN = "DECIVE_TOKEN";

@@ -7,6 +7,7 @@ import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.request.Filter;
 import com.quseit.payapp.bean.request.TransationsRequest;
 import com.quseit.payapp.bean.response.TransationResponse;
+import com.quseit.payapp.bean.response.TransationResponseV3;
 
 /**
  * 文 件 名: TransationsPresenterImpl
@@ -38,6 +39,23 @@ public class TransationsPresenterImpl extends BasePresenter implements Transatio
     public void getTransation(String startAt,String endAt,boolean filter,boolean show) {
         mTransationsRequest = new TransationsRequest("",startAt,endAt,new Filter(filter?"REFUNDED":""));
         loadMore(show);
+    }
+
+    @Override
+    public void getTransationV3(String startAt, String endAt, boolean filter, boolean show) {
+        logic(mTransationsModel.getTransationsV3(" "), show, new ObserverHandler<TransationResponseV3>() {
+            @Override
+            public void onResponse(TransationResponseV3 response) {
+                if(response.getCode().equals("SUCCESS")){
+                    mTransationsView.addDataToListV3(response.getItems());
+                }
+            }
+
+            @Override
+            public void onFail(int code, String msg) {
+
+            }
+        });
     }
 
     @Override

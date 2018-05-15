@@ -2,9 +2,11 @@ package com.quseit.payapp.bussiness.main;
 
 import com.quseit.dev.RetrofitManager;
 import com.quseit.payapp.Http.MerchantService;
+import com.quseit.payapp.Http.TerminalService;
 import com.quseit.payapp.base.BaseModel;
 import com.quseit.payapp.bean.request.RequestBean;
 import com.quseit.payapp.bean.response.MerchantBean;
+import com.quseit.payapp.bean.response.terminal_info.TerminalInfo;
 
 import io.reactivex.Observable;
 
@@ -22,5 +24,10 @@ public class MainModelImpl extends BaseModel implements MainContract.MainModel {
     @Override
     public Observable<MerchantBean> getMerchantInfo() {
         return RetrofitManager.getInstance().createService(MerchantService.class).getMerchantInfo(mToken,new RequestBean(""));
+    }
+
+    @Override
+    public Observable<TerminalInfo> getTerminalInfo() {
+        return RetrofitManager.getInstance().createService(TerminalService.class).getTerminalInfo(mToken);
     }
 }
