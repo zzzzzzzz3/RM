@@ -17,7 +17,7 @@ import com.quseit.payapp.util.TimeConverterUtil;
 public class PayResponseV3 {
     private Transaction item;
     private String code;
-    public void setData(Transaction item) {
+    public void setItem(Transaction item) {
         this.item = item;
     }
     public Transaction getData() {

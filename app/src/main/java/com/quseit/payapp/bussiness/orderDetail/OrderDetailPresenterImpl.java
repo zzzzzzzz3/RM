@@ -5,7 +5,10 @@ import android.util.Log;
 import com.quseit.dev.HttpCode;
 import com.quseit.dev.ObserverHandler;
 import com.quseit.payapp.base.BasePresenter;
+import com.quseit.payapp.bean.request.RefundRequestV3;
+import com.quseit.payapp.bean.request.RefundV3;
 import com.quseit.payapp.bean.response.UserBean;
+import com.quseit.payapp.bean.response.pay_v3.PayResponseV3;
 
 import java.util.List;
 
@@ -60,6 +63,29 @@ public class OrderDetailPresenterImpl extends BasePresenter implements OrderDeta
                 @Override
                 public void onResponse(ResponseBody response) {
                     mOrderDetailView.showDialog("Success", true);
+                }
+
+                @Override
+                public void onFail(int code, String msg) {
+                    if (code == HttpCode.UNAUTHORIZED) {
+                        mOrderDetailView.setUpToken();
+                    } else {
+                        mOrderDetailView.showDialog(msg, false);
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void refundV3(int amount, String email, String transactionId) {
+        if(amount<100){
+            mOrderDetailView.showMessage("Amount of order in cent, min RM 1.00");
+        }else {
+            logic(mOrderDetailModle.refundV3(new RefundRequestV3(email, transactionId, new RefundV3(amount))), true, new ObserverHandler<PayResponseV3>() {
+                @Override
+                public void onResponse(PayResponseV3 response) {
+                    mOrderDetailView.setOrderInfo(response);
                 }
 
                 @Override

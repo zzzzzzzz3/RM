@@ -1,7 +1,9 @@
 package com.quseit.payapp.bussiness.orderDetail;
 
 import com.quseit.payapp.bean.request.RefundRequest;
+import com.quseit.payapp.bean.request.RefundRequestV3;
 import com.quseit.payapp.bean.response.UserBean;
+import com.quseit.payapp.bean.response.pay_v3.PayResponseV3;
 import com.quseit.payapp.contract.IModel;
 import com.quseit.payapp.contract.IPresenter;
 import com.quseit.payapp.contract.IView;
@@ -25,16 +27,19 @@ public interface OrderDetailContract {
     interface OrderDetailView extends IView{
         void showRefundDialog(List<UserBean> list);
         void showDialog(String msg,boolean success);
+        void setOrderInfo(PayResponseV3 info);
     }
 
     interface OrderDetailModle extends IModel{
         Observable<List<UserBean>> getUsers();
         Observable<ResponseBody> refund(String pin,String key,String orderId,String reason);
+        Observable<PayResponseV3> refundV3(RefundRequestV3 requestV3);
     }
 
     interface OrderDetailPresenter extends IPresenter{
         void getUsers();
         void refund(String pin,String key,String orderId,String reason);
+        void refundV3(int amount,String email,String transactionId);
     }
 
 

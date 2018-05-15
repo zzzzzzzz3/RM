@@ -137,21 +137,17 @@ public class PayPresenterImpl extends BasePresenter implements PayContract.PayPr
         payInfoBean.setDate(date[0]);
         payInfoBean.setTime(date[1]);
         payInfoBean.setStoreName(response.getData().getStore().getName());
-        payInfoBean.setMerchantName("Merchant Name unknow");
-//        payInfoBean.setMerchantId(response.getData().getStore().getId());
-        payInfoBean.setMerchantId("unknow");
+        payInfoBean.setMerchantName(PreferenceUtil.getInstance().getStr(GlobalBean.MERCHANT));
+        payInfoBean.setMerchantId(PreferenceUtil.getInstance().getStr(GlobalBean.MERCHANT_ID));
         payInfoBean.setTransactionId(response.getData().getTransactionId());
         payInfoBean.setMethod(response.getData().getMethod());
         payInfoBean.setType(response.getData().getType());
         payInfoBean.setReferenceId(response.getData().getReferenceId());
-//        payInfoBean.setTerminalId(response.getData().getStore().getId());
-        payInfoBean.setTerminalId("unknow");
+        payInfoBean.setTerminalId(PreferenceUtil.getInstance().getStr(GlobalBean.TERMINAL_ID));
         payInfoBean.setAmount(String.format("%.2f",response.getData().getOrder().getAmount()/100.0));
         payInfoBean.setRemark(response.getData().getOrder().getAdditionalData());
         payInfoBean.setApprcode("unknow");
 
-//        String curr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
-//        payInfoBean.setDate(curr);
         mPayView.printPayInfoV3(payInfoBean);
     }
 }

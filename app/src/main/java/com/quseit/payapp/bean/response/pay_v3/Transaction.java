@@ -3,6 +3,8 @@ package com.quseit.payapp.bean.response.pay_v3;
 import android.annotation.SuppressLint;
 
 import com.quseit.pay.PayInfoBeanV3;
+import com.quseit.payapp.bean.GlobalBean;
+import com.quseit.payapp.util.PreferenceUtil;
 import com.quseit.payapp.util.TimeConverterUtil;
 
 import java.io.Serializable;
@@ -108,15 +110,15 @@ public class Transaction implements Serializable{
         payInfoBean.setDate(date[0]);
         payInfoBean.setTime(date[1]);
         payInfoBean.setStoreName(this.getStore().getName());
-        payInfoBean.setMerchantName("Merchant Name unknow");
+        payInfoBean.setMerchantName(PreferenceUtil.getInstance().getStr(GlobalBean.MERCHANT));
 //        payInfoBean.setMerchantId(response.getData().getStore().getId());
-        payInfoBean.setMerchantId("unknow");
+        payInfoBean.setMerchantId(PreferenceUtil.getInstance().getStr(GlobalBean.MERCHANT_ID));
         payInfoBean.setTransactionId(this.getTransactionId());
         payInfoBean.setMethod(this.getMethod());
         payInfoBean.setType(this.getType());
         payInfoBean.setReferenceId(this.getReferenceId());
 //        payInfoBean.setTerminalId(response.getData().getStore().getId());
-        payInfoBean.setTerminalId("unknow");
+        payInfoBean.setTerminalId(PreferenceUtil.getInstance().getStr(GlobalBean.TERMINAL_ID));
         payInfoBean.setAmount(String.format("%.2f",this.getOrder().getAmount()/100.0));
         payInfoBean.setRemark(this.getOrder().getAdditionalData());
         payInfoBean.setApprcode("unknow");

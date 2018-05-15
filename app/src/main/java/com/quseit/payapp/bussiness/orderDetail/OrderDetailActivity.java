@@ -21,6 +21,7 @@ import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.PayMethodBean;
 import com.quseit.payapp.bean.response.TransationBean;
 import com.quseit.payapp.bean.response.UserBean;
+import com.quseit.payapp.bean.response.pay_v3.PayResponseV3;
 import com.quseit.payapp.bean.response.pay_v3.Transaction;
 import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.PreferenceUtil;
@@ -98,7 +99,6 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
 
         mRefundDialog = new RefundDialog(this);
         mRMProgressDialog = new RMProgressDialog(this);
-
     }
 
     private List<GoodBean> creatList() {
@@ -114,8 +114,13 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
 
     @Override
     public void initData() {
+        mOrderDetailPresenter = new OrderDetailPresenterImpl(this);
         mTransationBean = (Transaction) getIntent().getSerializableExtra(GlobalBean.TRANSATION_BEAN);
         initReceipt();
+        setOrderInfo();
+    }
+
+    public void setOrderInfo(){
         if (!mTransationBean.getStatus().equals("REFUNDED")) {
             setRightText("Refund", new View.OnClickListener() {
                 @Override
@@ -163,8 +168,6 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
                         .setImageResource(R.mipmap.voucher_pay_icon);
                 break;
         }
-
-        mOrderDetailPresenter = new OrderDetailPresenterImpl(this);
     }
 
     private void initReceipt() {
@@ -240,6 +243,12 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
         } else {
             DialogManager.failDialog(this, msg);
         }
+    }
+
+    @Override
+    public void setOrderInfo(PayResponseV3 info) {
+        mTransationBean = info.getData();
+        setOrderInfo();
     }
 
     @OnClick(R.id.btn_print)

@@ -4,7 +4,9 @@ import com.quseit.dev.RetrofitManager;
 import com.quseit.payapp.Http.PaymentService;
 import com.quseit.payapp.base.BaseModel;
 import com.quseit.payapp.bean.request.RefundRequest;
+import com.quseit.payapp.bean.request.RefundRequestV3;
 import com.quseit.payapp.bean.response.UserBean;
+import com.quseit.payapp.bean.response.pay_v3.PayResponseV3;
 import com.quseit.payapp.db.GreenDaoHelper;
 import com.quseit.payapp.db.UserBeanDao;
 
@@ -40,5 +42,10 @@ public class OrderDetailModleImpl extends BaseModel implements OrderDetailContra
     @Override
     public Observable<ResponseBody> refund(String pin, String key,String orderId, String reason) {
         return RetrofitManager.getInstance().createService(PaymentService.class).refund(mToken,pin,orderId,new RefundRequest(key,reason));
+    }
+
+    @Override
+    public Observable<PayResponseV3> refundV3(RefundRequestV3 requestV3) {
+        return RetrofitManager.getInstance().createService(PaymentService.class).refundV3(mToken,requestV3);
     }
 }
