@@ -4,12 +4,14 @@ import com.quseit.payapp.bean.request.RequestBean;
 import com.quseit.payapp.bean.request.TransationsRequest;
 import com.quseit.payapp.bean.response.TransationResponse;
 import com.quseit.payapp.bean.response.TransationResponseV3;
+import com.quseit.payapp.bean.response.pay_v3.PayResponseV3;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -27,6 +29,9 @@ public interface TransationService {
     Observable<TransationResponse> getTransations(@Header("Authorization") String token,@Body TransationsRequest bean);
 
     @GET("payment/transactions")
-    Observable<TransationResponseV3> getTransactionsV3(@Header("Authorization") String token, @Query("filters")String filters);
+    Observable<TransationResponseV3> getTransactionsV3(@Header("Authorization") String token, @Query("cursor")String filters);
+
+    @GET("payment/transaction/{id}")
+    Observable<PayResponseV3> getTransactionsById(@Header("Authorization")String token, @Path("id") String id);
 
 }

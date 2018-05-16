@@ -7,6 +7,7 @@ import com.quseit.payapp.bean.request.RequestBean;
 import com.quseit.payapp.bean.request.TransationsRequest;
 import com.quseit.payapp.bean.response.TransationResponse;
 import com.quseit.payapp.bean.response.TransationResponseV3;
+import com.quseit.payapp.bean.response.pay_v3.PayResponseV3;
 
 import io.reactivex.Observable;
 
@@ -30,5 +31,10 @@ public class TransationsModelImpl extends BaseModel implements TransationsContra
     public Observable<TransationResponseV3> getTransationsV3(String filters) {
         return RetrofitManager.getInstance().createService(TransationService.class).getTransactionsV3(mToken,filters);
 
+    }
+
+    @Override
+    public Observable<PayResponseV3> getTransactionById(String id) {
+        return RetrofitManager.getInstance().createService(TransationService.class).getTransactionsById(mToken,id);
     }
 }

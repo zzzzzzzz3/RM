@@ -145,6 +145,7 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
 
     private void search(String editStr) {
         // TODO: 2017/11/13
+        mTransationsPresenter.getTransactionById(editStr);
     }
 
     @OnClick(R.id.date_pick_layout)
@@ -240,6 +241,11 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         } else {
             DialogManager.failDialog(this, msg);
         }
+    }
+
+    @Override
+    public void toOrderDetail(Transaction transaction) {
+        orderDetail(transaction);
     }
 
     @Subscriber

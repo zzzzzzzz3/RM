@@ -30,16 +30,19 @@ public interface TransationsContract {
         void addDataToListV3(List<Transaction> data);
         void loadMore(List<TransationBean> data);
         void showDialog(String msg,boolean success);
+        void toOrderDetail(Transaction transaction);
     }
 
     interface TransationsModel extends IModel {
         Observable<TransationResponse> getTransations(TransationsRequest request);
         Observable<TransationResponseV3> getTransationsV3(String filters);
+        Observable<PayResponseV3> getTransactionById(String id);
     }
 
     interface TransationsPresenter extends IPresenter {
         void getTransation(String startAt,String endAt,boolean filter,boolean show);
         void getTransationV3(String startAt,String endAt,boolean filter,boolean show);
         void loadMore(boolean show);
+        void getTransactionById(String id);
     }
 }

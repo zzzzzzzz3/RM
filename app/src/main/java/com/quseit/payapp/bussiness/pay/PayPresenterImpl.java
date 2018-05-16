@@ -142,11 +142,11 @@ public class PayPresenterImpl extends BasePresenter implements PayContract.PayPr
         payInfoBean.setTransactionId(response.getData().getTransactionId());
         payInfoBean.setMethod(response.getData().getMethod());
         payInfoBean.setType(response.getData().getType());
-        payInfoBean.setReferenceId(response.getData().getReferenceId());
+        payInfoBean.setReferenceId(response.getData().getOrder().getId());
         payInfoBean.setTerminalId(PreferenceUtil.getInstance().getStr(GlobalBean.TERMINAL_ID));
         payInfoBean.setAmount(String.format("%.2f",response.getData().getOrder().getAmount()/100.0));
         payInfoBean.setRemark(response.getData().getOrder().getAdditionalData());
-        payInfoBean.setApprcode("unknow");
+        payInfoBean.setApprcode(response.getData().getReferenceId());
 
         mPayView.printPayInfoV3(payInfoBean);
     }

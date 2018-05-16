@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-import com.quseit.pay.PayInfoBean;
 import com.quseit.pay.PayInfoBeanV3;
 import com.quseit.pay.PrintUtil;
 import com.quseit.payapp.R;
@@ -19,13 +18,10 @@ import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.response.GoodBean;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.PayMethodBean;
-import com.quseit.payapp.bean.response.TransationBean;
 import com.quseit.payapp.bean.response.UserBean;
 import com.quseit.payapp.bean.response.pay_v3.PayResponseV3;
 import com.quseit.payapp.bean.response.pay_v3.Transaction;
 import com.quseit.payapp.util.DialogManager;
-import com.quseit.payapp.util.PreferenceUtil;
-import com.quseit.payapp.util.TimeConverterUtil;
 import com.quseit.payapp.util.UIUtil;
 import com.quseit.payapp.widget.RMDialog;
 import com.quseit.payapp.widget.RMProgressDialog;
@@ -164,8 +160,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
                 orderTypeIcon.setImageResource(R.mipmap.wechat_pay_icon);
                 break;
             default:
-                orderTypeIcon
-                        .setImageResource(R.mipmap.voucher_pay_icon);
+                orderTypeIcon.setImageResource(R.mipmap.voucher_pay_icon);
                 break;
         }
     }
@@ -176,7 +171,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
 
     @Override
     public String getToolbarTitle() {
-        return "Transation";
+        return "Transaction";
     }
 
     private void refund() {
@@ -219,9 +214,9 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
                 public void onClick() {
                     String pin = mRefundDialog.getPassword();
                     String reason = mRefundDialog.getReson();
-                    String orderId = mTransationBean.getOrder().getId();
-                    String key = mRefundDialog.getUserBean().getKey();
-                    mOrderDetailPresenter.refund(pin, key, orderId, reason);
+                    String orderId = mTransationBean.getTransactionId();
+                    String email = mRefundDialog.getUserBean().getKey();
+                    mOrderDetailPresenter.refundV3(mTransationBean.getOrder().getAmount(), email,orderId,pin);
                 }
             });
             mRefundDialog.show();

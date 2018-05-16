@@ -222,7 +222,14 @@ public class MainActivity extends BaseActivity implements MainContract.MainView{
 
     @Override
     public void setTerminalInfo(TerminalInfo info) {
+        Glide.with(this).asBitmap().load(info.getItem().getMerchant().getLogoUrl()).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                mAvatarImg.setImageBitmap(resource);
+            }
+        });
         merchantTv.setText(info.getItem().getMerchant().getCompanyName());
+        userName.setText(info.getItem().getStore().getName());
     }
 
     @Override

@@ -45,7 +45,7 @@ public class OrderDetailModleImpl extends BaseModel implements OrderDetailContra
     }
 
     @Override
-    public Observable<PayResponseV3> refundV3(RefundRequestV3 requestV3) {
-        return RetrofitManager.getInstance().createService(PaymentService.class).refundV3(mToken,requestV3);
+    public Observable<PayResponseV3> refundV3(RefundRequestV3 requestV3,String pin) {
+        return RetrofitManager.getInstance().createService(PaymentService.class).refundV3(mToken,pin,requestV3);
     }
 }

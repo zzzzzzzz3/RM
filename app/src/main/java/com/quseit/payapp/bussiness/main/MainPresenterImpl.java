@@ -82,6 +82,8 @@ public class MainPresenterImpl extends BasePresenter implements MainContract.Mai
         PreferenceUtil.getInstance().saveStr(GlobalBean.MERCHANT_ID,response.getItem().getMerchant().getId());
         PreferenceUtil.getInstance().saveStr(GlobalBean.STORE_NAME,response.getItem().getStore().getName());
         PreferenceUtil.getInstance().saveStr(GlobalBean.STORE_ID,response.getItem().getStore().getId());
+        PreferenceUtil.getInstance().saveStr(GlobalBean.AVATAR, response.getItem().getMerchant().getLogoUrl());
+        PreferenceUtil.getInstance().saveStr(GlobalBean.OWNER, response.getItem().getStore().getName());
     }
 
     private void saveData(final MerchantBean response) {

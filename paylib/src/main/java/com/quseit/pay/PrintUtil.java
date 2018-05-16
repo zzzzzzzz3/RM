@@ -314,6 +314,8 @@ public class PrintUtil {
                 printer.printText(Printer.Alignment.CENTER,"I AGREE TO PAY THE ABOVE TOTAL AMOUNT ACCORDING TO PAYMENT PROVIDER AGREEMENT");
                 printer.println("");
                 printer.println("");
+                printer.printBarCode(Printer.Alignment.CENTER,info.getTerminalId());
+                printer.println("");
                 printer.printText(Printer.Alignment.CENTER,"****CUSTOMER COPY****");
 
 

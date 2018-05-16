@@ -56,7 +56,7 @@ public class TransationsAdapter extends BaseAdapter<Transaction, TransationsAdap
     public void onBindViewHolder(TransationViewHolder holder, int position) {
         final Transaction bean = mData.get(position);
 
-        String orderId = bean.getOrder().getId();
+        String orderId = bean.getTransactionId();
         if (orderId.isEmpty()) {
             holder.orderNoTv.setText("-");
         } else {

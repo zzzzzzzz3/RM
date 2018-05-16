@@ -33,13 +33,13 @@ public interface OrderDetailContract {
     interface OrderDetailModle extends IModel{
         Observable<List<UserBean>> getUsers();
         Observable<ResponseBody> refund(String pin,String key,String orderId,String reason);
-        Observable<PayResponseV3> refundV3(RefundRequestV3 requestV3);
+        Observable<PayResponseV3> refundV3(RefundRequestV3 requestV3,String pin);
     }
 
     interface OrderDetailPresenter extends IPresenter{
         void getUsers();
         void refund(String pin,String key,String orderId,String reason);
-        void refundV3(int amount,String email,String transactionId);
+        void refundV3(int amount,String email,String transactionId,String pin);
     }
 
 

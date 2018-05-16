@@ -78,11 +78,11 @@ public class OrderDetailPresenterImpl extends BasePresenter implements OrderDeta
     }
 
     @Override
-    public void refundV3(int amount, String email, String transactionId) {
+    public void refundV3(int amount, String email, String transactionId,String pin) {
         if(amount<100){
             mOrderDetailView.showMessage("Amount of order in cent, min RM 1.00");
         }else {
-            logic(mOrderDetailModle.refundV3(new RefundRequestV3(email, transactionId, new RefundV3(amount))), true, new ObserverHandler<PayResponseV3>() {
+            logic(mOrderDetailModle.refundV3(new RefundRequestV3(email, transactionId, new RefundV3(amount)),pin), true, new ObserverHandler<PayResponseV3>() {
                 @Override
                 public void onResponse(PayResponseV3 response) {
                     mOrderDetailView.setOrderInfo(response);

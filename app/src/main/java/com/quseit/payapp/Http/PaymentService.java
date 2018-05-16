@@ -38,7 +38,7 @@ public interface PaymentService {
     Observable<ResponseBody> refund(@Header("Authorization") String token, @Header("X-Rm-Pin") String pin, @Path("key") String key, @Body RefundRequest request);
 
     @POST("payment/transaction/refund")
-    Observable<PayResponseV3> refundV3(@Header("Authorization") String token, @Body RefundRequestV3 requestV3);
+    Observable<PayResponseV3> refundV3(@Header("Authorization") String token, @Header("X-Rm-Pin") String pin, @Body RefundRequestV3 requestV3);
 
     @POST("payment/quickpay")
     Observable<PayResponseV3> quickPay(@Header("Authorization") String token, @Body PayRequestV3 payRequestBean);

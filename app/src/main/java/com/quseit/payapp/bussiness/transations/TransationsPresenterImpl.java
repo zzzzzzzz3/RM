@@ -8,6 +8,7 @@ import com.quseit.payapp.bean.request.Filter;
 import com.quseit.payapp.bean.request.TransationsRequest;
 import com.quseit.payapp.bean.response.TransationResponse;
 import com.quseit.payapp.bean.response.TransationResponseV3;
+import com.quseit.payapp.bean.response.pay_v3.PayResponseV3;
 
 /**
  * 文 件 名: TransationsPresenterImpl
@@ -43,7 +44,7 @@ public class TransationsPresenterImpl extends BasePresenter implements Transatio
 
     @Override
     public void getTransationV3(String startAt, String endAt, boolean filter, boolean show) {
-        logic(mTransationsModel.getTransationsV3(" "), show, new ObserverHandler<TransationResponseV3>() {
+        logic(mTransationsModel.getTransationsV3(""), show, new ObserverHandler<TransationResponseV3>() {
             @Override
             public void onResponse(TransationResponseV3 response) {
                 if(response.getCode().equals("SUCCESS")){
@@ -88,5 +89,30 @@ public class TransationsPresenterImpl extends BasePresenter implements Transatio
         }else {
             mView.hideLoading();
         }
+    }
+
+    @Override
+    public void getTransactionById(String id) {
+
+        if(id.equals("")){
+            mTransationsView.showMessage("Transaction not found");
+            return;
+        }
+
+        logic(mTransationsModel.getTransactionById(id), true, new ObserverHandler<PayResponseV3>() {
+            @Override
+            public void onResponse(PayResponseV3 response) {
+                mTransationsView.toOrderDetail(response.getData());
+            }
+
+            @Override
+            public void onFail(int code, String msg) {
+                if (code == HttpCode.UNAUTHORIZED) {
+                    mTransationsView.setUpToken();
+                } else {
+                    mTransationsView.showMessage("Transaction not found");
+                }
+            }
+        });
     }
 }
