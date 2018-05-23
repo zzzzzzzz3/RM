@@ -89,7 +89,6 @@
                 android:textColorHint="@color/gray"
                 android:gravity="start"
                 android:textSize="14sp"
-                android:inputType="textPassword"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 />

@@ -11,6 +11,15 @@ package com.quseit.payapp.bean.request;
 public class RefundRequestV3 {
     private String email;
     private String transactionId;
+    private String pin;
+
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
 
     public String getEmail() {
         return email;
@@ -38,9 +47,10 @@ public class RefundRequestV3 {
 
     private RefundV3 refund;
 
-    public RefundRequestV3(String email, String transactionId, RefundV3 refund) {
+    public RefundRequestV3(String pin,String email, String transactionId, RefundV3 refund) {
         this.email = email;
         this.transactionId = transactionId;
         this.refund = refund;
+        this.pin = pin;
     }
 }

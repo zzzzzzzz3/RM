@@ -1,5 +1,7 @@
 package com.quseit.payapp.bean.response.refund_users;
 
+import java.util.List;
+
 /**
  * 文 件 名: RefundUsers
  * 创 建 人: ZhangRonghua
@@ -9,15 +11,16 @@ package com.quseit.payapp.bean.response.refund_users;
  */
 
 public class RefundUsers {
-    private Item item;
-    private String code;
 
-    public Item getItem() {
-        return item;
+    private String code;
+    private List<UserBean> items;
+
+    public List<UserBean> getItems() {
+        return items;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItems(List<UserBean> items) {
+        this.items = items;
     }
 
     public String getCode() {

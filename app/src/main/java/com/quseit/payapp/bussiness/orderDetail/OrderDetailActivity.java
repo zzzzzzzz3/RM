@@ -18,9 +18,9 @@ import com.quseit.payapp.base.BaseActivity;
 import com.quseit.payapp.bean.response.GoodBean;
 import com.quseit.payapp.bean.GlobalBean;
 import com.quseit.payapp.bean.PayMethodBean;
-import com.quseit.payapp.bean.response.UserBean;
 import com.quseit.payapp.bean.response.pay_v3.PayResponseV3;
 import com.quseit.payapp.bean.response.pay_v3.Transaction;
+import com.quseit.payapp.bean.response.refund_users.UserBean;
 import com.quseit.payapp.util.DialogManager;
 import com.quseit.payapp.util.UIUtil;
 import com.quseit.payapp.widget.RMDialog;
@@ -215,7 +215,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
                     String pin = mRefundDialog.getPassword();
                     String reason = mRefundDialog.getReson();
                     String orderId = mTransationBean.getTransactionId();
-                    String email = mRefundDialog.getUserBean().getKey();
+                    String email = mRefundDialog.getUserBean().getEmail();
                     mOrderDetailPresenter.refundV3(mTransationBean.getOrder().getAmount(), email,orderId,pin);
                 }
             });

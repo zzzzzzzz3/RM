@@ -5,14 +5,14 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.quseit.payapp.R;
-import com.quseit.payapp.adapter.CardAdapter;
 import com.quseit.payapp.adapter.CardPagerAdapter;
-import com.quseit.payapp.bean.response.UserBean;
+import com.quseit.payapp.bean.response.refund_users.UserBean;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import java.util.List;
  * 修改备注：
  */
 
-public class  RefundDialog extends Dialog {
+public class RefundDialog extends Dialog {
 
 
     private ViewPager mViewPager;
@@ -34,6 +34,7 @@ public class  RefundDialog extends Dialog {
     private Button refund;
     private UserBean mUserBean;
     private CardPagerAdapter mCardAdapter;
+
     public RefundDialog(@NonNull Context context) {
         super(context, R.style.Dialog);
         setContentView(R.layout.dialog_refund);
@@ -114,9 +115,10 @@ public class  RefundDialog extends Dialog {
 
         @Override
         public void transformPage(View page, float position) {
-            float alpha = (position > 0)
-                    ? ((1 - ALPHA_MAX) * position + 1)
-                    : ((ALPHA_MAX - 1) * position + 1);
+            float alpha = ((position > 0.5 && position <= 1)||(position >= 1 && position <= 1.5))
+                    ? 1
+                    : 0.3f;
+            Log.d("page", "alpha:" + alpha + " position:" + position);
             ViewCompat.setAlpha(page, Math.abs(alpha));
         }
     }

@@ -9,6 +9,7 @@ import com.quseit.payapp.bean.request.RefundRequestV3;
 import com.quseit.payapp.bean.request.RefundV3;
 import com.quseit.payapp.bean.response.UserBean;
 import com.quseit.payapp.bean.response.pay_v3.PayResponseV3;
+import com.quseit.payapp.bean.response.refund_users.RefundUsers;
 
 import java.util.List;
 
@@ -42,15 +43,19 @@ public class OrderDetailPresenterImpl extends BasePresenter implements OrderDeta
 
     @Override
     public void getUsers() {
-        logic(mOrderDetailModle.getUsers(), false, new ObserverHandler<List<UserBean>>() {
+        logic(mOrderDetailModle.getUsers(), true, new ObserverHandler<RefundUsers>() {
             @Override
-            public void onResponse(List<UserBean> response) {
-                mOrderDetailView.showRefundDialog(response);
+            public void onResponse(RefundUsers response) {
+                mOrderDetailView.showRefundDialog(response.getItems());
             }
 
             @Override
             public void onFail(int code, String msg) {
-                mOrderDetailView.showDialog("Invalid operation", false);
+                if (code == HttpCode.UNAUTHORIZED) {
+                    mOrderDetailView.setUpToken();
+                } else {
+                    mOrderDetailView.showDialog(msg, false);
+                }
             }
         });
     }
@@ -82,7 +87,7 @@ public class OrderDetailPresenterImpl extends BasePresenter implements OrderDeta
         if(amount<100){
             mOrderDetailView.showMessage("Amount of order in cent, min RM 1.00");
         }else {
-            logic(mOrderDetailModle.refundV3(new RefundRequestV3(email, transactionId, new RefundV3(amount)),pin), true, new ObserverHandler<PayResponseV3>() {
+            logic(mOrderDetailModle.refundV3(new RefundRequestV3(pin,email, transactionId, new RefundV3(amount)),pin), true, new ObserverHandler<PayResponseV3>() {
                 @Override
                 public void onResponse(PayResponseV3 response) {
                     mOrderDetailView.setOrderInfo(response);

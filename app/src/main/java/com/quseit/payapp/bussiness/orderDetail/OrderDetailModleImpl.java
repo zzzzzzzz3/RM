@@ -7,6 +7,7 @@ import com.quseit.payapp.bean.request.RefundRequest;
 import com.quseit.payapp.bean.request.RefundRequestV3;
 import com.quseit.payapp.bean.response.UserBean;
 import com.quseit.payapp.bean.response.pay_v3.PayResponseV3;
+import com.quseit.payapp.bean.response.refund_users.RefundUsers;
 import com.quseit.payapp.db.GreenDaoHelper;
 import com.quseit.payapp.db.UserBeanDao;
 
@@ -28,15 +29,16 @@ import okhttp3.ResponseBody;
 
 public class OrderDetailModleImpl extends BaseModel implements OrderDetailContract.OrderDetailModle {
     @Override
-    public Observable<List<UserBean>> getUsers() {
-        return Observable.create(new ObservableOnSubscribe<List<UserBean>>() {
-            @Override
-            public void subscribe(ObservableEmitter<List<UserBean>> e) throws Exception {
-                UserBeanDao dao = GreenDaoHelper.getInstance().getDaoSession().getUserBeanDao();
-                e.onNext(dao.queryBuilder().list());
-                e.onComplete();
-            }
-        });
+    public Observable<RefundUsers> getUsers() {
+//        return Observable.create(new ObservableOnSubscribe<List<UserBean>>() {
+//            @Override
+//            public void subscribe(ObservableEmitter<List<UserBean>> e) throws Exception {
+//                UserBeanDao dao = GreenDaoHelper.getInstance().getDaoSession().getUserBeanDao();
+//                e.onNext(dao.queryBuilder().list());
+//                e.onComplete();
+//            }
+//        });
+        return RetrofitManager.getInstance().createService(PaymentService.class).getRefoundUsers(mToken);
     }
 
     @Override

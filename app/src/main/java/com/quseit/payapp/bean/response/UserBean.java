@@ -1,5 +1,7 @@
 package com.quseit.payapp.bean.response;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
@@ -20,6 +22,7 @@ public class UserBean {
     private String firstName;
 
     @Id
+    @SerializedName(value = "email")
     private String key;
 
     private String lastName;
