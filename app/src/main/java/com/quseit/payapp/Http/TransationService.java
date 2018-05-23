@@ -29,7 +29,7 @@ public interface TransationService {
     Observable<TransationResponse> getTransations(@Header("Authorization") String token,@Body TransationsRequest bean);
 
     @GET("payment/transactions")
-    Observable<TransationResponseV3> getTransactionsV3(@Header("Authorization") String token, @Query("cursor")String filters);
+    Observable<TransationResponseV3> getTransactionsV3(@Header("Authorization") String token, @Query("filter")String filter, @Query("cursor")String cursor);
 
     @GET("payment/transaction/{id}")
     Observable<PayResponseV3> getTransactionsById(@Header("Authorization")String token, @Path("id") String id);

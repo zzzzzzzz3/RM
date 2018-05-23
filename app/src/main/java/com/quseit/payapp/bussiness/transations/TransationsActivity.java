@@ -108,19 +108,19 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
         mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                mTransationsPresenter.getTransationV3(parseDate(year, month, day), endDate, refundCheckbox.isChecked(), false);
+                mTransationsPresenter.getTransationV3(parseDate(year, month, day), parseDate(year, month, day + 1), refundCheckbox.isChecked(), false);
             }
         }).setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                mTransationsPresenter.loadMore(false);
+                mTransationsPresenter.loadMore(parseDate(year, month, day), parseDate(year, month, day + 1), refundCheckbox.isChecked(), false);
             }
         });
 
         refundCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mTransationsPresenter.getTransation(parseDate(year, month, day), parseDate(year, month, day + 1), isChecked, true);
+                mTransationsPresenter.getTransationV3(parseDate(year, month, day), parseDate(year, month, day + 1), isChecked, true);
             }
         });
 
@@ -144,7 +144,6 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     }
 
     private void search(String editStr) {
-        // TODO: 2017/11/13
         mTransationsPresenter.getTransactionById(editStr);
     }
 
@@ -229,8 +228,11 @@ public class TransationsActivity extends BaseActivity implements DatePickerDialo
     }
 
     @Override
-    public void loadMore(List<TransationBean> data) {
-
+    public void loadMore(List<Transaction> data) {
+        if(data==null){
+            return;
+        }
+        mTransationsAdapter.loadMore(data);
         mTransationsAdapter.notifyDataSetChanged();
     }
 

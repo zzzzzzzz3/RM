@@ -17,6 +17,15 @@ public class TransationResponseV3 {
     private List<Transaction> items;
     private String code;
     private Meta meta;
+    private String cursor;
+
+    public String getCursor() {
+        return cursor;
+    }
+
+    public void setCursor(String cursor) {
+        this.cursor = cursor;
+    }
 
     public List<Transaction> getItems() {
         return items;

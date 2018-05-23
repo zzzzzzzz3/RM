@@ -28,8 +28,8 @@ public class TransationsModelImpl extends BaseModel implements TransationsContra
     }
 
     @Override
-    public Observable<TransationResponseV3> getTransationsV3(String filters) {
-        return RetrofitManager.getInstance().createService(TransationService.class).getTransactionsV3(mToken,filters);
+    public Observable<TransationResponseV3> getTransationsV3(String filter,String cursor) {
+        return RetrofitManager.getInstance().createService(TransationService.class).getTransactionsV3(mToken,filter,cursor);
 
     }
 

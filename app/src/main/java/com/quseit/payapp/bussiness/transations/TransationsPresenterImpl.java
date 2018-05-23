@@ -24,6 +24,7 @@ public class TransationsPresenterImpl extends BasePresenter implements Transatio
     private TransationsContract.TransationsView mTransationsView;
     private TransationsContract.TransationsModel mTransationsModel;
     private TransationsRequest mTransationsRequest;
+    private String cursor = "";
 
     public TransationsPresenterImpl(TransationsContract.TransationsView view) {
         mTransationsView = view;
@@ -39,53 +40,51 @@ public class TransationsPresenterImpl extends BasePresenter implements Transatio
     @Override
     public void getTransation(String startAt,String endAt,boolean filter,boolean show) {
         mTransationsRequest = new TransationsRequest("",startAt,endAt,new Filter(filter?"REFUNDED":""));
-        loadMore(show);
     }
 
     @Override
-    public void getTransationV3(String startAt, String endAt, boolean filter, boolean show) {
-        logic(mTransationsModel.getTransationsV3(""), show, new ObserverHandler<TransationResponseV3>() {
+    public void getTransationV3(String startAt, String endAt, boolean refund, boolean show) {
+        cursor = "";
+        String filter = "{\"transactionAt\":{\"$gte\":\""+startAt+"\",\"$lte\":\""+endAt+"\"}"+(refund?",\"status\":\"FULL_REFUNDED\"}":"}");
+        logic(mTransationsModel.getTransationsV3(filter,cursor), show, new ObserverHandler<TransationResponseV3>() {
             @Override
             public void onResponse(TransationResponseV3 response) {
                 if(response.getCode().equals("SUCCESS")){
                     mTransationsView.addDataToListV3(response.getItems());
+                    cursor = response.getCursor();
                 }
             }
 
             @Override
             public void onFail(int code, String msg) {
-
+                if (code == HttpCode.UNAUTHORIZED) {
+                    mTransationsView.setUpToken();
+                }
             }
         });
     }
 
     @Override
-    public void loadMore(boolean show) {
-        if (!mTransationsRequest.getCursor().equals(GlobalBean.NO_DATA)) {
-            logic(mTransationsModel.getTransations(mTransationsRequest), show, new ObserverHandler<TransationResponse>() {
+    public void loadMore(String startAt, String endAt, boolean refund, boolean show) {
+        if (cursor!=null) {
+            String filter = "{\"transactionAt\":{\"$gte\":\""+startAt+"\",\"$lte\":\""+endAt+"\"}"+(refund?",\"status\":\"FULL_REFUNDED\"}":"}");
+            logic(mTransationsModel.getTransationsV3(filter,cursor), show, new ObserverHandler<TransationResponseV3>() {
                 @Override
-                public void onResponse(TransationResponse response) {
-                    if (mTransationsRequest.getCursor().equals("")) {
-                        mTransationsView.addDataToList(response.getItems());
-                    } else {
+                public void onResponse(TransationResponseV3 response) {
+                    if(response.getCode().equals("SUCCESS")){
                         mTransationsView.loadMore(response.getItems());
-                    }
-                    if (response.getCount() > 0) {
-                        mTransationsRequest.setCursor(response.getCursor());
-                    } else {
-                        mTransationsRequest.setCursor(GlobalBean.NO_DATA);
+                        cursor = response.getCursor();
                     }
                 }
 
                 @Override
-                public void onFail(int code,String msg) {
+                public void onFail(int code, String msg) {
                     if (code == HttpCode.UNAUTHORIZED) {
                         mTransationsView.setUpToken();
-                    } else {
-                        mTransationsView.showDialog(msg,false);
                     }
                 }
             });
+
         }else {
             mView.hideLoading();
         }
