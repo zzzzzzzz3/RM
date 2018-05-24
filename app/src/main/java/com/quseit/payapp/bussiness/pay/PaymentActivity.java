@@ -124,7 +124,7 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
     @OnClick(R.id.cash_icon)
     public void cash() {
         final String amount = mPaymentTv.getText().toString();
-        if (Double.parseDouble(amount) < 0.1) {
+        if (Double.parseDouble(amount) < 1) {
             toast("Minimum amount is RM 1.00");
             return;
         }
@@ -147,8 +147,8 @@ public class PaymentActivity extends BaseActivity implements PayContract.PayView
             @Override
             public void onGranted() {
                 String amount = mPaymentTv.getText().toString();
-                if (Double.parseDouble(amount) < 0.1) {
-                    toast("Minimum amount is RM 0.10");
+                if (Double.parseDouble(amount) < 1) {
+                    toast("Minimum amount is RM 1.00");
                 } else {
                     String remark = remarkTv.getText().toString();
                     if (remark.equals("")) {

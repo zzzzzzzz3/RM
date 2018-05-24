@@ -52,10 +52,12 @@ public abstract class ObserverHandler<T> implements Observer<T> {
                 String msg = null;
                 try {
                     msg = ((HttpException) e).response().errorBody().string();
-//                    msg = new Gson().fromJson(msg, HttpResponse.class).getMessage();
+                    msg = new Gson().fromJson(msg, HttpResponse.class).getMessage();
+
                     onFail(code, msg);
-                } catch (IOException e1) {
+                } catch (Exception e1) {
                     e1.printStackTrace();
+                    onFail(code, "Something went wrong.Please try again");
                 }
             }else {
                 onFail(-1, "");

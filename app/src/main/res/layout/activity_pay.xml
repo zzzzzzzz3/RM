@@ -129,7 +129,8 @@
             android:gravity="center"
             android:text="@string/cash_font"
             android:textColor="@color/white"
-            android:textSize="36sp"/>
+            android:textSize="36sp"
+            android:visibility="invisible"/>
 
         <com.quseit.payapp.widget.IconText
             android:id="@+id/scan_icon"

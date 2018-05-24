@@ -39,16 +39,18 @@
                 />
         </LinearLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textColor="@color/text_gray"
-                android:text="Status:"
+                android:text="STATUS:"
                 android:layout_marginRight="3dp"/>
             <TextView
                 android:id="@+id/order_status_id"
@@ -108,12 +110,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:overScrollMode="never"/>
-            <View
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray"/>
+            <!--<View-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="@color/gray"/>-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -144,12 +146,13 @@
         </LinearLayout>
         <Button
             android:id="@+id/btn_print"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Print"
+            android:text="PRINT RECEIPT"
             android:textAllCaps="false"
             android:layout_marginEnd="30dp"
             android:layout_gravity="end"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="30dp"/>
     </LinearLayout>
 </LinearLayout>

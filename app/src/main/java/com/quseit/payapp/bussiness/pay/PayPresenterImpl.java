@@ -79,18 +79,25 @@ public class PayPresenterImpl extends BasePresenter implements PayContract.PayPr
         PayRequestV3 payRequestV3 = new PayRequestV3();
         payRequestV3.setAuthCode(authCode);
         int a = (int) (Float.parseFloat(amount)*100);
-        Order order = new Order(a,"MYR",authCode,"title","desc",remark);
+        String orderID = new Date().getTime()+"";
+
+        Order order = new Order(a,"MYR",orderID,"title","desc",remark);
         payRequestV3.setOrder(order);
         logic(mPayModel.quickPay(payRequestV3), true, new ObserverHandler<PayResponseV3>() {
             @Override
             public void onResponse(PayResponseV3 response) {
                 Log.d("pay",response.getCode());
                 if (response.getCode().equals("SUCCESS")){
-                    mPayView.showDialog(response.getCode(),true);
-                    printPayInfoV3(response);
-                    mPayResponseV3 = response;
+                    if(response.getData().getStatus().equals("SUCCESS")){
+                        mPayView.showDialog(response.getCode(),true);
+                        printPayInfoV3(response);
+                        mPayResponseV3 = response;
+                    }else {
+                        mPayView.showDialog("PAY FAILED",false);
+                    }
+
                 }else {
-                    mPayView.showDialog(response.getCode(),false);
+                    mPayView.showDialog("PAY FAILED",false);
                 }
             }
 

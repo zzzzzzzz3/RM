@@ -49,9 +49,13 @@ android {
     android.applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def file = output.outputFile
-            output.outputFileName = output.outputFileName.replace(".apk", "-rm-" + defaultConfig.versionName + ".apk")
+            output.outputFileName = output.outputFileName.replace(".apk", "-rm-" + defaultConfig.versionName+"-"+releaseTime() + ".apk")
         }
     }
+}
+
+static def releaseTime() {
+    return new Date().format("yy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
 
 greendao {

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.quseit.pay.PayInfoBeanV3;
@@ -100,10 +101,10 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
     private List<GoodBean> creatList() {
         List<GoodBean> list = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++) {
-            GoodBean bean = new GoodBean("Ice Cream", 6 - i);
-            list.add(bean);
-        }
+//        for (int i = 0; i < 5; i++) {
+//            GoodBean bean = new GoodBean("Ice Cream", 6 - i);
+//            list.add(bean);
+//        }
 
         return list;
     }
@@ -142,6 +143,55 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
             orderDateTv.setText(date[0]);
             orderTimeTv.setText(date[1]);
         } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (mTransationBean.getOrder().getAdditionalData() != null) {
+            remarkTv.setText(mTransationBean.getOrder().getAdditionalData());
+        } else {
+            remarkTv.setText("-");
+        }
+        statusTv.setText(mTransationBean.getStatus());
+        String amount = String.format("%.2f", (float) mTransationBean.getOrder().getAmount() / 100);
+        orderAmountTv.setText("MYR " + amount);
+        switch (mTransationBean.getMethod()) {
+            case PayMethodBean.ALIPAY:
+                orderTypeIcon.setImageResource(R.mipmap.alipay_icon);
+                break;
+            case PayMethodBean.WECHATPAY:
+                orderTypeIcon.setImageResource(R.mipmap.wechat_pay_icon);
+                break;
+            default:
+                orderTypeIcon.setImageResource(R.mipmap.voucher_pay_icon);
+                break;
+        }
+    }
+
+    public void setOrderInfo2(){
+        if (!mTransationBean.getStatus().equals("REFUNDED")) {
+            setRightText("Refund", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    refund();
+                }
+            });
+        }
+        String orderId = mTransationBean.getTransactionId();
+        if (orderId.isEmpty()) {
+            orderNoTv.setText("-");
+        } else {
+            orderNoTv.setText(orderId);
+        }
+        try {
+            String strDate = mTransationBean.getCreatedAt();
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
+            df.setTimeZone(TimeZone.getTimeZone("GMT"));
+            Date date1 = df.parse(strDate);
+            strDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date1);
+            String[] date = strDate.split(" ");
+            orderDateTv.setText(date[0]);
+            orderTimeTv.setText(date[1]);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (mTransationBean.getOrder().getAdditionalData() != null) {
@@ -216,7 +266,7 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
                     String reason = mRefundDialog.getReson();
                     String orderId = mTransationBean.getTransactionId();
                     String email = mRefundDialog.getUserBean().getEmail();
-                    mOrderDetailPresenter.refundV3(mTransationBean.getOrder().getAmount(), email,orderId,pin);
+                    mOrderDetailPresenter.refundV3(mTransationBean.getOrder().getAmount(), email,orderId,pin,reason);
                 }
             });
             mRefundDialog.show();
@@ -243,11 +293,12 @@ public class OrderDetailActivity extends BaseActivity implements OrderDetailCont
     @Override
     public void setOrderInfo(PayResponseV3 info) {
         mTransationBean = info.getData();
-        setOrderInfo();
+        setOrderInfo2();
     }
 
     @OnClick(R.id.btn_print)
     public void printPayInfo() {
+
         if (mPrintUtil == null) {
             mPrintUtil = new PrintUtil();
             mPrintUtil.deviceLogin(this);

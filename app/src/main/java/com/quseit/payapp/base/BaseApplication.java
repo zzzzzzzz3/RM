@@ -66,7 +66,7 @@ public class BaseApplication extends Application {
         Map<String,String> headers = new HashMap<>();
         headers.put("X-Rm-Platform","application/terminal");
         RetrofitManager.getInstance()
-                .setTimeOut(15)
+                .setTimeOut(40)
                 .openDebug(BuildConfig.DEBUG)
                 .supportSSL()
                 .addHeaders(headers)

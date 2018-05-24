@@ -300,8 +300,10 @@ public class PrintUtil {
                 printer.printText(Printer.Alignment.CENTER,"\nSALE\n");
 
                 printer.setFormat(formatText);
-                printText(printer,"METHOD: ",info.getMethod(),"TYPE: ",info.getType());
-                printer.println("");
+//                printText(printer,"METHOD: ",info.getMethod(),"TYPE: ",info.getType());
+                printer.println("METHOD: "+info.getMethod());
+                printer.println("TYPE: "+info.getType());
+//                printer.println("");
                 printer.println("APPR CODE: "+info.getApprcode());
                 printer.println("REF NUM: "+info.getReferenceId());
                 printer.println("TMNL ID: "+info.getTerminalId());
@@ -314,7 +316,7 @@ public class PrintUtil {
                 printer.printText(Printer.Alignment.CENTER,"I AGREE TO PAY THE ABOVE TOTAL AMOUNT ACCORDING TO PAYMENT PROVIDER AGREEMENT");
                 printer.println("");
                 printer.println("");
-                printer.printBarCode(Printer.Alignment.CENTER,info.getTerminalId());
+                printer.printBarCode(Printer.Alignment.CENTER,info.getTransactionId());
                 printer.println("");
                 printer.printText(Printer.Alignment.CENTER,"****CUSTOMER COPY****");
 

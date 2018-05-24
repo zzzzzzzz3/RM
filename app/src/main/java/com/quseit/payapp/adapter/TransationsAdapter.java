@@ -100,8 +100,8 @@ public class TransationsAdapter extends BaseAdapter<Transaction, TransationsAdap
                 holder.status.setText("[FAILED]");
                 holder.status.setTextColor(ContextCompat.getColor(mContext, R.color.purple_color));
                 break;
-            case "REFUNDED":
-                holder.status.setText("[REFUNDED]");
+            case "FULL_REFUNDED":
+                holder.status.setText("[FULL_REFUNDED]");
                 holder.status.setTextColor(ContextCompat.getColor(mContext, R.color.purple_color));
                 break;
         }

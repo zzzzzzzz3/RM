@@ -39,7 +39,7 @@ public interface OrderDetailContract {
     interface OrderDetailPresenter extends IPresenter{
         void getUsers();
         void refund(String pin,String key,String orderId,String reason);
-        void refundV3(int amount,String email,String transactionId,String pin);
+        void refundV3(int amount,String email,String transactionId,String pin,String reason);
     }
 
 

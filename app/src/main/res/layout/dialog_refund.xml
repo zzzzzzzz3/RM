@@ -58,7 +58,7 @@
                 android:textColorHint="@color/gray"
                 android:gravity="center_vertical"
                 android:textSize="14sp"
-                android:inputType="textPassword"
+                android:inputType="numberPassword"
                 android:maxLines="1"
                 />
             <View

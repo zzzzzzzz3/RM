@@ -12,6 +12,15 @@ public class RefundRequestV3 {
     private String email;
     private String transactionId;
     private String pin;
+    private String reason;
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
 
     public String getPin() {
         return pin;
@@ -47,10 +56,13 @@ public class RefundRequestV3 {
 
     private RefundV3 refund;
 
-    public RefundRequestV3(String pin,String email, String transactionId, RefundV3 refund) {
+
+
+    public RefundRequestV3(String reason,String pin,String email, String transactionId, RefundV3 refund) {
         this.email = email;
         this.transactionId = transactionId;
         this.refund = refund;
         this.pin = pin;
+        this.reason = reason;
     }
 }
